@@ -1,35 +1,26 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { View, Text } from 'react-native';
 
 import {
   Container,
   Title,
   Input,
-  RetrievePasswordButton,
-  RetrievePasswordText,
   Form,
   Header,
   RegisterButton,
-  RegularText,
   RegisterButtonText,
-  P,
   BackButtonWrapper,
-  Footer,
-  Dropdown,
-  DropdownWrappeer,
-  MediaSpot,
-  MediaSpotButton,
-  WrapperList,
-  AddMediaButtonWrapper,
-  RemoveMediaButtonWrapper,
-  MediaWrapper,
-  RemoveMedia,
 } from './styles';
 
-const Register: React.FC = ({ navigation }) => {
+interface IProps {
+  navigation: {
+    navigate(route: string): void;
+    goBack(): void;
+  };
+}
 
+const Register: React.FC<IProps> = ({ navigation }) => {
   const [name, setName] = useState('');
   const [cpf, setCpf] = useState('');
   const [phone, setPhone] = useState('');
@@ -39,8 +30,6 @@ const Register: React.FC = ({ navigation }) => {
   const [zipcode, setZipcode] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-
 
   return (
     <Container>
@@ -56,34 +45,12 @@ const Register: React.FC = ({ navigation }) => {
             placeholder="Seu nome"
             onChangeText={(text) => setName(text)}
           />
-          <Input
-            placeholder="Seu CPF"
-            onChangeText={(text) => setCpf(text)}
-          />
+          <Input placeholder="Seu CPF" onChangeText={(text) => setCpf(text)} />
           <Input
             placeholder="Telefone"
             onChangeText={(text) => setPhone(text)}
           />
-          <Input
-            placeholder="Logradouro"
-            onChangeText={(text) => setStreet(text)}
-          />
-          <Input
-            placeholder="Numero"
-            onChangeText={(text) => setNumber(text)}
-          />
-          <Input
-            placeholder="Bairro"
-            onChangeText={(text) => setNeighborhood(text)}
-          />
-          <Input
-            placeholder="CEP"
-            onChangeText={(text) => setZipcode(text)}
-          />
-          <Input 
-            placeholder="Email" 
-            onChangeText={(text) => setEmail(text)} 
-          />
+          <Input placeholder="Email" onChangeText={(text) => setEmail(text)} />
           <Input
             placeholder="Senha"
             onChangeText={(text) => setPassword(text)}
@@ -92,7 +59,6 @@ const Register: React.FC = ({ navigation }) => {
             placeholder="Confirme sua senha"
             onChangeText={(text) => setPassword(text)}
           />
-
 
           <RegisterButton onPress={() => {}}>
             <RegisterButtonText>Registre-me</RegisterButtonText>

@@ -1,21 +1,20 @@
 import React, { useContext } from 'react';
 import { View, Button, Text } from 'react-native';
-import AuthContext from '../../contexts/auth';
 
+import AuthContext from '../../contexts/auth';
 import styles from './styles';
 
 const Home: React.FC = () => {
-
   const { logOut } = useContext(AuthContext);
 
-  function handleLogout(){
+  function handleLogout(): void {
     logOut();
   }
 
   return (
     <View style={styles.container}>
-        <Text>{'Minha pagina de Home!!!'}</Text>
-        <Button title="Logout" onPress={handleLogout} />
+      <Text>Minha pagina de Home!!!</Text>
+      <Button title="Logout" onPress={handleLogout} />
     </View>
   );
 };

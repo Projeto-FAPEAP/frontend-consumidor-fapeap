@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text, SafeAreaView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -9,18 +8,20 @@ import {
   Input,
   LoginButton,
   LoginButtonText,
-  RetrievePasswordButton,
-  RetrievePasswordText,
   Form,
   Header,
-  RegisterButton,
-  RegularText,
-  RegisterButtonText,
   P,
   BackButtonWrapper,
 } from './styles';
 
-const RecoveryPassword: React.FC = ({ navigation }) => {
+interface IProps {
+  navigation: {
+    navigate(route: string): void;
+    goBack(): void;
+  };
+}
+
+const RecoveryPassword: React.FC<IProps> = ({ navigation }) => {
   return (
     <Container>
       <KeyboardAwareScrollView>
@@ -28,10 +29,7 @@ const RecoveryPassword: React.FC = ({ navigation }) => {
           <BackButtonWrapper onPress={() => navigation.goBack()}>
             <Icon color="#84378F" size={28} name="chevron-left" />
           </BackButtonWrapper>
-          <Title>
-            {`Recupere sua
-conta`}
-          </Title>
+          <Title>Recupere sua conta</Title>
           <P>
             Por favor, insira o email da sua conta para receber o link de
             recuperação de senha.

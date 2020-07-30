@@ -1,13 +1,11 @@
 import React from 'react';
-import { Text, SafeAreaView } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 
-
+import logo from '../../assets/logo.png';
 import {
   Container,
+  Logo,
   Title,
   Span,
-  IconSpace,
   P,
   LoginButton,
   LoginButtonText,
@@ -16,28 +14,33 @@ import {
   TextBetweenButtons,
 } from './styles';
 
-const Welcome: React.FC = ({navigation}) => {
+interface IProps {
+  navigation: {
+    navigate(route: string): void;
+  };
+}
+
+const Welcome: React.FC<IProps> = ({ navigation }) => {
   return (
     <Container>
-    <IconSpace />
-    <Span>
-      <Title>Quero Açaí </Title>
-      <P>
-        Descubra uma nova forma de conectar-se com seus clientes e embarque no
-        digital.
-      </P>
-      <LoginButton>
-        <LoginButtonText onPress={() => navigation.navigate('SignIn')
-}>
-          Faça Login
-        </LoginButtonText>
-      </LoginButton>
-      <TextBetweenButtons>ou</TextBetweenButtons>
-      <RegisterButton onPress={() => navigation.navigate('Register')}>
-        <RegisterButtonText>Registre-se</RegisterButtonText>
-      </RegisterButton>
-    </Span>
-  </Container>
+      <Logo source={logo} resizeMode="contain" />
+      <Span>
+        <Title>Quero Açaí </Title>
+        <P>
+          Descubra uma nova forma de conectar-se com seus clientes e embarque no
+          digital.
+        </P>
+        <LoginButton>
+          <LoginButtonText onPress={() => navigation.navigate('SignIn')}>
+            Faça Login
+          </LoginButtonText>
+        </LoginButton>
+        <TextBetweenButtons>ou</TextBetweenButtons>
+        <RegisterButton onPress={() => navigation.navigate('Register')}>
+          <RegisterButtonText>Registre-se</RegisterButtonText>
+        </RegisterButton>
+      </Span>
+    </Container>
   );
 };
 

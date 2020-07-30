@@ -1,11 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Text, SafeAreaView, Alert } from 'react-native';
+import { Alert } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import Icon from 'react-native-vector-icons/Feather';
 
 import AuthContext from '../../contexts/auth';
-import Loader from '../../screens/utils/Loader';
-
+import Loader from '../utils/Loader';
 import {
   Container,
   Title,
@@ -22,7 +20,13 @@ import {
   RegisterButtonText,
 } from './styles';
 
-const SignIn: React.FC = ({ navigation }) => {
+interface IProps {
+  navigation: {
+    navigate(route: string): void;
+  };
+}
+
+const SignIn: React.FC<IProps> = ({ navigation }) => {
   const [cpf, setCpf] = useState('');
   const [password, setPassword] = useState('');
   const { logIn } = useContext(AuthContext);
@@ -48,16 +52,10 @@ const SignIn: React.FC = ({ navigation }) => {
       <KeyboardAwareScrollView>
         <Loader loading={loading} />
         <Header>
-          <Title>
-            {`Entre com sua 
-conta`}
-          </Title>
+          <Title>Entre com sua conta</Title>
         </Header>
         <Form>
-          <Input
-            placeholder="Seu CPF"
-            onChangeText={(text) => setCpf(text)}
-          />
+          <Input placeholder="Seu CPF" onChangeText={(text) => setCpf(text)} />
           <Input
             placeholder="Sua senha"
             secureTextEntry

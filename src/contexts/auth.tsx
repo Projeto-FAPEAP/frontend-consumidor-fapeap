@@ -1,8 +1,8 @@
 import React, { useState, createContext, useEffect } from 'react';
-import { Alert } from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
-import axios from 'axios';
+
+import api from '../services/api';
 
 interface Response {
   responseState: boolean;
@@ -16,41 +16,34 @@ interface AuthContextData {
   logIn(email: string, password: string): Promise<Response>;
   logOut(): void;
 }
+
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
+
 export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<object | null>(null);
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     async function loadData(): Promise<void> {
-      console.log('passsei qui');
       const userLoaded = await AsyncStorage.getItem(
         '@QueroAçaí-Consumidor:user',
       );
       const tokenLoaded = await AsyncStorage.getItem(
         '@QueroAçaí-Consumidor:token',
       );
-      console.log(userLoaded, tokenLoaded);
       if (userLoaded && tokenLoaded) {
         setUser(JSON.parse(userLoaded));
-        console.log(JSON.parse(userLoaded), 'itl');
       }
     }
     loadData();
   }, []);
 
   async function logIn(email: string, password: string): Promise<Response> {
-    console.log(email, password, 'teste');
-
     try {
-      const response = await axios.post(
-        'https://fapeap.colares.net.br/sessao/consumidor',
-
-        {
-          cpf: email,
-          senha: password,
-        },
-      );
-      console.log(response.data);
+      const response = await api.post('sessao/consumidor', {
+        cpf: email,
+        senha: password,
+      });
       setUser(response.data.consumidor);
       await AsyncStorage.setItem(
         '@QueroAçaí-Consumidor:user',
@@ -67,7 +60,6 @@ export const AuthProvider: React.FC = ({ children }) => {
         });
       });
     } catch (error) {
-      console.log(error.response.data);
       return new Promise((resolve) => {
         resolve({
           responseState: false,
