@@ -1,4 +1,4 @@
-package com.appvemcaprofissional;
+package com.queroacaiconsumidor;
 
 import android.app.Application;
 import android.content.Context;

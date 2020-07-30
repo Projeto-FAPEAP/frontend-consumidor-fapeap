@@ -4,34 +4,34 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import RecoveryP from '../screens/RecoveryPassword';
 import Register from '../screens/Register';
-import SignIn from '../screens/SingIn';
+import SignIn from '../screens/SignIn';
 import Welcome from '../screens/Welcome';
 
-const AppStack = createStackNavigator();
+const AuthStack = createStackNavigator();
 
-const AppRoutes: React.FC = () => (
-  <AppStack.Navigator>
-    <AppStack.Screen
+const AuthRoutes: React.FC = () => (
+  <AuthStack.Navigator>
+    <AuthStack.Screen
       name="Welcome"
       options={{ headerShown: false }}
       component={Welcome}
     />
-    <AppStack.Screen
+    <AuthStack.Screen
       name="SignIn"
       options={{ headerShown: false }}
       component={SignIn}
     />
-    <AppStack.Screen
+    <AuthStack.Screen
       name="Register"
       options={{ headerShown: false }}
       component={Register}
     />
-    <AppStack.Screen
+    <AuthStack.Screen
       name="RecoveryP"
       options={{ headerShown: false }}
       component={RecoveryP}
     />
-  </AppStack.Navigator>
+  </AuthStack.Navigator>
 );
 
-export default AppRoutes;
+export default AuthRoutes;
