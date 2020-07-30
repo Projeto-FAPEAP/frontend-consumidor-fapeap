@@ -22,6 +22,7 @@ export const Title = styled.Text`
 export const Span = styled.View`
   background: ${(props) => props.theme.colors.primary};
   height: ${hp('50%')}px;
+  width: ${wp('100%')}px;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
 `;

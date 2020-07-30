@@ -44,15 +44,21 @@ export const AuthProvider: React.FC = ({ children }) => {
         cpf: email,
         senha: password,
       });
+
       setUser(response.data.consumidor);
+
+      api.defaults.headers.authorization = `Bearer ${response.data.tokenConsumidor}`;
+
       await AsyncStorage.setItem(
         '@QueroAçaí-Consumidor:user',
         JSON.stringify(response.data.consumidor),
       );
+
       await AsyncStorage.setItem(
         '@QueroAçaí-Consumidor:token',
         response.data.tokenConsumidor,
       );
+
       return new Promise((resolve) => {
         resolve({
           responseState: true,
@@ -68,11 +74,13 @@ export const AuthProvider: React.FC = ({ children }) => {
       });
     }
   }
+
   function logOut(): void {
     AsyncStorage.clear().then(() => {
       setUser(null);
     });
   }
+
   return (
     <AuthContext.Provider
       value={{ signed: !!user, user, logIn, logOut, loading }}
