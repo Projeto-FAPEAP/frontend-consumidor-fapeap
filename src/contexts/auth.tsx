@@ -25,6 +25,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     async function loadData(): Promise<void> {
+      setLoading(true);
       const userLoaded = await AsyncStorage.getItem(
         '@QueroAçaí-Consumidor:user',
       );
@@ -34,6 +35,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       if (userLoaded && tokenLoaded) {
         setUser(JSON.parse(userLoaded));
       }
+      setLoading(false);
     }
     loadData();
   }, []);

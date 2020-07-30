@@ -27,8 +27,8 @@ interface IProps {
 }
 
 const SignIn: React.FC<IProps> = ({ navigation }) => {
-  const [cpf, setCpf] = useState('');
-  const [password, setPassword] = useState('');
+  const [cpf, setCpf] = useState('45687921');
+  const [password, setPassword] = useState('152547xcz');
   const { logIn } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
 
@@ -55,8 +55,13 @@ const SignIn: React.FC<IProps> = ({ navigation }) => {
           <Title>Entre com sua conta</Title>
         </Header>
         <Form>
-          <Input placeholder="Seu CPF" onChangeText={(text) => setCpf(text)} />
           <Input
+            value={cpf}
+            placeholder="Seu CPF"
+            onChangeText={(text) => setCpf(text)}
+          />
+          <Input
+            value={password}
             placeholder="Sua senha"
             secureTextEntry
             onChangeText={(text) => setPassword(text)}

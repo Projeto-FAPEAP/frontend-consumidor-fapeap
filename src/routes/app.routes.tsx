@@ -6,7 +6,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import EditProfile from '../screens/EditProfile';
 import Home from '../screens/Home';
+import Mixer from '../screens/Mixer';
 import MyDelivery from '../screens/My delivery';
+import Product from '../screens/Product';
 import Profile from '../screens/Profile';
 
 const Stack = createStackNavigator();
@@ -60,6 +62,30 @@ const AppRoutes: React.FC = () => (
       component={Tabs}
       options={{
         title: 'Quero Açaí',
+        headerStyle: {
+          backgroundColor: '#84378F',
+        },
+        headerTintColor: '#FFF',
+        headerTitleAlign: 'center',
+      }}
+    />
+    <Stack.Screen
+      name="Mixer"
+      component={Mixer}
+      options={{
+        title: 'Detalhes da batedeira',
+        headerStyle: {
+          backgroundColor: '#84378F',
+        },
+        headerTintColor: '#FFF',
+        headerTitleAlign: 'center',
+      }}
+    />
+    <Stack.Screen
+      name="Product"
+      component={Product}
+      options={{
+        title: 'Detalhes do Item',
         headerStyle: {
           backgroundColor: '#84378F',
         },

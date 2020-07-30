@@ -1,23 +1,23 @@
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  background: ${(props) => props.theme.colors.background};
+  flex: 1;
+  background: ${(props) => props.theme.colors.white};
   flex-direction: column;
+  padding: 10px;
 `;
+
 export const Header = styled.View`
   flex-direction: row;
-  padding-left: ${hp('3%')}px;
-  padding-top: ${hp('3%')}px;
+  padding-left: 10px;
+  padding-top: 10px;
 `;
+
 export const TextMid = styled.Text`
-  font-size: ${hp('2.5%')}px;
+  font-size: 16px;
   font-weight: bold;
   flex-direction: row;
-  padding-left: ${hp('3%')}px;
-  padding-top: ${hp('3%')}px;
+  padding-left: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;
