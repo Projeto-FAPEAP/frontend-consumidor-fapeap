@@ -65,10 +65,9 @@ const AppRoutes: React.FC = () => (
         title: 'Quero Açaí',
         headerStyle: {
           backgroundColor: '#84378F',
-
         },
         headerTitleStyle: {
-          fontFamily: 'Ubuntu-Bold'
+          fontFamily: 'Ubuntu-Bold',
         },
         headerTintColor: '#FFF',
         headerTitleAlign: 'center',
@@ -79,11 +78,12 @@ const AppRoutes: React.FC = () => (
       component={Mixer}
       options={{
         title: 'Detalhes da batedeira',
+        headerBackTitleVisible: false,
         headerStyle: {
           backgroundColor: '#84378F',
         },
         headerTitleStyle: {
-          fontFamily: 'Ubuntu-Bold'
+          fontFamily: 'Ubuntu-Bold',
         },
         headerTintColor: '#FFF',
         headerTitleAlign: 'center',
@@ -94,11 +94,12 @@ const AppRoutes: React.FC = () => (
       component={Order}
       options={{
         title: 'Detalhes do Pedido',
+        headerBackTitleVisible: false,
         headerStyle: {
           backgroundColor: '#84378F',
         },
         headerTitleStyle: {
-          fontFamily: 'Ubuntu-Bold'
+          fontFamily: 'Ubuntu-Bold',
         },
         headerTintColor: '#FFF',
         headerTitleAlign: 'center',
@@ -109,11 +110,12 @@ const AppRoutes: React.FC = () => (
       component={Product}
       options={{
         title: 'Detalhes do Item',
+        headerBackTitleVisible: false,
         headerStyle: {
           backgroundColor: '#84378F',
         },
         headerTitleStyle: {
-          fontFamily: 'Ubuntu-Bold'
+          fontFamily: 'Ubuntu-Bold',
         },
         headerTintColor: '#FFF',
         headerTitleAlign: 'center',
@@ -148,6 +150,7 @@ const AppRoutes: React.FC = () => (
       component={EditProfile}
       options={{
         title: 'Edição de perfil',
+        headerBackTitleVisible: false,
         headerStyle: {
           backgroundColor: '#84378F',
         },
