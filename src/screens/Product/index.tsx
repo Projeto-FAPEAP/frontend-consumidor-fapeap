@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import formatMoney from '../../components/FormatMoney';
+import CartContext from '../../contexts/cart';
 import {
   Container,
   Content,
@@ -17,11 +18,12 @@ import {
 } from './styles';
 
 const Product: React.FC = (props) => {
+  const { cart, addCart, removeCart } = useContext(CartContext);
   const [data, setData] = useState(props.route.params.item);
 
   useEffect(() => {
-    console.log(props.route.params.item);
-  }, []);
+    console.log(cart);
+  }, [cart]);
 
   return (
     <Container>
@@ -34,22 +36,24 @@ const Product: React.FC = (props) => {
 
       <Content>
         <Header>
-          <Title>{data.nome}</Title>
-          <Text>1 Litro R$ {formatMoney(data.preco)}</Text>
+          <Title style={{ marginBottom: 5 }}>{data.nome}</Title>
+          <Text style={{ marginBottom: 5 }}>
+            1 Litro - R$ {formatMoney(data.preco)}
+          </Text>
 
           {data.status_produto ? (
             <View
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                marginBottom: 10
+                marginBottom: 10,
               }}
             >
               <Icon
                 style={{ marginRight: 5 }}
                 name="check-circle"
                 color="#32C741"
-                size={22}
+                size={18}
               />
               <Text>Disponível</Text>
             </View>
@@ -58,14 +62,14 @@ const Product: React.FC = (props) => {
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                marginBottom: 10
+                marginBottom: 10,
               }}
             >
               <Icon
                 style={{ marginRight: 5 }}
                 name="close-circle"
                 color="#EB5757"
-                size={22}
+                size={18}
               />
               <Text>Indisponível</Text>
             </View>
@@ -73,7 +77,7 @@ const Product: React.FC = (props) => {
         </Header>
 
         <Footer>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => removeCart(data)}>
             <Icon
               style={{ marginRight: 10 }}
               name="minus-circle"
@@ -81,8 +85,12 @@ const Product: React.FC = (props) => {
               size={30}
             />
           </TouchableOpacity>
-          <CountText>0</CountText>
-          <TouchableOpacity>
+          <CountText>
+            {cart.filter((item) => item.id == data.id).length > 0
+              ? cart.filter((item) => item.id == data.id)[0].quantity
+              : 0}
+          </CountText>
+          <TouchableOpacity onPress={() => addCart(data)}>
             <Icon
               style={{ marginLeft: 10 }}
               name="plus-circle"

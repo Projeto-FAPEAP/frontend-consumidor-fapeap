@@ -1,40 +1,26 @@
-import React, { useState } from 'react';
-import { View, Text, KeyboardAvoidingView, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, { useState, useContext } from 'react';
+import { KeyboardAvoidingView, ScrollView } from 'react-native';
 
+import AuthContext from '../../contexts/auth';
 import {
   Container,
-  Title,
   Input,
-  RetrievePasswordButton,
-  RetrievePasswordText,
   Form,
   RegisterButton,
-  RegularText,
   RegisterButtonText,
-  P,
-  BackButtonWrapper,
-  Footer,
-  Dropdown,
-  DropdownWrappeer,
-  MediaSpot,
-  MediaSpotButton,
-  WrapperList,
-  AddMediaButtonWrapper,
-  RemoveMediaButtonWrapper,
-  MediaWrapper,
-  RemoveMedia,
 } from './styles';
 
 const EditProfile: React.FC = ({ navigation }) => {
-  const [name, setName] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [phone, setPhone] = useState('');
-  const [street, setStreet] = useState('');
-  const [number, setNumber] = useState('');
-  const [neighborhood, setNeighborhood] = useState('');
-  const [zipcode, setZipcode] = useState('');
-  const [email, setEmail] = useState('');
+  const { user } = useContext(AuthContext);
+
+  const [name, setName] = useState(user.nome);
+  const [cpf, setCpf] = useState(user.cpf);
+  const [phone, setPhone] = useState(user.telefone_whatsapp);
+  const [zipcode, setZipcode] = useState(user.cep);
+  const [street, setStreet] = useState(user.logradouro);
+  const [number, setNumber] = useState(user.numero_local);
+  const [neighborhood, setNeighborhood] = useState(user.bairro);
+  const [email, setEmail] = useState(user.email);
 
   return (
     <Container>
@@ -44,37 +30,44 @@ const EditProfile: React.FC = ({ navigation }) => {
             <Input
               placeholder="Seu nome"
               onChangeText={(text) => setName(text)}
+              value={name}
             />
             <Input
               placeholder="Seu CPF"
               onChangeText={(text) => setCpf(text)}
+              value={cpf}
             />
             <Input
               placeholder="Telefone"
               onChangeText={(text) => setPhone(text)}
-            />
-            <Input
-              placeholder="Logradouro"
-              onChangeText={(text) => setStreet(text)}
-            />
-            <Input
-              placeholder="Numero"
-              onChangeText={(text) => setNumber(text)}
-            />
-            <Input
-              placeholder="Bairro"
-              onChangeText={(text) => setNeighborhood(text)}
+              value={phone}
             />
             <Input
               placeholder="CEP"
               onChangeText={(text) => setZipcode(text)}
+              value={zipcode}
+            />
+            <Input
+              placeholder="Logradouro"
+              onChangeText={(text) => setStreet(text)}
+              value={street}
+            />
+            <Input
+              placeholder="Numero"
+              onChangeText={(text) => setNumber(text)}
+              value={number}
+            />
+            <Input
+              placeholder="Bairro"
+              onChangeText={(text) => setNeighborhood(text)}
+              value={neighborhood}
             />
             <Input
               placeholder="Email"
               onChangeText={(text) => setEmail(text)}
+              value={email}
             />
-
-            <RegisterButton onPress={() => {}}>
+            <RegisterButton onPress={() => navigation.goBack()}>
               <RegisterButtonText>Salvar</RegisterButtonText>
             </RegisterButton>
           </Form>

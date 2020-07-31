@@ -6,7 +6,7 @@ import AuthContext from '../../contexts/auth';
 import { Container, TextProfile, ViewList } from './styles';
 
 const Profile: React.FC = ({ navigation }) => {
-  const { logOut } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
 
   function handleSignOut(): void {
     logOut();
@@ -20,8 +20,13 @@ const Profile: React.FC = ({ navigation }) => {
         }}
       >
         <View>
-          <TextProfile>Italo</TextProfile>
-          <Text>000.000.000-00</Text>
+          <TextProfile>{user.nome}</TextProfile>
+          <Text>
+            {String(user.cpf).replace(
+              /^(\d{3})(\d{3})(\d{3})(\d{2})/,
+              '$1.$2.$3-$4',
+            )}
+          </Text>
         </View>
       </Card>
 

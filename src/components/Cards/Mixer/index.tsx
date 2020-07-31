@@ -32,8 +32,8 @@ const Mixer: React.FC<IMixer> = ({ item, navigation }) => {
       />
       <Content>
         <Title>{item.nome_fantasia}</Title>
-        <Text color="#FBC72D">
-          <Icon name="star" color="#FBC72D" size={11} /> 4.0
+        <Text style={{ marginBottom: 5 }} color="#FBC72D">
+          <Icon name="star" color="#FBC72D" size={11} /> 0.0
         </Text>
         <Text color="#999">
           {item.taxa_delivery

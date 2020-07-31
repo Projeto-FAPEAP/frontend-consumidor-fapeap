@@ -28,7 +28,7 @@ export const Title = styled.Text`
 
 export const Text = styled.Text<ITextProps>`
   color: ${(props) => props.color};
-  font-size: 10px;
+  font-size: 12px;
   font-family: ${(props) => props.theme.fonts.Ubuntu.normal};
   color: ${(props) => props.theme.colors.subtitle};
 `;

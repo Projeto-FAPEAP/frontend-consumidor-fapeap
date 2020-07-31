@@ -18,7 +18,7 @@ export const Header = styled.View`
 
 export const Image = styled.Image`
   width: 100%;
-  height: 150px;
+  height: 200px;
 `;
 
 export const Title = styled.Text`
@@ -28,13 +28,13 @@ export const Title = styled.Text`
 `;
 
 export const Text = styled.Text`
-   color: ${(props) => props.theme.colors.subtitle};
+  color: ${(props) => props.theme.colors.subtitle};
   font-family: ${(props) => props.theme.fonts.Ubuntu.normal};
   font-size: 15px;
 `;
 
 export const CountText = styled.Text`
-   color: ${(props) => props.theme.colors.title};
+  color: ${(props) => props.theme.colors.title};
   font-size: 40px;
   font-family: ${(props) => props.theme.fonts.Ubuntu.normal};
 `;

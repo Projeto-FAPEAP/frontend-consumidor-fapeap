@@ -34,8 +34,8 @@ const Product: React.FC<IProduct> = ({ item, navigation }) => {
         }}
       />
       <Content>
-        <Title>{item.nome}</Title>
-        <Text>1 Litro R$ {formatMoney(item.preco)}</Text>
+        <Title style={{ marginBottom: 5 }}>{item.nome}</Title>
+        <Text>1 Litro - R$ {formatMoney(item.preco)}</Text>
         {item.status_produto ? (
           <View
             style={{
@@ -47,7 +47,7 @@ const Product: React.FC<IProduct> = ({ item, navigation }) => {
               style={{ marginRight: 5 }}
               name="check-circle"
               color="#32C741"
-              size={22}
+              size={15}
             />
             <Text>Disponível</Text>
           </View>
@@ -62,7 +62,7 @@ const Product: React.FC<IProduct> = ({ item, navigation }) => {
               style={{ marginRight: 5 }}
               name="close-circle"
               color="#EB5757"
-              size={22}
+              size={15}
             />
             <Text>Indisponível</Text>
           </View>

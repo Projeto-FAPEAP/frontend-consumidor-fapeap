@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text } from 'react-native';
 
-import logo from '../../assets/logo.png';
+import order from '../../assets/order.png';
+import formatMoney from '../../components/FormatMoney';
+import AuthContext from '../../contexts/auth';
+import CartContext from '../../contexts/cart';
 import {
   Container,
   Header,
@@ -18,91 +21,45 @@ import {
 } from './styles';
 
 const Order: React.FC = () => {
+  const { cart } = useContext(CartContext);
+  const { user } = useContext(AuthContext);
+
   return (
     <Container>
       <Header>
-        <Image source={logo} resizeMode="contain" />
-        <Title>Consumidor Nome</Title>
-        <Subtitle>Endereço: Av. FAB, 256</Subtitle>
+        <Image
+          style={{ marginTop: 5, marginBottom: 5 }}
+          source={order}
+          resizeMode="contain"
+        />
+        <Title style={{ marginBottom: 5 }}>{user.nome}</Title>
+        <Subtitle>
+          {user.logradouro}, {user.numero_local}, {user.bairro}, Macapá - AP
+        </Subtitle>
       </Header>
 
       <Content>
         <CardInformation>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: 20,
-            }}
-          >
-            <Left>
-              <Title>
-                <TextQuantity>2x</TextQuantity> Açaí
-              </Title>
-              <Subtitle>1 Litro</Subtitle>
-            </Left>
-            <Right>
-              <Title>R$ 14,00</Title>
-            </Right>
-          </View>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: 20,
-            }}
-          >
-            <Left>
-              <Title>
-                <TextQuantity>2x</TextQuantity> Açaí
-              </Title>
-              <Subtitle>1 Litro</Subtitle>
-            </Left>
-            <Right>
-              <Title>R$ 14,00</Title>
-            </Right>
-          </View>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: 20,
-            }}
-          >
-            <Left>
-              <Title>
-                <TextQuantity>2x</TextQuantity> Açaí
-              </Title>
-              <Subtitle>1 Litro</Subtitle>
-            </Left>
-            <Right>
-              <Title>R$ 14,00</Title>
-            </Right>
-          </View>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: 20,
-            }}
-          >
-            <Left>
-              <Title>
-                <TextQuantity>2x</TextQuantity> Açaí
-              </Title>
-              <Subtitle>1 Litro</Subtitle>
-            </Left>
-            <Right>
-              <Title>R$ 14,00</Title>
-            </Right>
-          </View>
+          {cart.map((item) => (
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: 20,
+              }}
+            >
+              <Left>
+                <Title>
+                  <TextQuantity>{item.quantity}x</TextQuantity> {item.nome}
+                </Title>
+                <Subtitle>1 Litro</Subtitle>
+              </Left>
+              <Right>
+                <Title>R$ {formatMoney(item.quantity * item.preco)}</Title>
+              </Right>
+            </View>
+          ))}
 
           <View>
             <View

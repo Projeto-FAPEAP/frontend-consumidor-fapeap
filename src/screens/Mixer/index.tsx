@@ -4,6 +4,7 @@ import Slideshow from 'react-native-image-slider-show-razzium';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Product from '../../components/Cards/Product';
+import formatMoney from '../../components/FormatMoney';
 import api from '../../services/api';
 import { Container, Content, Title, Text } from './styles';
 
@@ -16,10 +17,11 @@ interface IProduct {
 }
 
 const Mixer: React.FC = (props) => {
+  const [mixer, setMixer] = useState(props.route.params.item);
   const [data, setData] = useState<IProduct[]>([]);
 
   useEffect(() => {
-    console.log(props.route.params.item.id);
+    console.log(props.route.params.item);
     api
       .get<IProduct>('produto', {
         headers: {
@@ -37,7 +39,7 @@ const Mixer: React.FC = (props) => {
   return (
     <Container>
       <Slideshow
-        height={150}
+        height={200}
         dataSource={[
           {
             url:
@@ -55,15 +57,17 @@ const Mixer: React.FC = (props) => {
       />
 
       <Content>
-        <Title>Batedeira de Açaí</Title>
-        <Text color="#FBC72D" size={14}>
-          <Icon name="star" color="#FBC72D" size={16} /> 4.0 -{' '}
+        <Title style={{ marginBottom: 5 }}>{mixer.nome_fantasia}</Title>
+        <Text style={{ marginBottom: 5 }} color="#FBC72D" size={14}>
+          <Icon name="star" color="#FBC72D" size={16} /> 0.0 -{' '}
           <Text size={14} color="#999">
-            8 avaliações
+            0 avaliações
           </Text>
         </Text>
         <Text size={12} color="#999">
-          Delivery - R$ 1,00
+          {mixer.taxa_delivery
+            ? `Delivery - R$ ${formatMoney(mixer.taxa_delivery)}`
+            : 'Apenas retirada'}
         </Text>
 
         <FlatList

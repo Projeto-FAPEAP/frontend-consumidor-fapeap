@@ -15,8 +15,8 @@ export const Header = styled.View`
 `;
 
 export const Image = styled.Image`
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
 `;
 
 export const Title = styled.Text`
