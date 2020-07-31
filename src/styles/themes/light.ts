@@ -11,7 +11,7 @@ export default {
     danger: '#FF4646',
     warning: '#FFD500',
 
-    background: '#E5E5E5',
+    background: '#FFF',
 
     title: '#455A64',
     subtitle: '#B0BEC5',
@@ -36,6 +36,11 @@ export default {
       italicSemiBold: 'OpenSans-SemiBoldItalic',
       bold: 'OpenSans-Bold',
       semiBold: 'OpenSans-semiBold',
+    },
+    Ubuntu: {
+      normal: 'Ubuntu-Regular',
+      bold: 'Ubuntu-Bold',
+      semiBold: 'Ubuntu-semiBold',
     },
   },
 

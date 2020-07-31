@@ -5,14 +5,6 @@ import { Card, ListItem } from 'react-native-elements';
 import AuthContext from '../../contexts/auth';
 import { Container, TextProfile, ViewList } from './styles';
 
-const User = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Italo',
-    cpf: '000.000.000-00',
-  },
-];
-
 const Profile: React.FC = ({ navigation }) => {
   const { logOut } = useContext(AuthContext);
 
@@ -24,21 +16,13 @@ const Profile: React.FC = ({ navigation }) => {
     <Container>
       <Card
         containerStyle={{
-          width: 342,
-          height: 110,
-          marginTop: 20,
-          borderRadius: 8,
-          marginLeft: 25,
+          borderRadius: 10,
         }}
       >
-        {User.map((u) => {
-          return (
-            <View key={u.id}>
-              <TextProfile style={{}}>{u.name}</TextProfile>
-              <Text style={{ marginLeft: 15 }}>{u.cpf}</Text>
-            </View>
-          );
-        })}
+        <View>
+          <TextProfile>Italo</TextProfile>
+          <Text>000.000.000-00</Text>
+        </View>
       </Card>
 
       <ViewList>

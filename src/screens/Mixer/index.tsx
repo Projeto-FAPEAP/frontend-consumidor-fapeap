@@ -15,10 +15,11 @@ interface IProduct {
   estoque_produto: number;
 }
 
-const Mixer: React.FC = () => {
+const Mixer: React.FC = (props) => {
   const [data, setData] = useState<IProduct[]>([]);
 
   useEffect(() => {
+    console.log(props.route.params.item.id);
     api
       .get<IProduct>('produto', {
         headers: {
@@ -38,20 +39,35 @@ const Mixer: React.FC = () => {
       <Slideshow
         height={150}
         dataSource={[
-          { url: 'http://placeimg.com/640/480/any' },
-          { url: 'http://placeimg.com/640/480/any' },
-          { url: 'http://placeimg.com/640/480/any' },
+          {
+            url:
+              'https://www.acainative.com/wp-content/uploads/2020/01/bannerEC-site_a.png',
+          },
+          {
+            url:
+              'https://www.acainative.com/wp-content/uploads/2020/01/bannerEC-site_a.png',
+          },
+          {
+            url:
+              'https://www.acainative.com/wp-content/uploads/2020/01/bannerEC-site_a.png',
+          },
         ]}
       />
 
       <Content>
-        <Title>Batedeira Deus é fiel</Title>
-        <Text>
-          <Icon name="star" color="#e5e619" size={16} /> 4.0 - 58 avaliações
+        <Title>Batedeira de Açaí</Title>
+        <Text color="#FBC72D" size={14}>
+          <Icon name="star" color="#FBC72D" size={16} /> 4.0 -{' '}
+          <Text size={14} color="#999">
+            8 avaliações
+          </Text>
         </Text>
-        <Text>Delivery - R$ 1,00</Text>
+        <Text size={12} color="#999">
+          Delivery - R$ 1,00
+        </Text>
 
         <FlatList
+          style={{ marginTop: 15 }}
           data={data}
           renderItem={({ item }) => <Product item={item} />}
           keyExtractor={(item) => item.id}

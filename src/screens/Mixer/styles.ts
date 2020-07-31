@@ -1,8 +1,13 @@
 import styled from 'styled-components/native';
 
+interface ITextProps {
+  color: string;
+  size: number;
+}
+
 export const Container = styled.View`
   flex: 1;
-  background: ${(props) => props.theme.colors.white};
+  background: ${(props) => props.theme.colors.background};
 `;
 
 export const Content = styled.View`
@@ -11,11 +16,13 @@ export const Content = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-weight: bold;
+  font-family: ${(props) => props.theme.fonts.Ubuntu.bold};
   font-size: 21px;
+  color: ${(props) => props.theme.colors.title};
 `;
 
-export const Text = styled.Text`
-  font-size: 16px;
-  color: #999;
+export const Text = styled.Text<ITextProps>`
+  color: ${(props) => props.theme.colors.subtitle};
+  font-size: ${(props) => props.size}px;
+  font-family: ${(props) => props.theme.fonts.Ubuntu.normal};
 `;

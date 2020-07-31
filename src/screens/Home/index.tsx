@@ -31,10 +31,10 @@ const Home: React.FC = () => {
       <Header>
         <Icon name="map-marker" size={40} color="#84378F" />
         <View>
-          <Text style={{ fontSize: 10, paddingLeft: 5, paddingTop: 5 }}>
+          <Text style={{ fontFamily: 'Ubuntu-Regular', color:"#455A64", fontSize: 10, paddingLeft: 5, paddingTop: 5 }}>
             Entregar para Ítalo, em
           </Text>
-          <Text style={{ paddingLeft: 3, fontWeight: 'bold' }}>
+          <Text style={{fontFamily: 'Ubuntu-Bold',color:"#455A64", paddingLeft: 3 }}>
             Avenida FAB, nº 254, Central, Macapá - AP
           </Text>
         </View>

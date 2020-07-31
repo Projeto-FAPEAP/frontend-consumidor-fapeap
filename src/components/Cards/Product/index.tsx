@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { withNavigation } from '@react-navigation/compat';
 
+import formatMoney from '../../FormatMoney';
 import { Container, Image, Title, Content, Text } from './styles';
 
 interface IProduct {
@@ -15,7 +16,7 @@ interface IProduct {
     estoque_produto: number;
   };
   navigation: {
-    navigate(route: string): void;
+    navigate(route: string, params?: object): void;
   };
 }
 
@@ -23,7 +24,7 @@ const Product: React.FC<IProduct> = ({ item, navigation }) => {
   return (
     <Container
       onPress={() => {
-        navigation.navigate('Product');
+        navigation.navigate('Product', { item });
       }}
     >
       <Image
@@ -33,8 +34,8 @@ const Product: React.FC<IProduct> = ({ item, navigation }) => {
         }}
       />
       <Content>
-        <Title>{item.nome} - 1 Litro</Title>
-        <Text>1 Litro R$ {item.preco}</Text>
+        <Title>{item.nome}</Title>
+        <Text>1 Litro R$ {formatMoney(item.preco)}</Text>
         {item.status_produto ? (
           <View
             style={{
@@ -45,8 +46,8 @@ const Product: React.FC<IProduct> = ({ item, navigation }) => {
             <Icon
               style={{ marginRight: 5 }}
               name="check-circle"
-              color="#080"
-              size={16}
+              color="#32C741"
+              size={22}
             />
             <Text>Disponível</Text>
           </View>
@@ -60,8 +61,8 @@ const Product: React.FC<IProduct> = ({ item, navigation }) => {
             <Icon
               style={{ marginRight: 5 }}
               name="close-circle"
-              color="#f00"
-              size={16}
+              color="#EB5757"
+              size={22}
             />
             <Text>Indisponível</Text>
           </View>

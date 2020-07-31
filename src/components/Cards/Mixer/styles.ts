@@ -1,27 +1,36 @@
 import styled from 'styled-components/native';
 
+interface ITextProps {
+  color: string;
+}
+
 export const Container = styled.TouchableOpacity`
   flex: 1;
   background: ${(props) => props.theme.colors.white};
   padding: 10px;
   flex-direction: row;
   margin: 5px 0 0 0;
+  align-items: center;
 `;
 
 export const Image = styled.Image`
   width: 80px;
   height: 80px;
-  border-radius: 10px;
+  border-radius: 5px;
   margin-right: 10px;
 `;
 
 export const Title = styled.Text`
-  font-weight: bold;
+  font-size: 14px;
+  font-family: ${(props) => props.theme.fonts.Ubuntu.bold};
+  color: ${(props) => props.theme.colors.title};
 `;
 
-export const Text = styled.Text`
-  color: #999;
-  font-size: 11px;
+export const Text = styled.Text<ITextProps>`
+  color: ${(props) => props.color};
+  font-size: 10px;
+  font-family: ${(props) => props.theme.fonts.Ubuntu.normal};
+  color: ${(props) => props.theme.colors.subtitle};
 `;
 
 export const Content = styled.View``;

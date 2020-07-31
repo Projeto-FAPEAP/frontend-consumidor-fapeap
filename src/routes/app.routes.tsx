@@ -8,6 +8,7 @@ import EditProfile from '../screens/EditProfile';
 import Home from '../screens/Home';
 import Mixer from '../screens/Mixer';
 import MyDelivery from '../screens/My delivery';
+import Order from '../screens/Order';
 import Product from '../screens/Product';
 import Profile from '../screens/Profile';
 
@@ -64,6 +65,10 @@ const AppRoutes: React.FC = () => (
         title: 'Quero Açaí',
         headerStyle: {
           backgroundColor: '#84378F',
+
+        },
+        headerTitleStyle: {
+          fontFamily: 'Ubuntu-Bold'
         },
         headerTintColor: '#FFF',
         headerTitleAlign: 'center',
@@ -77,6 +82,24 @@ const AppRoutes: React.FC = () => (
         headerStyle: {
           backgroundColor: '#84378F',
         },
+        headerTitleStyle: {
+          fontFamily: 'Ubuntu-Bold'
+        },
+        headerTintColor: '#FFF',
+        headerTitleAlign: 'center',
+      }}
+    />
+    <Stack.Screen
+      name="Order"
+      component={Order}
+      options={{
+        title: 'Detalhes do Pedido',
+        headerStyle: {
+          backgroundColor: '#84378F',
+        },
+        headerTitleStyle: {
+          fontFamily: 'Ubuntu-Bold'
+        },
         headerTintColor: '#FFF',
         headerTitleAlign: 'center',
       }}
@@ -88,6 +111,9 @@ const AppRoutes: React.FC = () => (
         title: 'Detalhes do Item',
         headerStyle: {
           backgroundColor: '#84378F',
+        },
+        headerTitleStyle: {
+          fontFamily: 'Ubuntu-Bold'
         },
         headerTintColor: '#FFF',
         headerTitleAlign: 'center',
