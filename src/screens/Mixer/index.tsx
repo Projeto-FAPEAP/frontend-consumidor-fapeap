@@ -19,17 +19,14 @@ interface IProduct {
 const Mixer: React.FC = (props) => {
   const [mixer, setMixer] = useState(props.route.params.item);
   const [data, setData] = useState<IProduct[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log(props.route.params.item);
     api
-      .get<IProduct>('produto', {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTU5Nzg0NjcsImV4cCI6MTU5NzcwNjQ2Nywic3ViIjoiNmZiODU2NTEtMGU4Zi00NjgxLTk4NmEtNzBhNjAyMzRmYjVlIn0.p4zQidBFusykDW4oDnhduhl6ApKnemY2N38xtAhrQ2c`,
-        },
-      })
+      .get<IProduct>(`produto/${props.route.params.item.id}`)
       .then(({ data }) => {
         setData(data);
+        setLoading(false);
       })
       .catch((response) => {
         console.log(response);
@@ -76,6 +73,15 @@ const Mixer: React.FC = (props) => {
           renderItem={({ item }) => <Product item={item} />}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
+          ListEmptyComponent={() => (
+            <>
+              {!loading && (
+                <Text size={12} color="#999">
+                  Não há produtos disponíveis
+                </Text>
+              )}
+            </>
+          )}
         />
       </Content>
     </Container>

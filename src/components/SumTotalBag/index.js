@@ -16,6 +16,8 @@ export function somaTaxas(cart) {
 
 export function somaUnitaria(cart) {
   let soma = 0;
-  soma = cart.preco_venda * cart.quantity;
-  return Number(soma).toFixed(2);
+  for (let i = 0; i < cart.length; i++) {
+    soma += cart[i].quantity;
+  }
+  return Number(soma);
 }

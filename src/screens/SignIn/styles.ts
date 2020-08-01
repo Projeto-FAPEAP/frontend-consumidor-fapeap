@@ -34,6 +34,7 @@ export const Title = styled.Text`
   color: ${(props) => props.theme.colors.primary};
   font-size: ${hp('5.5%')}px;
   padding-left: ${hp('5%')}px;
+  font-family: ${(props) => props.theme.fonts.Ubuntu.bold};
 `;
 
 export const Input = styled.TextInput`
@@ -46,6 +47,7 @@ export const Input = styled.TextInput`
   margin-top: 26px;
   padding-horizontal: ${hp('1.8%')}px;
   padding-vertical: ${hp('1.8%')}px;
+  font-family: ${(props) => props.theme.fonts.Ubuntu.normal};
 `;
 
 export const P = styled.Text`
@@ -53,6 +55,7 @@ export const P = styled.Text`
   color: #fff;
   padding-left: 25px;
   padding-right: 25px;
+  font-family: ${(props) => props.theme.fonts.Ubuntu.normal};
 `;
 
 export const LoginButton = styled.TouchableOpacity`
@@ -71,6 +74,7 @@ export const LoginButtonText = styled.Text`
   align-content: center;
   font-size: ${hp('2.4%')}px;
   color: ${(props) => props.theme.colors.secundary};
+  font-family: ${(props) => props.theme.fonts.Ubuntu.normal};
 `;
 
 export const RetrievePasswordButton = styled.TouchableOpacity`
@@ -87,6 +91,7 @@ export const RetrievePasswordText = styled.Text`
   align-content: center;
   font-size: ${hp('2.4%')}px;
   color: ${(props) => props.theme.colors.primary};
+  font-family: ${(props) => props.theme.fonts.Ubuntu.normal};
 `;
 
 export const RegularText = styled.Text`
@@ -96,12 +101,13 @@ export const RegularText = styled.Text`
   padding-top: ${hp('3%')}px;
   width: ${wp('55%')}px;
   color: #303030;
+  font-family: ${(props) => props.theme.fonts.Ubuntu.normal};
 `;
 
 export const RegisterButton = styled.TouchableOpacity`
   border-radius: 22px;
   height: ${hp('5%')}px;
-  padding-top: ${hp('2.4%')}px;
+  padding-top: ${hp('2.6%')}px;
   margin-right: 25px;
   margin-left: 25px;
   width: ${wp('40%')}px;
@@ -112,4 +118,5 @@ export const RegisterButtonText = styled.Text`
   align-content: center;
   font-size: ${hp('2.4%')}px;
   color: ${(props) => props.theme.colors.primary};
+  font-family: ${(props) => props.theme.fonts.Ubuntu.normal};
 `;

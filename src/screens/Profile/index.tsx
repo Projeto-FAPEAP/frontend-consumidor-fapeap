@@ -25,12 +25,12 @@ const Profile: React.FC = ({ navigation }) => {
           >
             <View>
               <TextProfile>{user.nome}</TextProfile>
-              <Text>
+              <TextProfile>
                 {String(user.cpf).replace(
                   /^(\d{3})(\d{3})(\d{3})(\d{2})/,
                   '$1.$2.$3-$4',
                 )}
-              </Text>
+              </TextProfile>
             </View>
           </Card>
 

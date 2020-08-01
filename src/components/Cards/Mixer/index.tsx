@@ -37,7 +37,7 @@ const Mixer: React.FC<IMixer> = ({ item, navigation }) => {
         </Text>
         <Text color="#999">
           {item.taxa_delivery
-            ? `10-20 min - R$ ${formatMoney(item.taxa_delivery)}`
+            ? `Delivery - R$ ${formatMoney(item.taxa_delivery)}`
             : 'Apenas retirada'}
         </Text>
       </Content>

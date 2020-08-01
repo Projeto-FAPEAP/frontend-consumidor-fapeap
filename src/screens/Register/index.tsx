@@ -60,7 +60,7 @@ const Register: React.FC<IProps> = ({ navigation }) => {
             onChangeText={(text) => setPassword(text)}
           />
 
-          <RegisterButton onPress={() => {}}>
+          <RegisterButton onPress={() => navigation.goBack()}>
             <RegisterButtonText>Registre-me</RegisterButtonText>
           </RegisterButton>
         </Form>

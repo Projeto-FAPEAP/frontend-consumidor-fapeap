@@ -20,6 +20,7 @@ export const Image = styled.Image`
 `;
 
 export const Title = styled.Text`
+  font-size: 14px;
   font-family: ${(props) => props.theme.fonts.Ubuntu.normal};
 `;
 
@@ -30,12 +31,13 @@ export const TextQuantity = styled.Text`
 `;
 
 export const Subtitle = styled.Text`
-  font-size: 11px;
+  font-size: 10px;
   font-family: ${(props) => props.theme.fonts.Ubuntu.normal};
+  color: ${(props) => props.theme.colors.subtitle};
 `;
 
 export const Content = styled.View`
-  padding: 10px;
+  padding: 20px;
 `;
 
 export const CardInformation = styled.View`
