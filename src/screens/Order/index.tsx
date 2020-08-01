@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 
 import order from '../../assets/order.png';
 import formatMoney from '../../components/FormatMoney';
+import soma, { somaTaxas } from '../../components/SumTotalBag';
 import AuthContext from '../../contexts/auth';
 import CartContext from '../../contexts/cart';
 import {
@@ -53,7 +54,9 @@ const Order: React.FC = () => {
                 <Title>
                   <TextQuantity>{item.quantity}x</TextQuantity> {item.nome}
                 </Title>
-                <Subtitle>1 Litro</Subtitle>
+                <Subtitle>
+                  {item.unidade_medida * item.quantity} Litro(s)
+                </Subtitle>
               </Left>
               <Right>
                 <Title>R$ {formatMoney(item.quantity * item.preco)}</Title>
@@ -85,7 +88,7 @@ const Order: React.FC = () => {
                 <Text
                   style={{ fontFamily: 'Ubuntu-Regular', color: '#455A64' }}
                 >
-                  R$ 14,00
+                  R$ {formatMoney(soma(cart))}
                 </Text>
               </View>
             </View>
@@ -113,7 +116,7 @@ const Order: React.FC = () => {
                 <Text
                   style={{ fontFamily: 'Ubuntu-Regular', color: '#455A64' }}
                 >
-                  R$ 6,00
+                  R$ {formatMoney(somaTaxas(cart))}
                 </Text>
               </View>
             </View>
@@ -126,7 +129,9 @@ const Order: React.FC = () => {
               }}
             >
               <Text style={{ fontFamily: 'Ubuntu-Bold' }}>Total</Text>
-              <Text style={{ fontFamily: 'Ubuntu-Bold' }}>R$ 20,00</Text>
+              <Text style={{ fontFamily: 'Ubuntu-Bold' }}>
+                R$ {formatMoney(Number(soma(cart)) + Number(somaTaxas(cart)))}
+              </Text>
             </View>
           </View>
         </CardInformation>

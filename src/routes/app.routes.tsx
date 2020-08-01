@@ -1,4 +1,5 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -57,7 +58,19 @@ const Tabs: React.FC = () => {
 };
 
 const AppRoutes: React.FC = () => (
-  <Stack.Navigator initialRouteName="Home">
+  <Stack.Navigator
+    screenOptions={({ navigation }) => ({
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Order')}
+          style={{ marginRight: 10 }}
+        >
+          <MaterialCommunityIcons name="cart" color="#fff" size={30} />
+        </TouchableOpacity>
+      ),
+    })}
+    initialRouteName="Home"
+  >
     <Stack.Screen
       name="Home"
       component={Tabs}
@@ -103,6 +116,7 @@ const AppRoutes: React.FC = () => (
         },
         headerTintColor: '#FFF',
         headerTitleAlign: 'center',
+        headerRight: () => null,
       }}
     />
     <Stack.Screen
@@ -156,6 +170,7 @@ const AppRoutes: React.FC = () => (
         },
         headerTintColor: '#FFF',
         headerTitleAlign: 'center',
+        headerRight: () => null,
       }}
     />
   </Stack.Navigator>

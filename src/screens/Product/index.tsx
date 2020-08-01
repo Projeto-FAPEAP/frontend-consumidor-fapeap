@@ -38,7 +38,7 @@ const Product: React.FC = (props) => {
         <Header>
           <Title style={{ marginBottom: 5 }}>{data.nome}</Title>
           <Text style={{ marginBottom: 5 }}>
-            1 Litro - R$ {formatMoney(data.preco)}
+            {data.unidade_medida} Litro(s) - R$ {formatMoney(data.preco)}
           </Text>
 
           {data.status_produto ? (
@@ -77,7 +77,9 @@ const Product: React.FC = (props) => {
         </Header>
 
         <Footer>
-          <TouchableOpacity onPress={() => removeCart(data)}>
+          <TouchableOpacity
+            onPress={() => data.status_produto && removeCart(data)}
+          >
             <Icon
               style={{ marginRight: 10 }}
               name="minus-circle"
@@ -86,11 +88,13 @@ const Product: React.FC = (props) => {
             />
           </TouchableOpacity>
           <CountText>
-            {cart.filter((item) => item.id == data.id).length > 0
-              ? cart.filter((item) => item.id == data.id)[0].quantity
+            {cart?.filter((item) => item.id === data.id).length > 0
+              ? cart?.filter((item) => item.id === data.id)[0].quantity
               : 0}
           </CountText>
-          <TouchableOpacity onPress={() => addCart(data)}>
+          <TouchableOpacity
+            onPress={() => data.status_produto && addCart(data)}
+          >
             <Icon
               style={{ marginLeft: 10 }}
               name="plus-circle"
@@ -99,7 +103,13 @@ const Product: React.FC = (props) => {
             />
           </TouchableOpacity>
 
-          <ButtonAdd onPress={() => props.navigation.navigate('Order')}>
+          <ButtonAdd
+            onPress={
+              () =>
+                data.status_produto &&
+                addCart(data) /* props.navigation.navigate('Order') */
+            }
+          >
             <ButtonAddText>Adicionar item</ButtonAddText>
           </ButtonAdd>
         </Footer>

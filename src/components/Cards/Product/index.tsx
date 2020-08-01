@@ -14,6 +14,7 @@ interface IProduct {
     preco: string;
     status_produto: boolean;
     estoque_produto: number;
+    unidade_medida: number;
   };
   navigation: {
     navigate(route: string, params?: object): void;
@@ -35,7 +36,9 @@ const Product: React.FC<IProduct> = ({ item, navigation }) => {
       />
       <Content>
         <Title style={{ marginBottom: 5 }}>{item.nome}</Title>
-        <Text>1 Litro - R$ {formatMoney(item.preco)}</Text>
+        <Text>
+          {item.unidade_medida} Litro(s) - R$ {formatMoney(item.preco)}
+        </Text>
         {item.status_produto ? (
           <View
             style={{

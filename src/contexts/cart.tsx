@@ -28,6 +28,10 @@ export const CartProvider: React.FC = ({ children }) => {
       const filter = cart.filter((item) => item.id == product.id);
 
       if (filter.length > 0) {
+        if (filter[0].quantity == product.estoque_produto) {
+          return;
+        }
+
         const newData = cart.map((item) =>
           item.id == product.id
             ? { ...item, quantity: item.quantity + 1 }
