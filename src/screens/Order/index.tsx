@@ -21,23 +21,27 @@ import {
   ButtonText,
 } from './styles';
 
-const Order: React.FC = () => {
+const Order: React.FC = ({ navigation }) => {
   const { cart } = useContext(CartContext);
   const { user } = useContext(AuthContext);
 
   return (
     <Container>
-      <Header>
-        <Image
-          style={{ marginTop: 5, marginBottom: 5 }}
-          source={order}
-          resizeMode="contain"
-        />
-        <Title style={{ marginBottom: 5 }}>{user.nome}</Title>
-        <Subtitle>
-          {user.logradouro}, {user.numero_local}, {user.bairro}, Macapá - AP
-        </Subtitle>
-      </Header>
+      {user && (
+        <Header>
+          <Image
+            style={{ marginTop: 5, marginBottom: 5 }}
+            source={order}
+            resizeMode="contain"
+          />
+          <Title style={{ marginBottom: 5 }}>{user.nome}</Title>
+          {user.cep && (
+            <Subtitle>
+              {user.logradouro}, {user.numero_local}, {user.bairro}, Macapá - AP
+            </Subtitle>
+          )}
+        </Header>
+      )}
 
       <Content>
         <CardInformation>
@@ -143,7 +147,13 @@ const Order: React.FC = () => {
             marginTop: 10,
           }}
         >
-          <Button onPress={() => {}}>
+          <Button
+            onPress={() =>
+              user && cart.length != 0
+                ? navigation.goBack()
+                : !user && navigation.navigate('SignIn')
+            }
+          >
             <ButtonText>Finalizar Pedido</ButtonText>
           </Button>
         </View>

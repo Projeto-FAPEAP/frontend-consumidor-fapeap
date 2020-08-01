@@ -5,24 +5,26 @@ import {
 
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   background: ${(props) => props.theme.colors.background};
-  flex-direction: column;
+  flex: 1;
 `;
 
-export const Header = styled.View`
-  height: ${hp('35%')}px;
+export const BackButtonWrapper = styled.TouchableOpacity`
+  padding-left: ${hp('2.5%')}px;
+`;
+
+export const Header = styled.SafeAreaView`
+  height: ${hp('10%')}px;
   justify-content: center;
 `;
 
 export const Form = styled.View`
-  height: ${hp('35%')}px;
   align-items: center;
   justify-content: center;
 `;
 
 export const Footer = styled.View`
-  height: ${hp('30%')}px;
   align-items: center;
   justify-content: space-around;
   flex-direction: row;

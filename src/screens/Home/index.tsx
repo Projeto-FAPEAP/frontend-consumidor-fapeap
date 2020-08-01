@@ -30,38 +30,41 @@ const Home: React.FC = () => {
 
   return (
     <Container>
-      <Header>
-        <Icon name="map-marker" size={40} color="#84378F" />
-        <View>
-          <Text
-            style={{
-              fontFamily: 'Ubuntu-Regular',
-              color: '#455A64',
-              fontSize: 10,
-              paddingLeft: 5,
-              paddingTop: 5,
-            }}
-          >
-            Entregar para {user.nome}, em
-          </Text>
-          <Text
-            style={{
-              fontFamily: 'Ubuntu-Bold',
-              color: '#455A64',
-              paddingLeft: 3,
-            }}
-          >
-            {user.cep ? (
-              <>
-                {user.logradouro}, nº {user.numero_local}, {user.bairro}, Macapá
-                - AP
-              </>
-            ) : (
-              <Text>Sem endereço cadastrado</Text>
-            )}
-          </Text>
-        </View>
-      </Header>
+      {user && (
+        <Header>
+          <Icon name="map-marker" size={40} color="#84378F" />
+          <View>
+            <Text
+              style={{
+                fontFamily: 'Ubuntu-Regular',
+                color: '#455A64',
+                fontSize: 10,
+                paddingLeft: 5,
+                paddingTop: 5,
+              }}
+            >
+              Entregar para {user.nome}, em
+            </Text>
+            <Text
+              style={{
+                fontFamily: 'Ubuntu-Bold',
+                color: '#455A64',
+                paddingLeft: 3,
+              }}
+            >
+              {user.cep ? (
+                <>
+                  {user.logradouro}, nº {user.numero_local}, {user.bairro},
+                  Macapá - AP
+                </>
+              ) : (
+                <Text>Sem endereço cadastrado</Text>
+              )}
+            </Text>
+          </View>
+        </Header>
+      )}
+
       <TextMid>Batedeiras proximas à você</TextMid>
 
       <FlatList

@@ -12,6 +12,10 @@ import MyDelivery from '../screens/My delivery';
 import Order from '../screens/Order';
 import Product from '../screens/Product';
 import Profile from '../screens/Profile';
+import RecoveryP from '../screens/RecoveryPassword';
+import Register from '../screens/Register';
+import SignIn from '../screens/SignIn';
+import Welcome from '../screens/Welcome';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -172,6 +176,27 @@ const AppRoutes: React.FC = () => (
         headerTitleAlign: 'center',
         headerRight: () => null,
       }}
+    />
+
+    <Stack.Screen
+      name="Welcome"
+      options={{ headerShown: false, headerRight: () => null }}
+      component={Welcome}
+    />
+    <Stack.Screen
+      name="SignIn"
+      options={{ headerShown: false, headerRight: () => null }}
+      component={SignIn}
+    />
+    <Stack.Screen
+      name="Register"
+      options={{ headerShown: false, headerRight: () => null }}
+      component={Register}
+    />
+    <Stack.Screen
+      name="RecoveryP"
+      options={{ headerShown: false, headerRight: () => null }}
+      component={RecoveryP}
     />
   </Stack.Navigator>
 );
