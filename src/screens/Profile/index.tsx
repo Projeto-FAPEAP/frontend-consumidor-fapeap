@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, Alert } from 'react-native';
 import { Card, ListItem } from 'react-native-elements';
 
 import AuthContext from '../../contexts/auth';
@@ -10,7 +10,19 @@ const Profile: React.FC = ({ navigation }) => {
 
   function handleSignOut(): void {
     if (user) {
-      logOut();
+      Alert.alert(
+        'Sair da conta',
+        'Você realmente deseja sair de sua conta?',
+        [
+          { text: 'Sim', onPress: () => logOut() },
+          {
+            text: 'Cancelar',
+            onPress: () => {},
+            style: 'cancel',
+          },
+        ],
+        { cancelable: false },
+      );
     }
   }
 

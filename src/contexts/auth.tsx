@@ -35,6 +35,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       if (userLoaded && tokenLoaded) {
         setUser(JSON.parse(userLoaded));
       }
+      api.defaults.headers.authorization = `Bearer ${tokenLoaded}`;
       setLoading(false);
     }
     loadData();

@@ -22,7 +22,7 @@ const Product: React.FC = (props) => {
   const [data, setData] = useState(props.route.params.item);
 
   useEffect(() => {
-    console.log(cart);
+    //console.log(cart);
   }, [cart]);
 
   return (

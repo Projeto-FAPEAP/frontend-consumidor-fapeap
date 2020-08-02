@@ -5,8 +5,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 interface CartContextData {
   cart: object | null;
   addCart(product: object): void;
+  changeDeliveryProduct(product: object): void;
   removeCart(product: object): void;
-  clearCart(): void;
+  clearCart(store: object): void;
 }
 
 const CartContext = createContext<CartContextData>({} as CartContextData);
@@ -15,13 +16,28 @@ export const CartProvider: React.FC = ({ children }) => {
   const [cart, setCart] = useState<object[] | null>([]);
 
   useEffect(() => {
-    /* async function loadData(): Promise<void> {
-      const userLoaded = await AsyncStorage.getItem(
-        '@QueroAçaí-Consumidor:user',
+    async function loadData(): Promise<void> {
+      const cartLoaded = await AsyncStorage.getItem(
+        '@QueroAçaí-Consumidor:cart',
+      );
+
+      if (JSON.parse(cartLoaded)) {
+        setCart(JSON.parse(cartLoaded));
+      }
+    }
+    loadData();
+  }, []);
+
+  useEffect(() => {
+    async function setStorage(): Promise<void> {
+      await AsyncStorage.setItem(
+        '@QueroAçaí-Consumidor:cart',
+        JSON.stringify(cart),
       );
     }
-    loadData(); */
-  }, []);
+
+    setStorage();
+  }, [cart, setCart]);
 
   const addCart = useCallback(
     (product) => {
@@ -39,8 +55,36 @@ export const CartProvider: React.FC = ({ children }) => {
         );
         setCart(newData);
       } else {
-        setCart([...cart, { ...product, quantity: 1 }]);
+        setCart([
+          ...cart,
+          {
+            ...product,
+            quantity: 1,
+            fornecedor: {
+              ...product.fornecedor,
+              delivery: !!product.fornecedor.taxa_delivery,
+            },
+          },
+        ]);
       }
+    },
+    [cart],
+  );
+
+  const changeDeliveryProduct = useCallback(
+    (product) => {
+      const newData = cart.map((item) =>
+        item.fornecedor.id == product[0].fornecedor.id
+          ? {
+              ...item,
+              fornecedor: {
+                ...item.fornecedor,
+                delivery: !item.fornecedor.delivery,
+              },
+            }
+          : item,
+      );
+      setCart(newData);
     },
     [cart],
   );
@@ -65,12 +109,20 @@ export const CartProvider: React.FC = ({ children }) => {
     [cart],
   );
 
-  const clearCart = useCallback(() => {
-    setCart([]);
-  }, []);
+  const clearCart = useCallback(
+    (store) => {
+      const filter = cart.filter(
+        (item) => item.fornecedor.id != store[0].fornecedor.id,
+      );
+      setCart(filter);
+    },
+    [cart],
+  );
 
   return (
-    <CartContext.Provider value={{ cart, addCart, removeCart, clearCart }}>
+    <CartContext.Provider
+      value={{ cart, addCart, changeDeliveryProduct, removeCart, clearCart }}
+    >
       {children}
     </CartContext.Provider>
   );

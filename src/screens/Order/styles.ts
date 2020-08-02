@@ -1,5 +1,9 @@
 import styled from 'styled-components/native';
 
+interface Iprops {
+  color: string;
+}
+
 export const Container = styled.ScrollView`
   flex: 1;
   background: #fff;
@@ -63,4 +67,21 @@ export const ButtonText = styled.Text`
   color: #fff;
   font-family: ${(props) => props.theme.fonts.Ubuntu.bold};
   font-size: 11px;
+`;
+
+export const BasketDeliveryCard = styled.TouchableOpacity`
+  flex: 1;
+  padding: 5px;
+  border-width: 1px;
+  border-color: #ccc;
+  margin: 0 0 20px 10px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  border-radius: 10px;
+`;
+
+export const TextCard = styled.Text<Iprops>`
+  color: ${(props) => props.color};
+  font-family: ${(props) => props.theme.fonts.Ubuntu.bold};
 `;
