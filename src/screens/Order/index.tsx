@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, Alert } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import order from '../../assets/order.png';
 import basket from '../../components/Basket';
@@ -101,6 +102,27 @@ const Order: React.FC = ({ navigation }) => {
     );
   }
 
+  function clearOneCart(order): void {
+    Alert.alert(
+      'Fechar Pedido',
+      'Você realmente deseja fechar este pedido?',
+      [
+        {
+          text: 'Sim',
+          onPress: () => {
+            clearCart(order);
+          },
+        },
+        {
+          text: 'Cancelar',
+          onPress: () => {},
+          style: 'cancel',
+        },
+      ],
+      { cancelable: false },
+    );
+  }
+
   return (
     <Container>
       {user && (
@@ -125,9 +147,26 @@ const Order: React.FC = ({ navigation }) => {
             <>
               <Content>
                 <CardInformation>
-                  <Text style={{ fontFamily: 'Ubuntu-Bold', marginBottom: 20 }}>
-                    {basket[0].fornecedor.nome_fantasia}
-                  </Text>
+                  <View
+                    style={{
+                      flex: 1,
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      marginBottom: 20,
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Text style={{ fontFamily: 'Ubuntu-Bold' }}>
+                      {basket[0].fornecedor.nome_fantasia}
+                    </Text>
+                    <Icon
+                      style={{ marginRight: 5 }}
+                      name="close-circle"
+                      color="#EB5757"
+                      size={18}
+                      onPress={() => clearOneCart(basket)}
+                    />
+                  </View>
 
                   {basket[0].fornecedor.taxa_delivery ? (
                     <View style={{ flexDirection: 'row' }}>

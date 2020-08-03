@@ -59,7 +59,7 @@ export const Button = styled.TouchableOpacity`
   width: 50%;
   padding: 10px;
   background: ${(props) => props.theme.colors.primary};
-  border-radius: 20px;
+  border-radius: 10px;
   align-items: center;
 `;
 

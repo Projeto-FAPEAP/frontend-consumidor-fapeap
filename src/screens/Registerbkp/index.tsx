@@ -1,54 +1,3 @@
-/* import React from 'react';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import Icon from 'react-native-vector-icons/FontAwesome';
-
-import {
-  Container,
-  Title,
-  Input,
-  LoginButton,
-  LoginButtonText,
-  Form,
-  Header,
-  P,
-  BackButtonWrapper,
-} from './styles';
-
-interface IProps {
-  navigation: {
-    navigate(route: string): void;
-    goBack(): void;
-  };
-}
-
-const RecoveryPassword: React.FC<IProps> = ({ navigation }) => {
-  return (
-    <Container>
-      <KeyboardAwareScrollView>
-        <Header>
-          <BackButtonWrapper onPress={() => navigation.goBack()}>
-            <Icon color="#84378F" size={28} name="chevron-left" />
-          </BackButtonWrapper>
-          <Title>Recupere sua conta</Title>
-          <P>
-            Por favor, insira o email da sua conta para receber o link de
-            recuperação de senha.
-          </P>
-        </Header>
-        <Form>
-          <Input placeholder="Email associado a sua conta" />
-
-          <LoginButton>
-            <LoginButtonText>Recuperar Senha</LoginButtonText>
-          </LoginButton>
-        </Form>
-      </KeyboardAwareScrollView>
-    </Container>
-  );
-};
-
-export default RecoveryPassword; */
-
 /* import React, { useState } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -154,14 +103,18 @@ const LogOut: React.FC = () => {
       formRef.current?.setErrors({});
       try {
         const schema = Yup.object().shape({
+          name: Yup.string().required('Nome é obrigatório'),
+          cpf: Yup.string().required('CPF é obrigatório'),
+          phone: Yup.string().required('Telefone é obrigatório'),
           email: Yup.string().required('Email é obrigatório'),
+          password: Yup.string().required('Senha é obrigatória'),
         });
 
         await schema.validate(data, { abortEarly: false });
 
         setLoading(true);
 
-        /* const response = await signOut(data);
+        const response = await signOut(data);
         const { responseState, responseStatus } = response;
 
         if (!responseState) {
@@ -171,7 +124,7 @@ const LogOut: React.FC = () => {
             index: 0,
             routes: [{ name: 'Home' }],
           });
-        } */
+        }
 
         setLoading(false);
       } catch (err) {
@@ -203,13 +156,49 @@ const LogOut: React.FC = () => {
           onSubmit={handleSubmit}
           ref={formRef}
         >
-          <S.Title>Recupere sua conta</S.Title>
-          <S.Subtitle>
-            favor, insira o email da sua conta para receber o link de
-            recuperação de senha.
-          </S.Subtitle>
+          <S.Title>Crie sua conta</S.Title>
 
           <S.Form>
+            <Input
+              icon="user"
+              label="Seu nome"
+              name="name"
+              placeholder="Seu nome"
+              autoCapitalize="none"
+              returnKeyType="next"
+              onSubmitEditing={() => focusTargetInput('cpf')}
+              containerStyle={{
+                maxWidth: 350,
+              }}
+            />
+            <Input
+              containerStyle={{
+                marginTop: 15,
+                maxWidth: 350,
+              }}
+              icon="user"
+              label="Seu CPF"
+              name="cpf"
+              placeholder="Seu CPF"
+              autoCapitalize="none"
+              keyboardType="number-pad"
+              returnKeyType="next"
+              onSubmitEditing={() => focusTargetInput('phone')}
+            />
+            <Input
+              containerStyle={{
+                marginTop: 15,
+                maxWidth: 350,
+              }}
+              icon="phone"
+              label="Seu telefone"
+              name="phone"
+              placeholder="Seu telefone"
+              autoCapitalize="none"
+              keyboardType="number-pad"
+              returnKeyType="next"
+              onSubmitEditing={() => focusTargetInput('email')}
+            />
             <Input
               containerStyle={{
                 marginTop: 15,
@@ -223,11 +212,24 @@ const LogOut: React.FC = () => {
               returnKeyType="next"
               onSubmitEditing={() => focusTargetInput('password')}
             />
+            <Input
+              containerStyle={{
+                marginTop: 15,
+                maxWidth: 350,
+              }}
+              icon="lock"
+              label="Sua senha"
+              name="password"
+              placeholder="Sua senha secreta"
+              autoCapitalize="none"
+              secureTextEntry
+              returnKeyType="send"
+            />
             <S.ButtonSignIn
               onPress={() => formRef.current?.submitForm()}
               loading={loading}
             >
-              Enviar
+              Registre-me
             </S.ButtonSignIn>
           </S.Form>
         </FormProvider>

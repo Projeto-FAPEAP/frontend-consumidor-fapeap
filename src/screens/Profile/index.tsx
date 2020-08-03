@@ -49,14 +49,32 @@ const Profile: React.FC = ({ navigation }) => {
           <ViewList>
             <ListItem
               title="Editar perfil"
+              titleStyle={{
+                fontFamily: 'Ubuntu-Bold',
+              }}
               subtitle="Faça a edição do seu perfil"
+              subtitleStyle={{
+                fontFamily: 'Ubuntu-Regular',
+              }}
               bottomDivider
               chevron
-              onPress={() => navigation.navigate('EditProfile')}
+              onPress={
+                () =>
+                  Alert.alert(
+                    'Em manutenção',
+                    'Funcionalidade em desenvolvimento!',
+                  ) /* navigation.navigate('EditProfile') */
+              }
             />
             <ListItem
               title="Sair"
+              titleStyle={{
+                fontFamily: 'Ubuntu-Bold',
+              }}
               subtitle="Desconecte-se da sua conta"
+              subtitleStyle={{
+                fontFamily: 'Ubuntu-Regular',
+              }}
               bottomDivider
               chevron
               onPress={handleSignOut}
@@ -76,7 +94,7 @@ const Profile: React.FC = ({ navigation }) => {
               backgroundColor: '#84378F',
               paddingHorizontal: 10,
               paddingVertical: 5,
-              borderRadius: 20,
+              borderRadius: 10,
             }}
           >
             <Text style={{ color: '#fff', fontFamily: 'Ubuntu-Regular' }}>

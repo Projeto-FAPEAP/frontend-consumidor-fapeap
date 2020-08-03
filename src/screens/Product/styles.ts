@@ -48,7 +48,7 @@ export const Footer = styled.View`
 export const ButtonAdd = styled.TouchableOpacity`
   padding: 5px 20px;
   background: ${(props) => props.theme.colors.primary};
-  border-radius: 20px;
+  border-radius: 10px;
   margin-left: 20px;
 `;
 

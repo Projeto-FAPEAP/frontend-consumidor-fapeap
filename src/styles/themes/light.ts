@@ -40,8 +40,12 @@ export default {
     Ubuntu: {
       normal: 'Ubuntu-Regular',
       bold: 'Ubuntu-Bold',
-      semiBold: 'Ubuntu-semiBold',
+      semiBold: 'Ubuntu-SemiBold',
     },
+  },
+
+  metrics: {
+    border: 10,
   },
 
   screen: {

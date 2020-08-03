@@ -5,7 +5,6 @@ interface ITextProps {
 }
 
 export const Container = styled.TouchableOpacity`
-  flex: 1;
   background: ${(props) => props.theme.colors.white};
   padding: 10px;
   flex-direction: row;

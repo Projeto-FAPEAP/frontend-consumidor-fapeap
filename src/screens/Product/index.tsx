@@ -22,7 +22,7 @@ const Product: React.FC = (props) => {
   const [data, setData] = useState(props.route.params.item);
 
   useEffect(() => {
-    //console.log(cart);
+    // console.log(cart);
   }, [cart]);
 
   return (
@@ -38,7 +38,8 @@ const Product: React.FC = (props) => {
         <Header>
           <Title style={{ marginBottom: 5 }}>{data.nome}</Title>
           <Text style={{ marginBottom: 5 }}>
-            {data.unidade_medida} Litro(s) - R$ {formatMoney(data.preco)}
+            {isNaN(data.unidade_medida) ? 1 : data.unidade_medida} Litro(s) - R${' '}
+            {formatMoney(data.preco)}
           </Text>
 
           {data.status_produto ? (
