@@ -170,7 +170,7 @@ const Login: React.FC = () => {
       formRef.current?.setErrors({});
       try {
         const schema = Yup.object().shape({
-          cpf_cnpj: Yup.string().required('CPF ou CNPJ é obrigatório'),
+          cpf_cnpj: Yup.string().required('CPF é obrigatório'),
           password: Yup.string().required('Senha é obrigatória'),
         });
 
@@ -218,10 +218,10 @@ const Login: React.FC = () => {
       <S.Container>
         <S.Title>Entre com sua conta</S.Title>
         <FormProvider
-          initialData={{
+          /* initialData={{
             cpf_cnpj: '45687921',
             password: '152547xcz',
-          }}
+          }} */
           onSubmit={handleSubmit}
           ref={formRef}
         >

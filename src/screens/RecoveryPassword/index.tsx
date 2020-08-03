@@ -192,17 +192,7 @@ const LogOut: React.FC = () => {
   return (
     <KeyboardView>
       <S.Container>
-        <FormProvider
-          initialData={{
-            name: 'njgnt',
-            cpf: '74947594',
-            phone: '9389485',
-            email: 'fnjrn@fekr.com',
-            password: 'nvjnt',
-          }}
-          onSubmit={handleSubmit}
-          ref={formRef}
-        >
+        <FormProvider onSubmit={handleSubmit} ref={formRef}>
           <S.Title>Recupere sua conta</S.Title>
           <S.Subtitle>
             favor, insira o email da sua conta para receber o link de

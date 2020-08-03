@@ -58,13 +58,7 @@ const Profile: React.FC = ({ navigation }) => {
               }}
               bottomDivider
               chevron
-              onPress={
-                () =>
-                  Alert.alert(
-                    'Em manutenção',
-                    'Funcionalidade em desenvolvimento!',
-                  ) /* navigation.navigate('EditProfile') */
-              }
+              onPress={() => navigation.navigate('EditProfile')}
             />
             <ListItem
               title="Sair"

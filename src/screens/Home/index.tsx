@@ -20,9 +20,10 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     api
-      .get<IMixer>('fornecedor')
+      .get<IMixer[]>('fornecedor')
       .then(({ data }) => {
-        setData(data);
+        const filter = data.filter((item) => item?.verificado);
+        setData(filter);
         setLoading(false);
       })
       .catch((response) => {
