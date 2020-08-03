@@ -114,7 +114,7 @@ export default SignIn;
  */
 
 import React, { useContext, useState } from 'react';
-import { Alert } from 'react-native';
+import { Alert, StatusBar } from 'react-native';
 
 import Input from '@components/Input';
 import KeyboardView from '@components/KeyboardView';
@@ -214,6 +214,7 @@ const Login: React.FC = () => {
   return (
     <KeyboardView>
       {/* <Loader loading={loading} /> */}
+      <StatusBar barStyle="dark-content" />
       <S.Container>
         <S.Title>Entre com sua conta</S.Title>
         <FormProvider

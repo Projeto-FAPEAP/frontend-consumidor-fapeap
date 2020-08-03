@@ -43,6 +43,7 @@ export const Footer = styled.View`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
 `;
 
 export const ButtonAdd = styled.TouchableOpacity`

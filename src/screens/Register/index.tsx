@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
-import { Alert, Keyboard } from 'react-native';
+import { Alert, StatusBar, Keyboard } from 'react-native';
 
 import KeyboardView from '@components/KeyboardView';
 import { useNavigation } from '@react-navigation/native';
-import api from '@services/api';
 import { FormHandles } from '@unform/core';
 import { Form as FormProvider } from '@unform/mobile';
 import { darken } from 'polished';
@@ -244,7 +243,8 @@ const Login: React.FC = () => {
   );
 
   return (
-    <S.Container>
+    <S.Container showsVerticalScrollIndicator={false}>
+      <StatusBar barStyle="dark-content" />
       <KeyboardView>
         <S.Header>
           <S.Title>Crie sua conta</S.Title>

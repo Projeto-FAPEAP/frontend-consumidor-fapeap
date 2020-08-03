@@ -33,7 +33,7 @@ const Home: React.FC = () => {
       {user && (
         <Header>
           <Icon name="map-marker" size={40} color="#84378F" />
-          <View>
+          <View style={{ flex: 1 }}>
             <Text
               style={{
                 fontFamily: 'Ubuntu-Regular',
