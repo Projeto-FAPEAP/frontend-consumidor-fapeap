@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Alert, StatusBar, Keyboard } from 'react-native';
+import { Alert, Keyboard, StatusBar } from 'react-native';
 
 import KeyboardView from '@components/KeyboardView';
 import { useNavigation } from '@react-navigation/native';
@@ -65,6 +65,34 @@ const Login: React.FC = () => {
     dataStep1,
     dataStep2,
   ]);
+
+  /* React.useEffect(() => {
+    async function getAddress(): void {
+      //setError(false);
+      if (cep?.length === 8) {
+        setLoading(true);
+        const response = await axios.get(
+          `https://viacep.com.br/ws/${cep}/json/`
+        );
+        if (response.data.erro) {
+          Alert.alert('Erro', 'O CEP inserido é inválido!');
+          setLoading(false);
+          //setError(true);
+
+          return;
+        }
+        const {
+          logradouro,
+          uf: estado,
+          localidade: cidade,
+          bairro,
+        } = response.data;
+        setAddress({ logradouro, estado, cidade, bairro, cep });
+        setLoading(false);
+      }
+    }
+    getAddress();
+  }, [cep]); */
 
   React.useEffect(() => {
     switch (step) {

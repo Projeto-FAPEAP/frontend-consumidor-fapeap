@@ -230,9 +230,8 @@ const Order: React.FC = ({ navigation }) => {
                         </Title>
                         <Subtitle>
                           {isNaN(item.unidade_medida)
-                            ? 1
-                            : item.unidade_medida * item.quantity}{' '}
-                          Litro(s)
+                            ? `1 ${item.unidade_medida}`
+                            : `${item.unidade_medida * item.quantity} Litro(s)`}
                         </Subtitle>
                       </Left>
                       <Right>

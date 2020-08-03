@@ -230,7 +230,7 @@ const Login: React.FC = () => {
               icon="user"
               label="Sua credencial"
               name="cpf_cnpj"
-              placeholder="Seu CPF ou CNPJ"
+              placeholder="Seu CPF"
               autoCapitalize="none"
               keyboardType="number-pad"
               returnKeyType="next"

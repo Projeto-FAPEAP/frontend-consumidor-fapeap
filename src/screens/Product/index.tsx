@@ -38,8 +38,10 @@ const Product: React.FC = (props) => {
         <Header>
           <Title style={{ marginBottom: 5 }}>{data.nome}</Title>
           <Text style={{ marginBottom: 5 }}>
-            {isNaN(data.unidade_medida) ? 1 : data.unidade_medida} Litro(s) - R${' '}
-            {formatMoney(data.preco)}
+            {isNaN(data.unidade_medida)
+              ? `1 ${data.unidade_medida}`
+              : `${data.unidade_medida} Litro(s)`}{' '}
+            - R$ {formatMoney(data.preco)}
           </Text>
 
           {data.status_produto ? (

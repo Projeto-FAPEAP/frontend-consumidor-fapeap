@@ -16,15 +16,17 @@ interface IMixer {
 const Home: React.FC = () => {
   const [data, setData] = useState<IMixer[]>([]);
   const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     api
       .get<IMixer>('fornecedor')
       .then(({ data }) => {
         setData(data);
+        setLoading(false);
       })
       .catch((response) => {
-        console.log(response.data);
+        console.log(response);
       });
   }, []);
 
@@ -72,6 +74,22 @@ const Home: React.FC = () => {
         renderItem={({ item }) => <Mixer item={item} />}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
+        ListEmptyComponent={() => (
+          <>
+            {!loading && (
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: '#999',
+                  fontFamily: 'Ubuntu-Regular',
+                  marginLeft: 10,
+                }}
+              >
+                Não há batedeiras disponíveis
+              </Text>
+            )}
+          </>
+        )}
       />
     </Container>
   );
