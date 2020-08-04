@@ -13,7 +13,7 @@ interface AuthContextData {
   signed: boolean;
   user: object | null;
   loading: boolean;
-  logIn(email: string, password: string): Promise<Response>;
+  logIn(cpf: string, password: string): Promise<Response>;
   signOut(data: object): Promise<Response>;
   logOut(): void;
 }
@@ -42,10 +42,10 @@ export const AuthProvider: React.FC = ({ children }) => {
     loadData();
   }, []);
 
-  async function logIn(email: string, password: string): Promise<Response> {
+  async function logIn(cpf: string, password: string): Promise<Response> {
     try {
       const response = await api.post('sessao/consumidor', {
-        cpf: email,
+        cpf,
         senha: password,
       });
 
@@ -83,7 +83,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     try {
       await api.post('consumidor', data);
 
-      const response = await logIn(data.cpf, data.password);
+      const response = await logIn(data.cpf, data.senha);
 
       return new Promise((resolve) => {
         resolve({

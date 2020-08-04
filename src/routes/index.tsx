@@ -11,7 +11,7 @@ const Routes: React.FC = () => {
     <View />
   ) : (
     <>
-      <StatusBar barStyle="light-content" />
+      <StatusBar backgroundColor="#84378F" barStyle="light-content" />
       <AppRoutes />
     </>
   );

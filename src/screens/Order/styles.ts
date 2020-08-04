@@ -16,6 +16,7 @@ export const Header = styled.View`
   min-height: 150px;
   width: 100%;
   background: #fff;
+  padding: 0 20px;
 `;
 
 export const Image = styled.Image`

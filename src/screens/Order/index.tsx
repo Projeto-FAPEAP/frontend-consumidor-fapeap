@@ -134,7 +134,7 @@ const Order: React.FC = ({ navigation }) => {
           />
           <Title style={{ marginBottom: 5 }}>{user.nome}</Title>
           {user.cep && (
-            <Subtitle>
+            <Subtitle style={{ fontSize: 12, textAlign: 'justify' }}>
               {user.logradouro}, {user.numero_local}, {user.bairro}, Macapá - AP
             </Subtitle>
           )}

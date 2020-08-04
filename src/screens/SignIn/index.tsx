@@ -114,7 +114,8 @@ export default SignIn;
  */
 
 import React, { useContext, useState } from 'react';
-import { Alert, StatusBar } from 'react-native';
+import { Alert, Platform, StatusBar } from 'react-native';
+import { MaskService } from 'react-native-masked-text';
 
 import Input from '@components/Input';
 import KeyboardView from '@components/KeyboardView';
@@ -214,7 +215,9 @@ const Login: React.FC = () => {
   return (
     <KeyboardView>
       {/* <Loader loading={loading} /> */}
-      <StatusBar barStyle="dark-content" />
+      <StatusBar
+        barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
+      />
       <S.Container>
         <S.Title>Entre com sua conta</S.Title>
         <FormProvider
@@ -237,6 +240,13 @@ const Login: React.FC = () => {
               onSubmitEditing={() => focusTargetInput('password')}
               containerStyle={{
                 maxWidth: 350,
+              }}
+              onChangeText={(text) => {
+                let formatted = text;
+
+                formatted = MaskService.toMask('cpf', text);
+
+                formRef.current?.setFieldValue('cpf_cnpj', formatted);
               }}
             />
             <Input

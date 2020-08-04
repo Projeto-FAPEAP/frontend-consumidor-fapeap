@@ -1,15 +1,19 @@
 import React from 'react';
+import { MaskService } from 'react-native-masked-text';
+
+import { FormHandles } from '@unform/core';
 
 import Input from '../../../components/Input';
 
 interface IFormStep1Props {
   focusTargetInput(name: string): void;
   onSubmitForm(): void;
+  formRef: React.RefObject<FormHandles>;
 }
 
 const FormStep1: React.FC<IFormStep1Props> = (props) => {
   const { focusTargetInput } = props;
-  const { onSubmitForm } = props;
+  const { onSubmitForm, formRef } = props;
 
   return (
     <>
@@ -20,7 +24,7 @@ const FormStep1: React.FC<IFormStep1Props> = (props) => {
         placeholder="Seu nome completo"
         autoCapitalize="words"
         returnKeyType="next"
-        onSubmitEditing={() => focusTargetInput('email')}
+        onSubmitEditing={() => focusTargetInput('telefone_whatsapp')}
         containerStyle={{
           maxWidth: 350,
         }}
@@ -30,13 +34,21 @@ const FormStep1: React.FC<IFormStep1Props> = (props) => {
           marginTop: 15,
           maxWidth: 350,
         }}
+        onChangeText={(text) => {
+          const formatted = MaskService.toMask('cel-phone', text, {
+            maskType: 'BRL',
+            withDDD: true,
+            dddMask: '(99) ',
+          });
+          formRef.current?.setFieldValue('telefone_whatsapp', formatted);
+        }}
         icon="message-circle"
         label="Telefone whatsapp"
         name="telefone_whatsapp"
         placeholder="Telefone whatsapp"
         keyboardType="number-pad"
         returnKeyType="send"
-        onSubmitEditing={onSubmitForm}
+        onSubmitEditing={() => focusTargetInput('email')}
       />
       <Input
         containerStyle={{
@@ -49,7 +61,7 @@ const FormStep1: React.FC<IFormStep1Props> = (props) => {
         placeholder="Seu email"
         autoCapitalize="none"
         autoCorrect={false}
-        onSubmitEditing={() => focusTargetInput('cpf_cnpj')}
+        onSubmitEditing={() => focusTargetInput('cpf')}
         returnKeyType="next"
       />
 
@@ -65,6 +77,13 @@ const FormStep1: React.FC<IFormStep1Props> = (props) => {
         containerStyle={{
           marginTop: 15,
           maxWidth: 350,
+        }}
+        onChangeText={(text) => {
+          let formatted = text;
+
+          formatted = MaskService.toMask('cpf', text);
+
+          formRef.current?.setFieldValue('cpf', formatted);
         }}
       />
 

@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Text, View, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import Axios from 'axios';
+
 import Mixer from '../../components/Cards/Mixer';
 import AuthContext from '../../contexts/auth';
 import api from '../../services/api';
@@ -13,10 +15,17 @@ interface IMixer {
   taxa_delivery: string;
 }
 
+interface ICEPResponse {
+  localidade: string;
+  uf: string;
+}
+
 const Home: React.FC = () => {
   const [data, setData] = useState<IMixer[]>([]);
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
+
+  const [city, setCity] = useState('');
 
   useEffect(() => {
     api
@@ -30,6 +39,21 @@ const Home: React.FC = () => {
         console.log(response);
       });
   }, []);
+
+  useEffect(() => {
+    if (user?.cep) {
+      getCityAndUf(user.cep);
+    }
+  }, [user]);
+
+  function getCityAndUf(cep): Promise<void> {
+    Axios.get<ICEPResponse>(`https://viacep.com.br/ws/${cep}/json/`)
+      .then((response) => {
+        const { localidade, uf } = response.data;
+        setCity(` ${localidade} - ${uf}`);
+      })
+      .catch(() => {});
+  }
 
   return (
     <Container>
@@ -58,7 +82,7 @@ const Home: React.FC = () => {
               {user.cep ? (
                 <>
                   {user.logradouro}, nº {user.numero_local}, {user.bairro},
-                  Macapá - AP
+                  {city}
                 </>
               ) : (
                 <Text>Sem endereço cadastrado</Text>

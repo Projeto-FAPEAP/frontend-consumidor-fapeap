@@ -5,14 +5,12 @@ import KeyboardView from '@components/KeyboardView';
 import { useNavigation } from '@react-navigation/native';
 import { FormHandles } from '@unform/core';
 import { Form as FormProvider } from '@unform/mobile';
-import { darken } from 'polished';
 import { useTheme } from 'styled-components';
 import * as Yup from 'yup';
 
 import AuthContext from '../../contexts/auth';
 import getValidationErrors from '../../utils/getValidationErrors';
 import FormStep1 from './FormStep1';
-import FormStep2 from './FormStep2';
 import * as S from './styles';
 
 interface ISubmitForm {
@@ -39,13 +37,6 @@ interface IFormDataStep1 {
   bairro: string;
   senha: string;
   password_confirmation: string;
-}
-
-interface IFormDataStep2 {
-  cep: string;
-  logradouro: string;
-  numero_local: string;
-  bairro: string;
 }
 
 const EditProfile: React.FC = () => {
@@ -84,6 +75,17 @@ const EditProfile: React.FC = () => {
       formRef.current?.setData(formData);
       formRef.current?.setErrors({});
     }
+
+    formRef.current?.setData({
+      nome: user.nome,
+      telefone_whatsapp: user.telefone_whatsapp,
+      email: user.email,
+      cpf: user.cpf,
+      cep: user.cep,
+      logradouro: user.logradouro,
+      bairro: user.bairro,
+      numero_local: user.numero_local,
+    });
   }, [formData, step]);
 
   React.useEffect(() => {
@@ -104,108 +106,106 @@ const EditProfile: React.FC = () => {
     };
   }, [keyboardIsOpen]);
 
-  const handleSubmit = React.useCallback(async (data: ISubmitForm) => {
-    formRef.current?.setErrors({});
-    if (step === 1) {
-      try {
-        const schemaStep1 = Yup.object().shape({
-          nome: Yup.string().required('Campo obrigatório'),
-          telefone_whatsapp: Yup.string().required('Campo obrigatório'),
-          email: Yup.string()
-            .email('Informe um email válido')
-            .required('Campo obrigatório'),
-          cpf: Yup.string().required('Campo obrigatório'),
-          cep: Yup.string().required('Campo obrigatório'),
-          logradouro: Yup.string().required('Campo obrigatório'),
-          bairro: Yup.string().required('Campo obrigatório'),
-          numero_local: Yup.string().required('Campo obrigatório'),
-          senha: Yup.string()
-            .min(3, 'Você deve informar no mínimo 4 caracteres')
-            .required('Senha é obrigatória'),
-          password_confirmation: Yup.string()
-            .oneOf([Yup.ref('senha')], 'Senhas não coincidem')
-            .required('A confirmação da senha é obrigatória'),
-        });
+  const handleSubmit = React.useCallback(
+    async (data: ISubmitForm) => {
+      formRef.current?.setErrors({});
+      if (step === 1) {
+        try {
+          const schemaStep1 = Yup.object().shape({
+            nome: Yup.string().required('Campo obrigatório'),
+            telefone_whatsapp: Yup.string().required('Campo obrigatório'),
+            email: Yup.string()
+              .email('Informe um email válido')
+              .required('Campo obrigatório'),
+            cpf: Yup.string().required('Campo obrigatório'),
+            cep: Yup.string().required('Campo obrigatório'),
+            logradouro: Yup.string().required('Campo obrigatório'),
+            bairro: Yup.string().required('Campo obrigatório'),
+            numero_local: Yup.string().required('Campo obrigatório'),
+            senha: Yup.string(),
+            password_confirmation: Yup.string(),
+          });
 
-        const objectFormData = Object.assign(formData, {
-          nome: data.nome,
-          telefone_whatsapp: data.telefone_whatsapp,
-          email: data.email,
-          cpf: data.cpf,
-          cep: data.cep,
-          logradouro: data.logradouro,
-          bairro: data.bairro,
-          numero_local: data.numero_local,
-          senha: data.senha,
-          password_confirmation: data.password_confirmation,
-        });
+          const objectFormData = Object.assign(formData, {
+            nome: data.nome,
+            telefone_whatsapp: data.telefone_whatsapp,
+            email: data.email,
+            cpf: data.cpf,
+            cep: data.cep,
+            logradouro: data.logradouro,
+            bairro: data.bairro,
+            numero_local: data.numero_local,
+            senha: data.senha,
+            password_confirmation: data.password_confirmation,
+          });
 
-        const {
-          nome,
-          telefone_whatsapp,
-          email,
-          cpf,
-          cep,
-          logradouro,
-          bairro,
-          numero_local,
-        } = objectFormData;
-        const { senha, password_confirmation } = objectFormData;
-
-        await schemaStep1.validate(
-          {
+          const {
             nome,
             telefone_whatsapp,
             email,
+            cpf,
             cep,
             logradouro,
             bairro,
             numero_local,
+          } = objectFormData;
+          const { senha, password_confirmation } = objectFormData;
+
+          await schemaStep1.validate(
+            {
+              nome,
+              telefone_whatsapp,
+              email,
+              cep,
+              logradouro,
+              bairro,
+              numero_local,
+              senha,
+              password_confirmation,
+              cpf,
+            },
+            { abortEarly: false },
+          );
+
+          setDataStep1({
+            nome,
+            telefone_whatsapp,
+            cpf,
+            email,
             senha,
             password_confirmation,
-            cpf,
-          },
-          { abortEarly: false },
-        );
-
-        setDataStep1({
-          nome,
-          telefone_whatsapp,
-          cpf,
-          email,
-          senha,
-          password_confirmation,
-          cep,
-          logradouro,
-          bairro,
-          numero_local,
-        });
-
-        setStep(step + 1);
-
-        setLoading(true);
-
-        const response = await signOut(data);
-        const { responseState, responseStatus } = response;
-
-        if (!responseState) {
-          Alert.alert('Não foi possível cadastrar', responseStatus);
-        } else {
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'Home' }],
+            cep,
+            logradouro,
+            bairro,
+            numero_local,
           });
-        }
 
-        setLoading(false);
-      } catch (err) {
-        if (err instanceof Yup.ValidationError) {
-          const errors = getValidationErrors(err);
-          formRef.current?.setErrors(errors);
+          setLoading(true);
+
+          console.log(objectFormData);
+          /*  const response = await signOut(data);
+          const { responseState, responseStatus } = response;
+
+          if (!responseState) {
+            Alert.alert('Não foi possível cadastrar', responseStatus);
+          } else {
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'Home' }],
+            });
+          } */
+
+          setLoading(false);
+        } catch (err) {
+          if (err instanceof Yup.ValidationError) {
+            const errors = getValidationErrors(err);
+            formRef.current?.setErrors(errors);
+          }
         }
       }
-    }
-  }, []);
+    },
+    [formData, navigation, step, signOut],
+  );
 
   const submitForm = React.useCallback(() => {
     formRef.current?.submitForm();
@@ -232,31 +232,12 @@ const EditProfile: React.FC = () => {
 
   return (
     <S.Container showsVerticalScrollIndicator={false}>
-      <StatusBar barStyle="dark-content" />
       <KeyboardView>
-        <FormProvider
-          initialData={{
-            nome: user.nome,
-            telefone_whatsapp: user.telefone_whatsapp,
-            email: user.email,
-            cpf: user.cpf,
-            cep: user.cep,
-            logradouro: user.logradouro,
-            bairro: user.bairro,
-            numero_local: user.numero_local,
-          }}
-          onSubmit={handleSubmit}
-          ref={formRef}
-        >
+        <FormProvider onSubmit={handleSubmit} ref={formRef}>
           <S.Form>
             {step === 1 && (
               <FormStep1
-                onSubmitForm={submitForm}
-                focusTargetInput={focusTargetInput}
-              />
-            )}
-            {step === 2 && (
-              <FormStep2
+                formRef={formRef}
                 onSubmitForm={submitForm}
                 focusTargetInput={focusTargetInput}
               />
