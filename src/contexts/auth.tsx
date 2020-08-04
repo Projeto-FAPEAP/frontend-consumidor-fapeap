@@ -9,19 +9,35 @@ interface Response {
   responseStatus: string;
 }
 
+interface IUser {
+  nome: string;
+  telefone_whatsapp: string;
+  email: string;
+  cpf: string;
+  cep: string;
+  logradouro: string;
+  bairro: string;
+  numero_local: number;
+}
+
 interface AuthContextData {
   signed: boolean;
-  user: object | null;
+  user: IUser | null;
   loading: boolean;
   logIn(cpf: string, password: string): Promise<Response>;
   signOut(data: object): Promise<Response>;
   logOut(): void;
 }
 
+interface IResponseData {
+  cpf: string;
+  senha: string;
+}
+
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [user, setUser] = useState<object | null>(null);
+  const [user, setUser] = useState<IUser | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -79,7 +95,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
   }
 
-  async function signOut(data: object): Promise<Response> {
+  async function signOut(data: IResponseData): Promise<Response> {
     try {
       await api.post('consumidor', data);
 

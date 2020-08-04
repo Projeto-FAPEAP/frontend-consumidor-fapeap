@@ -2,8 +2,19 @@ import React, { useState, useCallback, createContext, useEffect } from 'react';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
+interface ICart {
+  id: string;
+  estoque_produto: number;
+  quantity: number;
+  fornecedor: {
+    id: string;
+    taxa_delivery: string;
+    delivery: boolean;
+  };
+}
+
 interface CartContextData {
-  cart: object | null;
+  cart: ICart[];
   addCart(product: object): void;
   changeDeliveryProduct(product: object): void;
   removeCart(product: object): void;
@@ -13,7 +24,7 @@ interface CartContextData {
 const CartContext = createContext<CartContextData>({} as CartContextData);
 
 export const CartProvider: React.FC = ({ children }) => {
-  const [cart, setCart] = useState<object[] | null>([]);
+  const [cart, setCart] = useState<ICart[]>([]);
 
   useEffect(() => {
     async function loadData(): Promise<void> {
@@ -41,15 +52,15 @@ export const CartProvider: React.FC = ({ children }) => {
 
   const addCart = useCallback(
     (product) => {
-      const filter = cart.filter((item) => item.id == product.id);
+      const filter = cart?.filter((item) => item.id === product.id);
 
       if (filter.length > 0) {
-        if (filter[0].quantity == product.estoque_produto) {
+        if (filter[0].quantity === product.estoque_produto) {
           return;
         }
 
-        const newData = cart.map((item) =>
-          item.id == product.id
+        const newData = cart?.map((item) =>
+          item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
             : item,
         );
@@ -74,7 +85,7 @@ export const CartProvider: React.FC = ({ children }) => {
   const changeDeliveryProduct = useCallback(
     (product) => {
       const newData = cart.map((item) =>
-        item.fornecedor.id == product[0].fornecedor.id
+        item.fornecedor.id === product[0].fornecedor.id
           ? {
               ...item,
               fornecedor: {
@@ -91,14 +102,14 @@ export const CartProvider: React.FC = ({ children }) => {
 
   const removeCart = useCallback(
     (product) => {
-      const filter = cart.filter((item) => item.id == product.id);
+      const filter = cart.filter((item) => item.id === product.id);
       if (filter.length > 0) {
-        if (filter[0].quantity == 1) {
-          const filter = cart.filter((item) => item.id != product.id);
-          setCart(filter);
+        if (filter[0].quantity === 1) {
+          const newCart = cart.filter((item) => item.id !== product.id);
+          setCart(newCart);
         } else {
           const newData = cart.map((item) =>
-            item.id == product.id
+            item.id === product.id
               ? { ...item, quantity: item.quantity - 1 }
               : item,
           );
@@ -112,7 +123,7 @@ export const CartProvider: React.FC = ({ children }) => {
   const clearCart = useCallback(
     (store) => {
       const filter = cart.filter(
-        (item) => item.fornecedor.id != store[0].fornecedor.id,
+        (item) => item.fornecedor.id !== store[0].fornecedor.id,
       );
       setCart(filter);
     },

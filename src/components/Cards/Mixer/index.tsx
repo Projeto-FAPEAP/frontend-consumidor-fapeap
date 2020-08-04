@@ -11,6 +11,7 @@ interface IMixer {
     id: string;
     nome_fantasia: string;
     taxa_delivery: string;
+    verificado: boolean;
   };
   navigation: {
     navigate(route: string, params?: object): void;

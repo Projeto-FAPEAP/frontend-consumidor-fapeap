@@ -13,6 +13,7 @@ interface IMixer {
   id: string;
   nome_fantasia: string;
   taxa_delivery: string;
+  verificado: boolean;
 }
 
 interface ICEPResponse {
@@ -27,17 +28,21 @@ const Home: React.FC = () => {
 
   const [city, setCity] = useState('');
 
+  function getCityAndUf(cep: string): void {
+    Axios.get<ICEPResponse>(`https://viacep.com.br/ws/${cep}/json/`).then(
+      (response) => {
+        const { localidade, uf } = response.data;
+        setCity(` ${localidade} - ${uf}`);
+      },
+    );
+  }
+
   useEffect(() => {
-    api
-      .get<IMixer[]>('fornecedor')
-      .then(({ data }) => {
-        const filter = data.filter((item) => item?.verificado);
-        setData(filter);
-        setLoading(false);
-      })
-      .catch((response) => {
-        console.log(response);
-      });
+    api.get<IMixer[]>('fornecedor').then((response) => {
+      const filter = response.data.filter((item) => item?.verificado);
+      setData(filter);
+      setLoading(false);
+    });
   }, []);
 
   useEffect(() => {
@@ -45,15 +50,6 @@ const Home: React.FC = () => {
       getCityAndUf(user.cep);
     }
   }, [user]);
-
-  function getCityAndUf(cep): Promise<void> {
-    Axios.get<ICEPResponse>(`https://viacep.com.br/ws/${cep}/json/`)
-      .then((response) => {
-        const { localidade, uf } = response.data;
-        setCity(` ${localidade} - ${uf}`);
-      })
-      .catch(() => {});
-  }
 
   return (
     <Container>

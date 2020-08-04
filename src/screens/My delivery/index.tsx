@@ -3,8 +3,10 @@ import { Text, View } from 'react-native';
 
 const MyDelivery: React.FC = () => {
   return (
-    <View>
-      <Text>Estou na tela de meus pedidos!!!</Text>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text style={{ fontFamily: 'Ubuntu-Regular' }}>
+        Estou na tela de meus pedidos!!!
+      </Text>
     </View>
   );
 };

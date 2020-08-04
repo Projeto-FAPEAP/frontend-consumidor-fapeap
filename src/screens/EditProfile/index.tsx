@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Alert, Keyboard, StatusBar } from 'react-native';
+import { Alert, Keyboard } from 'react-native';
 
 import KeyboardView from '@components/KeyboardView';
 import { useNavigation } from '@react-navigation/native';
@@ -45,7 +45,6 @@ const EditProfile: React.FC = () => {
   const { colors } = useTheme();
   const [loading, setLoading] = React.useState(false);
   const [step, setStep] = React.useState(1);
-  const [subtitle, setSubtitle] = React.useState('');
   const [keyboardIsOpen, setKeyboardIsOpen] = React.useState(false);
 
   const { user, signOut } = useContext(AuthContext);
@@ -57,36 +56,22 @@ const EditProfile: React.FC = () => {
   const formData = React.useMemo(() => dataStep1, [dataStep1]);
 
   React.useEffect(() => {
-    switch (step) {
-      case 1:
-        setSubtitle(
-          'Primeiramente, precisamos de seus dados pessoais e de acesso',
-        );
-        break;
-      case 2:
-        setSubtitle('Onde seu endereço para entrega fica localizado?');
-        break;
-      default:
-        setSubtitle('Etapa não identificada');
-        break;
-    }
-
     if (step < 4) {
       formRef.current?.setData(formData);
       formRef.current?.setErrors({});
     }
 
     formRef.current?.setData({
-      nome: user.nome,
-      telefone_whatsapp: user.telefone_whatsapp,
-      email: user.email,
-      cpf: user.cpf,
-      cep: user.cep,
-      logradouro: user.logradouro,
-      bairro: user.bairro,
-      numero_local: user.numero_local,
+      nome: user?.nome,
+      telefone_whatsapp: user?.telefone_whatsapp,
+      email: user?.email,
+      cpf: user?.cpf,
+      cep: user?.cep,
+      logradouro: user?.logradouro,
+      bairro: user?.bairro,
+      numero_local: user?.numero_local,
     });
-  }, [formData, step]);
+  }, [user, formData, step]);
 
   React.useEffect(() => {
     function onKeyboardDidShow(): void {

@@ -17,13 +17,23 @@ import {
   ButtonAddText,
 } from './styles';
 
-const Product: React.FC = (props) => {
-  const { cart, addCart, removeCart } = useContext(CartContext);
-  const [data, setData] = useState(props.route.params.item);
+interface IProps {
+  route: {
+    params: {
+      item: {
+        id: string;
+        nome: string;
+        unidade_medida: string | number;
+        preco: string;
+        status_produto: boolean;
+      };
+    };
+  };
+}
 
-  useEffect(() => {
-    // console.log(cart);
-  }, [cart]);
+const Product: React.FC<IProps> = (props) => {
+  const { cart, addCart, removeCart } = useContext(CartContext);
+  const data = props?.route?.params?.item;
 
   return (
     <Container>
@@ -106,13 +116,7 @@ const Product: React.FC = (props) => {
             />
           </TouchableOpacity>
 
-          <ButtonAdd
-            onPress={
-              () =>
-                data.status_produto &&
-                addCart(data) /* props.navigation.navigate('Order') */
-            }
-          >
+          <ButtonAdd onPress={() => data.status_produto && addCart(data)}>
             <ButtonAddText>Adicionar item</ButtonAddText>
           </ButtonAdd>
         </Footer>

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import { useNavigation } from '@react-navigation/native';
+
 import order from '../../assets/order.png';
 import basket from '../../components/Basket';
 import formatMoney from '../../components/FormatMoney';
@@ -26,13 +28,31 @@ import {
   TextCard,
 } from './styles';
 
-const Order: React.FC = ({ navigation }) => {
+interface IContentBasket {
+  id: string;
+  nome: string;
+  unidade_medida: string | number;
+  estoque_produto: number;
+  preco: string;
+  quantity: number;
+  fornecedor: {
+    id: string;
+    nome_fantasia: string;
+    taxa_delivery: string;
+    delivery: boolean;
+  };
+}
+
+type IBasket = IContentBasket[];
+
+const Order: React.FC = () => {
+  const navigation = useNavigation();
   const { cart, clearCart, changeDeliveryProduct } = useContext(CartContext);
   const { user } = useContext(AuthContext);
 
   const [loading, setLoading] = useState(true);
 
-  const [baskets, setBaskets] = useState([]);
+  const [baskets, setBaskets] = useState<IBasket[]>([]);
 
   useEffect(() => {
     setLoading(true);
@@ -45,12 +65,12 @@ const Order: React.FC = ({ navigation }) => {
     setLoading(false);
   }, [cart]);
 
-  function setDeliveryChange(value, basket): void {
+  function setDeliveryChange(basket: IBasket): void {
     changeDeliveryProduct(basket);
   }
 
-  function finalizeOrder(order): void {
-    if (user.cep == null && order[0].fornecedor.delivery) {
+  function finalizeOrder(order: IContentBasket[]): void {
+    if (user?.cep == null && order[0].fornecedor.delivery) {
       Alert.alert(
         'Pedido não efetuado',
         'Adicione um endereço de entrega antes de finalizar o pedido!',
@@ -102,7 +122,7 @@ const Order: React.FC = ({ navigation }) => {
     );
   }
 
-  function clearOneCart(order): void {
+  function clearOneCart(order: IContentBasket): void {
     Alert.alert(
       'Fechar Pedido',
       'Você realmente deseja fechar este pedido?',
@@ -160,7 +180,6 @@ const Order: React.FC = ({ navigation }) => {
                       {basket[0].fornecedor.nome_fantasia}
                     </Text>
                     <Icon
-                      style={{ marginRight: 5 }}
                       name="close-circle"
                       color="#EB5757"
                       size={18}
@@ -171,7 +190,7 @@ const Order: React.FC = ({ navigation }) => {
                   {basket[0].fornecedor.taxa_delivery ? (
                     <View style={{ flexDirection: 'row' }}>
                       <BasketDeliveryCard
-                        onPress={() => setDeliveryChange(true, basket)}
+                        onPress={() => setDeliveryChange(basket)}
                       >
                         <TextCard
                           style={{
@@ -187,7 +206,7 @@ const Order: React.FC = ({ navigation }) => {
                       </BasketDeliveryCard>
 
                       <BasketDeliveryCard
-                        onPress={() => setDeliveryChange(false, basket)}
+                        onPress={() => setDeliveryChange(basket)}
                       >
                         <TextCard
                           style={{
@@ -379,139 +398,6 @@ const Order: React.FC = ({ navigation }) => {
           )}
         </>
       )}
-
-      {/* {cart.length > 0 ? (
-        <Content>
-          <CardInformation>
-            {cart.map((item) => (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: 20,
-                }}
-              >
-                <Left>
-                  <Title>
-                    <TextQuantity>{item.quantity}x</TextQuantity> {item.nome}
-                  </Title>
-                  <Subtitle>
-                    {item.unidade_medida * item.quantity} Litro(s)
-                  </Subtitle>
-                </Left>
-                <Right>
-                  <Title>R$ {formatMoney(item.quantity * item.preco)}</Title>
-                </Right>
-              </View>
-            ))}
-
-            <View>
-              <View
-                style={{
-                  borderTopColor: '#ccc',
-                  borderTopWidth: 1,
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginTop: 10,
-                    marginBottom: 10,
-                  }}
-                >
-                  <Text
-                    style={{ fontFamily: 'Ubuntu-Regular', color: '#455A64' }}
-                  >
-                    Subtotal
-                  </Text>
-                  <Text
-                    style={{ fontFamily: 'Ubuntu-Regular', color: '#455A64' }}
-                  >
-                    R$ {formatMoney(soma(cart))}
-                  </Text>
-                </View>
-              </View>
-
-              <View
-                style={{
-                  borderBottomColor: '#ccc',
-                  borderBottomWidth: 1,
-                  marginBottom: 10,
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginBottom: 10,
-                  }}
-                >
-                  <Text
-                    style={{ fontFamily: 'Ubuntu-Regular', color: '#455A64' }}
-                  >
-                    Taxa de Entrega
-                  </Text>
-                  <Text
-                    style={{ fontFamily: 'Ubuntu-Regular', color: '#455A64' }}
-                  >
-                    R$ {formatMoney(somaTaxas(cart))}
-                  </Text>
-                </View>
-              </View>
-
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
-              >
-                <Text style={{ fontFamily: 'Ubuntu-Bold' }}>Total</Text>
-                <Text style={{ fontFamily: 'Ubuntu-Bold' }}>
-                  R$ {formatMoney(Number(soma(cart)) + Number(somaTaxas(cart)))}
-                </Text>
-              </View>
-            </View>
-          </CardInformation>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              marginTop: 10,
-            }}
-          >
-            <Button
-              onPress={() =>
-                user && cart.length != 0
-                  ? navigation.goBack()
-                  : !user && navigation.navigate('SignIn')
-              }
-            >
-              <ButtonText>Finalizar Pedido</ButtonText>
-            </Button>
-          </View>
-        </Content>
-      ) : (
-        <View
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
-          {!user && (
-            <Image
-              style={{ marginTop: 5, marginBottom: 5 }}
-              source={order}
-              resizeMode="contain"
-            />
-          )}
-          <Title style={{ marginBottom: 5, marginTop: !user ? 0 : '30%' }}>
-            Não há produtos no seu carrinho
-          </Title>
-        </View>
-      )} */}
     </Container>
   );
 };

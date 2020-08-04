@@ -2,10 +2,13 @@ import React, { useContext } from 'react';
 import { Text, View, TouchableOpacity, Alert } from 'react-native';
 import { Card, ListItem } from 'react-native-elements';
 
+import { useNavigation } from '@react-navigation/native';
+
 import AuthContext from '../../contexts/auth';
 import { Container, TextProfile, ViewList } from './styles';
 
-const Profile: React.FC = ({ navigation }) => {
+const Profile: React.FC = () => {
+  const navigation = useNavigation();
   const { user, logOut } = useContext(AuthContext);
 
   function handleSignOut(): void {

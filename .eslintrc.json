@@ -63,7 +63,7 @@
       }
     ],
     "import/extensions": [
-      "error",
+      "warn",
       "ignorePackages",
       {
         "tsx": "never",

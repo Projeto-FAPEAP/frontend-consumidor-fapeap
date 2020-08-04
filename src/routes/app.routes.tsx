@@ -17,7 +17,6 @@ import Profile from '../screens/Profile';
 import RecoveryP from '../screens/RecoveryPassword';
 import Register from '../screens/Register';
 import SignIn from '../screens/SignIn';
-import Welcome from '../screens/Welcome';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -84,8 +83,8 @@ const AppRoutes: React.FC = () => {
                 style={{
                   position: 'absolute',
                   backgroundColor: '#FF4646',
-                  width: 18,
-                  height: 18,
+                  width: 20,
+                  height: 20,
                   borderRadius: 12,
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -95,7 +94,7 @@ const AppRoutes: React.FC = () => {
               >
                 <Text
                   style={{
-                    fontFamily: 'Ubuntu-Regular',
+                    fontFamily: 'Ubuntu-Bold',
                     fontSize: 11,
                     color: '#fff',
                   }}
@@ -221,11 +220,6 @@ const AppRoutes: React.FC = () => {
         }}
       />
 
-      <Stack.Screen
-        name="Welcome"
-        options={{ headerShown: false, headerRight: () => null }}
-        component={Welcome}
-      />
       <Stack.Screen
         name="SignIn"
         options={{ headerShown: false, headerRight: () => null }}

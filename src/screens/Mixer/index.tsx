@@ -14,24 +14,27 @@ interface IProduct {
   preco: string;
   status_produto: boolean;
   estoque_produto: number;
+  route: {
+    params: {
+      item: {
+        id: string;
+        taxa_delivery: string;
+      };
+    };
+  };
 }
 
-const Mixer: React.FC = (props) => {
-  const [mixer, setMixer] = useState(props.route.params.item);
+const Mixer: React.FC<IProduct> = (props) => {
+  const mixer = props?.route?.params?.item;
   const [data, setData] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api
-      .get<IProduct>(`produto/${props.route.params.item.id}`)
-      .then(({ data }) => {
-        setData(data);
-        setLoading(false);
-      })
-      .catch((response) => {
-        console.log(response);
-      });
-  }, []);
+    api.get(`produto/${props?.route?.params?.item?.id}`).then((response) => {
+      setData(response.data);
+      setLoading(false);
+    });
+  }, [props?.route]);
 
   return (
     <Container>
