@@ -35,6 +35,16 @@ const Product: React.FC<IProps> = (props) => {
   const { cart, addCart, removeCart } = useContext(CartContext);
   const data = props?.route?.params?.item;
 
+  const [quantity, setQuantity] = useState(0);
+
+  useEffect(() => {
+    setQuantity(
+      cart?.filter((item) => item.id === data.id).length > 0
+        ? cart?.filter((item) => item.id === data.id)[0].quantity
+        : 0,
+    );
+  }, [data, cart]);
+
   return (
     <Container>
       <Image
@@ -90,31 +100,60 @@ const Product: React.FC<IProps> = (props) => {
         </Header>
 
         <Footer>
-          <TouchableOpacity
-            onPress={() => data.status_produto && removeCart(data)}
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: 10,
+            }}
           >
-            <Icon
-              style={{ marginRight: 10 }}
-              name="minus-circle"
-              color="#84378F"
-              size={30}
-            />
-          </TouchableOpacity>
-          <CountText>
-            {cart?.filter((item) => item.id === data.id).length > 0
-              ? cart?.filter((item) => item.id === data.id)[0].quantity
-              : 0}
-          </CountText>
-          <TouchableOpacity
-            onPress={() => data.status_produto && addCart(data)}
+            <Text>Adicione no seu carrinho</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginBottom: 20,
+              justifyContent: 'space-between',
+            }}
           >
-            <Icon
-              style={{ marginLeft: 10 }}
-              name="plus-circle"
-              color="#84378F"
-              size={30}
-            />
-          </TouchableOpacity>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => data.status_produto && removeCart(data)}
+              >
+                <Icon
+                  style={{ marginRight: 10 }}
+                  name="minus-circle"
+                  color="#84378F"
+                  size={30}
+                />
+              </TouchableOpacity>
+              <CountText>
+                {cart?.filter((item) => item.id === data.id).length > 0
+                  ? cart?.filter((item) => item.id === data.id)[0].quantity
+                  : 0}
+              </CountText>
+              <TouchableOpacity
+                onPress={() => data.status_produto && addCart(data)}
+              >
+                <Icon
+                  style={{ marginLeft: 10 }}
+                  name="plus-circle"
+                  color="#84378F"
+                  size={30}
+                />
+              </TouchableOpacity>
+            </View>
+
+            <Text>R$ {formatMoney(Number(data.preco) * Number(quantity))}</Text>
+          </View>
 
           <ButtonAdd onPress={() => data.status_produto && addCart(data)}>
             <ButtonAddText>Adicionar item</ButtonAddText>

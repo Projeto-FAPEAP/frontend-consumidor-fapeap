@@ -10,10 +10,12 @@ import api from '../../services/api';
 import { Container, Header, TextMid } from './styles';
 
 interface IMixer {
-  id: string;
-  nome_fantasia: string;
-  taxa_delivery: string;
-  verificado: boolean;
+  fornecedor: {
+    id: string;
+    nome_fantasia: string;
+    taxa_delivery: string;
+    verificado: boolean;
+  };
 }
 
 interface ICEPResponse {
@@ -39,7 +41,9 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     api.get<IMixer[]>('fornecedor').then((response) => {
-      const filter = response.data.filter((item) => item?.verificado);
+      const filter = response.data.filter(
+        (item) => item?.fornecedor?.verificado,
+      );
       setData(filter);
       setLoading(false);
     });

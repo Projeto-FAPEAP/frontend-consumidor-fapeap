@@ -8,10 +8,12 @@ import { Container, Image, Title, Content, Text } from './styles';
 
 interface IMixer {
   item: {
-    id: string;
-    nome_fantasia: string;
-    taxa_delivery: string;
-    verificado: boolean;
+    fornecedor: {
+      id: string;
+      nome_fantasia: string;
+      taxa_delivery: string;
+      verificado: boolean;
+    };
   };
   navigation: {
     navigate(route: string, params?: object): void;
@@ -32,13 +34,13 @@ const Mixer: React.FC<IMixer> = ({ item, navigation }) => {
         }}
       />
       <Content>
-        <Title>{item.nome_fantasia}</Title>
+        <Title>{item.fornecedor.nome_fantasia}</Title>
         <Text style={{ marginBottom: 5 }} color="#FBC72D">
           <Icon name="star" color="#FBC72D" size={11} /> 0.0
         </Text>
         <Text color="#999">
-          {item.taxa_delivery
-            ? `Delivery - R$ ${formatMoney(item.taxa_delivery)}`
+          {item.fornecedor.taxa_delivery
+            ? `Delivery - R$ ${formatMoney(item.fornecedor.taxa_delivery)}`
             : 'Apenas retirada'}
         </Text>
       </Content>

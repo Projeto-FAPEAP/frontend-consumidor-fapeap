@@ -6,7 +6,7 @@ export const Container = styled.View`
 `;
 
 export const Content = styled.View`
-  padding: 10px;
+  padding: 20px;
   flex: 1;
   justify-content: space-between;
 `;
@@ -35,14 +35,12 @@ export const Text = styled.Text`
 
 export const CountText = styled.Text`
   color: ${(props) => props.theme.colors.title};
-  font-size: 40px;
+  font-size: 22px;
   font-family: ${(props) => props.theme.fonts.Ubuntu.normal};
 `;
 
 export const Footer = styled.View`
-  flex-direction: row;
   justify-content: center;
-  align-items: center;
   margin-bottom: 20px;
 `;
 
@@ -50,7 +48,9 @@ export const ButtonAdd = styled.TouchableOpacity`
   padding: 5px 20px;
   background: ${(props) => props.theme.colors.primary};
   border-radius: 10px;
-  margin-left: 20px;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
 `;
 
 export const ButtonAddText = styled.Text`

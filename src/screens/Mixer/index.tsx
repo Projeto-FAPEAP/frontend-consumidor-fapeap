@@ -17,8 +17,11 @@ interface IProduct {
   route: {
     params: {
       item: {
-        id: string;
-        taxa_delivery: string;
+        fornecedor: {
+          nome_fantasia: string;
+          id: string;
+          taxa_delivery: string;
+        };
       };
     };
   };
@@ -30,10 +33,12 @@ const Mixer: React.FC<IProduct> = (props) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get(`produto/${props?.route?.params?.item?.id}`).then((response) => {
-      setData(response.data);
-      setLoading(false);
-    });
+    api
+      .get(`produto/${props?.route?.params?.item?.fornecedor?.id}`)
+      .then((response) => {
+        setData(response.data);
+        setLoading(false);
+      });
   }, [props?.route]);
 
   return (
@@ -57,7 +62,9 @@ const Mixer: React.FC<IProduct> = (props) => {
       />
 
       <Content>
-        <Title style={{ marginBottom: 5 }}>{mixer.nome_fantasia}</Title>
+        <Title style={{ marginBottom: 5 }}>
+          {mixer.fornecedor.nome_fantasia}
+        </Title>
         <Text style={{ marginBottom: 5 }} color="#FBC72D" size={14}>
           <Icon name="star" color="#FBC72D" size={16} /> 0.0 -{' '}
           <Text size={14} color="#999">
@@ -65,8 +72,8 @@ const Mixer: React.FC<IProduct> = (props) => {
           </Text>
         </Text>
         <Text size={12} color="#999">
-          {mixer.taxa_delivery
-            ? `Delivery - R$ ${formatMoney(mixer.taxa_delivery)}`
+          {mixer.fornecedor.taxa_delivery
+            ? `Delivery - R$ ${formatMoney(mixer.fornecedor.taxa_delivery)}`
             : 'Apenas retirada'}
         </Text>
 
