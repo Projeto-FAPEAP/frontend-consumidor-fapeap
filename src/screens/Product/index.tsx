@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import logo from '../../assets/icone1024x1024.png';
 import formatMoney from '../../components/FormatMoney';
 import CartContext from '../../contexts/cart';
 import {
@@ -17,6 +18,10 @@ import {
   ButtonAddText,
 } from './styles';
 
+interface IFile {
+  url: string;
+}
+
 interface IProps {
   route: {
     params: {
@@ -26,6 +31,7 @@ interface IProps {
         unidade_medida: string | number;
         preco: string;
         status_produto: boolean;
+        arquivos: IFile[];
       };
     };
   };
@@ -45,14 +51,33 @@ const Product: React.FC<IProps> = (props) => {
     );
   }, [data, cart]);
 
+  function imagesFiles(files: IFile[]): IFile[] {
+    const fileExtension_img = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+
+    const imagens = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const ext = files[i]?.url?.split('.')?.pop()?.toLowerCase();
+
+      if (fileExtension_img.includes(ext)) {
+        imagens.push(files[i]);
+      }
+    }
+
+    return imagens;
+  }
+
   return (
     <Container>
-      <Image
-        source={{
-          uri:
-            'https://blog.livup.com.br/wp-content/uploads/2020/01/acai-1024x683.jpg',
-        }}
-      />
+      {imagesFiles(data.arquivos).length > 0 ? (
+        <Image
+          source={{
+            uri: imagesFiles(data.arquivos)[0].url,
+          }}
+        />
+      ) : (
+        <Image source={logo} />
+      )}
 
       <Content>
         <Header>
