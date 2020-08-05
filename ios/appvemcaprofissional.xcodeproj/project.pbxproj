@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* appvemcaprofissionalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* appvemcaprofissionalTests.m */; };
+		0579C2DC429B449CA408FBFD /* Ubuntu-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCF2969C4FDE4CC9B4693F34 /* Ubuntu-Light.ttf */; };
 		06267C8435924C1DAAE95A58 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9BD6529E929346C7A140D550 /* OpenSans-Regular.ttf */; };
+		10434140731C44FFBE309395 /* Ubuntu-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92C24B4A648D42459D825B33 /* Ubuntu-Regular.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -19,20 +21,18 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* appvemcaprofissionalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* appvemcaprofissionalTests.m */; };
 		3986CC03BE3D0B355D45CA9F /* libPods-appvemcaprofissional-appvemcaprofissionalTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CA0234437F97BED5E600798 /* libPods-appvemcaprofissional-appvemcaprofissionalTests.a */; };
+		5222D540ECE84C958B87716F /* Ubuntu-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10B014C82D5E4E67AC019D43 /* Ubuntu-Medium.ttf */; };
+		5367C26290A746C6A9BE96E6 /* Ubuntu-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB5ED4E2CEDA48B585168D9B /* Ubuntu-LightItalic.ttf */; };
 		6F27AD13140D4E42955B87D5 /* OpenSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B0F3E66C7CDC43BFA2694CC8 /* OpenSans-SemiBoldItalic.ttf */; };
 		784C42C0F2D969B5BC9EA85A /* libPods-appvemcaprofissional-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 730EE75BEA49F2D88F043CF9 /* libPods-appvemcaprofissional-tvOSTests.a */; };
 		825BA5B052F04F108C5F3D88 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21EB9D3864CF4C9E9CDF8268 /* OpenSans-SemiBold.ttf */; };
 		896397822E404F1FF72F73C9 /* libPods-appvemcaprofissional-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605251C82400498DC761EF3A /* libPods-appvemcaprofissional-tvOS.a */; };
-		A2637F7DBD99B3A7D042AD1F /* libPods-appvemcaprofissional.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 64CB8822DE697D91CBFFFEA6 /* libPods-appvemcaprofissional.a */; };
-		EC7A2E860F144C13B458E608 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 731226BDEBA048E4BE138AC0 /* OpenSans-Bold.ttf */; };
-		BD3E4CDF58A647179F05124B /* Ubuntu-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FE556919D804A36B2173421 /* Ubuntu-Bold.ttf */; };
-		CAC309E0C85F4CAA8715EF8D /* Ubuntu-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6469EB362BEC4FE9A73D4A9A /* Ubuntu-BoldItalic.ttf */; };
-		C2A55E2DE98A4DE39103583A /* Ubuntu-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 878534A5921A4292BDE803E3 /* Ubuntu-Italic.ttf */; };
-		0579C2DC429B449CA408FBFD /* Ubuntu-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCF2969C4FDE4CC9B4693F34 /* Ubuntu-Light.ttf */; };
-		5367C26290A746C6A9BE96E6 /* Ubuntu-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB5ED4E2CEDA48B585168D9B /* Ubuntu-LightItalic.ttf */; };
-		5222D540ECE84C958B87716F /* Ubuntu-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10B014C82D5E4E67AC019D43 /* Ubuntu-Medium.ttf */; };
 		9348FEF26A584EA7B0945AF8 /* Ubuntu-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E314F8BB7734B2093C817C1 /* Ubuntu-MediumItalic.ttf */; };
-		10434140731C44FFBE309395 /* Ubuntu-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92C24B4A648D42459D825B33 /* Ubuntu-Regular.ttf */; };
+		A2637F7DBD99B3A7D042AD1F /* libPods-appvemcaprofissional.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 64CB8822DE697D91CBFFFEA6 /* libPods-appvemcaprofissional.a */; };
+		BD3E4CDF58A647179F05124B /* Ubuntu-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FE556919D804A36B2173421 /* Ubuntu-Bold.ttf */; };
+		C2A55E2DE98A4DE39103583A /* Ubuntu-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 878534A5921A4292BDE803E3 /* Ubuntu-Italic.ttf */; };
+		CAC309E0C85F4CAA8715EF8D /* Ubuntu-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6469EB362BEC4FE9A73D4A9A /* Ubuntu-BoldItalic.ttf */; };
+		EC7A2E860F144C13B458E608 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 731226BDEBA048E4BE138AC0 /* OpenSans-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,7 +62,8 @@
 		03A24BAF92104682BF951EFF /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Italic.ttf"; path = "../src/assets/fonts/OpenSans-Italic.ttf"; sourceTree = "<group>"; };
 		099F7E6245DC152D8CA6F2F6 /* Pods-appvemcaprofissional.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-appvemcaprofissional.release.xcconfig"; path = "Target Support Files/Pods-appvemcaprofissional/Pods-appvemcaprofissional.release.xcconfig"; sourceTree = "<group>"; };
 		0CA0234437F97BED5E600798 /* libPods-appvemcaprofissional-appvemcaprofissionalTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-appvemcaprofissional-appvemcaprofissionalTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07F961A680F5B00A75B9A /* QueroAçaí.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "QueroAçaí.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		10B014C82D5E4E67AC019D43 /* Ubuntu-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Medium.ttf"; path = "../src/assets/fonts/Ubuntu-Medium.ttf"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* Quero Açaí.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Quero Açaí.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = appvemcaprofissional/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = appvemcaprofissional/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -74,19 +75,25 @@
 		2D02E47B1E0B4A5D006451C7 /* appvemcaprofissional-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "appvemcaprofissional-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* appvemcaprofissional-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "appvemcaprofissional-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3146F1A2A8093570A09ED2C6 /* Pods-appvemcaprofissional.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-appvemcaprofissional.debug.xcconfig"; path = "Target Support Files/Pods-appvemcaprofissional/Pods-appvemcaprofissional.debug.xcconfig"; sourceTree = "<group>"; };
+		3E314F8BB7734B2093C817C1 /* Ubuntu-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-MediumItalic.ttf"; path = "../src/assets/fonts/Ubuntu-MediumItalic.ttf"; sourceTree = "<group>"; };
+		3FE556919D804A36B2173421 /* Ubuntu-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Bold.ttf"; path = "../src/assets/fonts/Ubuntu-Bold.ttf"; sourceTree = "<group>"; };
 		4310F01BD00A48F89EE5F468 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		4827F7515F0742B2A56DA84C /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		50186972331E3B2806780F17 /* Pods-appvemcaprofissional-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-appvemcaprofissional-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-appvemcaprofissional-tvOSTests/Pods-appvemcaprofissional-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5BF5E4C5E87D45B2AE92C7A0 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		605251C82400498DC761EF3A /* libPods-appvemcaprofissional-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-appvemcaprofissional-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6469EB362BEC4FE9A73D4A9A /* Ubuntu-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-BoldItalic.ttf"; path = "../src/assets/fonts/Ubuntu-BoldItalic.ttf"; sourceTree = "<group>"; };
 		64CB8822DE697D91CBFFFEA6 /* libPods-appvemcaprofissional.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-appvemcaprofissional.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E719296067C6201A9A1803B /* Pods-appvemcaprofissional-appvemcaprofissionalTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-appvemcaprofissional-appvemcaprofissionalTests.debug.xcconfig"; path = "Target Support Files/Pods-appvemcaprofissional-appvemcaprofissionalTests/Pods-appvemcaprofissional-appvemcaprofissionalTests.debug.xcconfig"; sourceTree = "<group>"; };
 		730EE75BEA49F2D88F043CF9 /* libPods-appvemcaprofissional-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-appvemcaprofissional-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		731226BDEBA048E4BE138AC0 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Bold.ttf"; path = "../src/assets/fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		7900BAF797E339472D341EEE /* Pods-appvemcaprofissional-appvemcaprofissionalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-appvemcaprofissional-appvemcaprofissionalTests.release.xcconfig"; path = "Target Support Files/Pods-appvemcaprofissional-appvemcaprofissionalTests/Pods-appvemcaprofissional-appvemcaprofissionalTests.release.xcconfig"; sourceTree = "<group>"; };
+		878534A5921A4292BDE803E3 /* Ubuntu-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Italic.ttf"; path = "../src/assets/fonts/Ubuntu-Italic.ttf"; sourceTree = "<group>"; };
 		91A5C5294E3F493BB451CE6B /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		92189D61155619DA0BD77F2B /* Pods-appvemcaprofissional-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-appvemcaprofissional-tvOS.release.xcconfig"; path = "Target Support Files/Pods-appvemcaprofissional-tvOS/Pods-appvemcaprofissional-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		92C24B4A648D42459D825B33 /* Ubuntu-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Regular.ttf"; path = "../src/assets/fonts/Ubuntu-Regular.ttf"; sourceTree = "<group>"; };
 		9BD6529E929346C7A140D550 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Regular.ttf"; path = "../src/assets/fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		AB5ED4E2CEDA48B585168D9B /* Ubuntu-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-LightItalic.ttf"; path = "../src/assets/fonts/Ubuntu-LightItalic.ttf"; sourceTree = "<group>"; };
 		ABF1FEAF89BD497BB2B2ED5C /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		B041E45C5CE64F8B9DCFF2BA /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		B0F3E66C7CDC43BFA2694CC8 /* OpenSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-SemiBoldItalic.ttf"; path = "../src/assets/fonts/OpenSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
@@ -94,6 +101,7 @@
 		C122DD70960E05D566153EDB /* Pods-appvemcaprofissional-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-appvemcaprofissional-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-appvemcaprofissional-tvOS/Pods-appvemcaprofissional-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		C9649C20B185A368EC8EF952 /* Pods-appvemcaprofissional-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-appvemcaprofissional-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-appvemcaprofissional-tvOSTests/Pods-appvemcaprofissional-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		C9DCEA8ADBAD49289ACC5A20 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
+		CCF2969C4FDE4CC9B4693F34 /* Ubuntu-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Light.ttf"; path = "../src/assets/fonts/Ubuntu-Light.ttf"; sourceTree = "<group>"; };
 		D0B504DFAFB34BB485B54540 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		D82731EC0C4640AC87053C06 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		D8A76559710741989A8C0D7C /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -101,14 +109,6 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F2A8AE7A02DC4032821B8636 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
-		3FE556919D804A36B2173421 /* Ubuntu-Bold.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Bold.ttf"; path = "../src/assets/fonts/Ubuntu-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		6469EB362BEC4FE9A73D4A9A /* Ubuntu-BoldItalic.ttf */ = {isa = PBXFileReference; name = "Ubuntu-BoldItalic.ttf"; path = "../src/assets/fonts/Ubuntu-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		878534A5921A4292BDE803E3 /* Ubuntu-Italic.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Italic.ttf"; path = "../src/assets/fonts/Ubuntu-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		CCF2969C4FDE4CC9B4693F34 /* Ubuntu-Light.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Light.ttf"; path = "../src/assets/fonts/Ubuntu-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		AB5ED4E2CEDA48B585168D9B /* Ubuntu-LightItalic.ttf */ = {isa = PBXFileReference; name = "Ubuntu-LightItalic.ttf"; path = "../src/assets/fonts/Ubuntu-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		10B014C82D5E4E67AC019D43 /* Ubuntu-Medium.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Medium.ttf"; path = "../src/assets/fonts/Ubuntu-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		3E314F8BB7734B2093C817C1 /* Ubuntu-MediumItalic.ttf */ = {isa = PBXFileReference; name = "Ubuntu-MediumItalic.ttf"; path = "../src/assets/fonts/Ubuntu-MediumItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		92C24B4A648D42459D825B33 /* Ubuntu-Regular.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Regular.ttf"; path = "../src/assets/fonts/Ubuntu-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,7 +268,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* QueroAçaí.app */,
+				13B07F961A680F5B00A75B9A /* Quero Açaí.app */,
 				00E356EE1AD99517003FC87E /* appvemcaprofissionalTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* appvemcaprofissional-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* appvemcaprofissional-tvOSTests.xctest */,
@@ -317,7 +317,7 @@
 			);
 			name = appvemcaprofissional;
 			productName = appvemcaprofissional;
-			productReference = 13B07F961A680F5B00A75B9A /* QueroAçaí.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Quero Açaí.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2D02E47A1E0B4A5D006451C7 /* appvemcaprofissional-tvOS */ = {
@@ -833,8 +833,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = br.com.queroacaiconsumidor;
-				PRODUCT_NAME = "QueroAçaí";
+				PRODUCT_BUNDLE_IDENTIFIER = com.queroacaiconsumidor;
+				PRODUCT_NAME = "Quero Açaí";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -856,8 +856,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = br.com.queroacaiconsumidor;
-				PRODUCT_NAME = "QueroAçaí";
+				PRODUCT_BUNDLE_IDENTIFIER = com.queroacaiconsumidor;
+				PRODUCT_NAME = "Quero Açaí";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

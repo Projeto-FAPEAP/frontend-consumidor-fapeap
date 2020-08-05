@@ -8,7 +8,6 @@ export const Container = styled.View`
 export const Content = styled.View`
   padding: 20px;
   flex: 1;
-  justify-content: space-between;
 `;
 
 export const Header = styled.View`
@@ -41,7 +40,7 @@ export const CountText = styled.Text`
 
 export const Footer = styled.View`
   justify-content: center;
-  margin-bottom: 20px;
+  margin-top: 30px;
 `;
 
 export const ButtonAdd = styled.TouchableOpacity`
