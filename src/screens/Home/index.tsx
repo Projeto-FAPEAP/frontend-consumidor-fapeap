@@ -3,6 +3,7 @@ import { Text, View, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Axios from 'axios';
+import { useTheme } from 'styled-components';
 
 import Mixer from '../../components/Cards/Mixer';
 import AuthContext from '../../contexts/auth';
@@ -27,6 +28,8 @@ const Home: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   const [city, setCity] = useState('');
+
+  const { colors } = useTheme();
 
   function getCityAndUf(cep: string): void {
     Axios.get<ICEPResponse>(`https://viacep.com.br/ws/${cep}/json/`).then(
@@ -55,7 +58,7 @@ const Home: React.FC = () => {
     <Container>
       {user && (
         <Header>
-          <Icon name="map-marker" size={40} color="#84378F" />
+          <Icon name="map-marker" size={40} color={colors.primary} />
           <View style={{ flex: 1 }}>
             <Text
               style={{

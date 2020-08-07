@@ -3,6 +3,7 @@ import { Text, View, TouchableOpacity, Alert } from 'react-native';
 import { Card, ListItem } from 'react-native-elements';
 
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from 'styled-components';
 
 import AuthContext from '../../contexts/auth';
 import { Container, TextProfile, ViewList } from './styles';
@@ -10,6 +11,8 @@ import { Container, TextProfile, ViewList } from './styles';
 const Profile: React.FC = () => {
   const navigation = useNavigation();
   const { user, logOut } = useContext(AuthContext);
+
+  const { colors } = useTheme();
 
   function handleSignOut(): void {
     if (user) {
@@ -88,7 +91,7 @@ const Profile: React.FC = () => {
           <TouchableOpacity
             onPress={() => navigation.navigate('SignIn')}
             style={{
-              backgroundColor: '#84378F',
+              backgroundColor: colors.primary,
               paddingHorizontal: 10,
               paddingVertical: 5,
               borderRadius: 10,

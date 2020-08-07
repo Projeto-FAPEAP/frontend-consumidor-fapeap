@@ -222,7 +222,9 @@ const Order: React.FC = () => {
                       <BasketDeliveryCard
                         onPress={() => setDeliveryChange(basket)}
                         color={
-                          basket[0].fornecedor.delivery ? `#84378F` : '#CCC'
+                          basket[0].fornecedor.delivery
+                            ? colors.primary
+                            : colors.regular
                         }
                       >
                         <TextCard
@@ -231,7 +233,9 @@ const Order: React.FC = () => {
                             fontSize: 11,
                           }}
                           color={
-                            basket[0].fornecedor.delivery ? `#84378F` : '#CCC'
+                            basket[0].fornecedor.delivery
+                              ? colors.primary
+                              : colors.regular
                           }
                         >
                           Entrega

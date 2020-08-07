@@ -4,6 +4,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useTheme } from 'styled-components';
 
 import { somaUnitaria } from '../components/SumTotalBag';
 import CartContext from '../contexts/cart';
@@ -22,10 +23,11 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const Tabs: React.FC = () => {
+  const { colors } = useTheme();
   return (
     <Tab.Navigator
       tabBarOptions={{
-        activeTintColor: '#84378F',
+        activeTintColor: colors.primary,
         labelStyle: {
           fontFamily: 'Ubuntu-Regular',
           marginBottom: 5,
@@ -68,6 +70,7 @@ const Tabs: React.FC = () => {
 
 const AppRoutes: React.FC = () => {
   const { cart } = useContext(CartContext);
+  const { colors } = useTheme();
 
   return (
     <Stack.Navigator
@@ -114,7 +117,7 @@ const AppRoutes: React.FC = () => {
         options={{
           title: 'Quero Açaí',
           headerStyle: {
-            backgroundColor: '#84378F',
+            backgroundColor: colors.primary,
           },
           headerTitleStyle: {
             fontFamily: 'Ubuntu-Bold',
@@ -130,7 +133,7 @@ const AppRoutes: React.FC = () => {
           title: 'Detalhes da batedeira',
           headerBackTitleVisible: false,
           headerStyle: {
-            backgroundColor: '#84378F',
+            backgroundColor: colors.primary,
           },
           headerTitleStyle: {
             fontFamily: 'Ubuntu-Bold',
@@ -146,7 +149,7 @@ const AppRoutes: React.FC = () => {
           title: 'Detalhes do Pedido',
           headerBackTitleVisible: false,
           headerStyle: {
-            backgroundColor: '#84378F',
+            backgroundColor: colors.primary,
           },
           headerTitleStyle: {
             fontFamily: 'Ubuntu-Bold',
@@ -163,7 +166,7 @@ const AppRoutes: React.FC = () => {
           title: 'Detalhes do Item',
           headerBackTitleVisible: false,
           headerStyle: {
-            backgroundColor: '#84378F',
+            backgroundColor: colors.primary,
           },
           headerTitleStyle: {
             fontFamily: 'Ubuntu-Bold',
@@ -178,7 +181,7 @@ const AppRoutes: React.FC = () => {
         options={{
           title: 'Meus pedidos',
           headerStyle: {
-            backgroundColor: '#84378F',
+            backgroundColor: colors.primary,
           },
           headerTitleStyle: {
             fontFamily: 'Ubuntu-Bold',
@@ -193,7 +196,7 @@ const AppRoutes: React.FC = () => {
         options={{
           title: 'Perfil',
           headerStyle: {
-            backgroundColor: '#84378F',
+            backgroundColor: colors.primary,
           },
           headerTitleStyle: {
             fontFamily: 'Ubuntu-Bold',
@@ -209,7 +212,7 @@ const AppRoutes: React.FC = () => {
           title: 'Edição de perfil',
           headerBackTitleVisible: false,
           headerStyle: {
-            backgroundColor: '#84378F',
+            backgroundColor: colors.primary,
           },
           headerTitleStyle: {
             fontFamily: 'Ubuntu-Bold',
