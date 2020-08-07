@@ -70,11 +70,11 @@ export const ButtonText = styled.Text`
   font-size: 11px;
 `;
 
-export const BasketDeliveryCard = styled.TouchableOpacity`
+export const BasketDeliveryCard = styled.TouchableOpacity<Iprops>`
   flex: 1;
   padding: 5px;
-  border-width: 1px;
-  border-color: #ccc;
+  border-width: 2px;
+  border-color: ${(props) => props.color};
   margin: 0 0 20px 10px;
   align-items: center;
   justify-content: center;

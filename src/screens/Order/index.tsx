@@ -4,6 +4,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useNavigation } from '@react-navigation/native';
 
+import {useTheme} from 'styled-components';
+
 import order from '../../assets/order.png';
 import basket from '../../components/Basket';
 import formatMoney from '../../components/FormatMoney';
@@ -53,6 +55,8 @@ const Order: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   const [baskets, setBaskets] = useState<IBasket[]>([]);
+
+  const {colors} = useTheme()
 
   useEffect(() => {
     setLoading(true);
@@ -191,6 +195,9 @@ const Order: React.FC = () => {
                     <View style={{ flexDirection: 'row' }}>
                       <BasketDeliveryCard
                         onPress={() => setDeliveryChange(basket)}
+                        color={
+                          basket[0].fornecedor.delivery ? `#84378F` : '#CCC'
+                        }
                       >
                         <TextCard
                           style={{
@@ -207,6 +214,9 @@ const Order: React.FC = () => {
 
                       <BasketDeliveryCard
                         onPress={() => setDeliveryChange(basket)}
+                        color={
+                          basket[0].fornecedor.delivery ? colors.regular : colors.primary
+                        }
                       >
                         <TextCard
                           style={{
@@ -214,7 +224,7 @@ const Order: React.FC = () => {
                             fontSize: 11,
                           }}
                           color={
-                            basket[0].fornecedor.delivery ? '#CCC' : `#84378F`
+                            basket[0].fornecedor.delivery ? colors.regular : colors.primary
                           }
                         >
                           Retirar no Local
