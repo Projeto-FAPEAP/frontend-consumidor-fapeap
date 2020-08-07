@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import logo from '../../assets/icone1024x1024.png';
+import logo from '../../assets/icone1024x1024_white.png';
 import formatMoney from '../../components/FormatMoney';
 import CartContext from '../../contexts/cart';
 import {
