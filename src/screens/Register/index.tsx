@@ -53,56 +53,18 @@ const Login: React.FC = () => {
   const [subtitle, setSubtitle] = React.useState('');
   const [keyboardIsOpen, setKeyboardIsOpen] = React.useState(false);
 
-  const { logIn, signOut } = useContext(AuthContext);
+  const { signOut } = useContext(AuthContext);
 
   const [dataStep1, setDataStep1] = React.useState<IFormDataStep1>(
     {} as IFormDataStep1,
   );
-  const [dataStep2, setDataStep2] = React.useState<IFormDataStep2>(
-    {} as IFormDataStep2,
-  );
-  const formData = React.useMemo(() => ({ ...dataStep1, ...dataStep2 }), [
-    dataStep1,
-    dataStep2,
-  ]);
 
-  /* React.useEffect(() => {
-    async function getAddress(): void {
-      //setError(false);
-      if (cep?.length === 8) {
-        setLoading(true);
-        const response = await axios.get(
-          `https://viacep.com.br/ws/${cep}/json/`
-        );
-        if (response.data.erro) {
-          Alert.alert('Erro', 'O CEP inserido é inválido!');
-          setLoading(false);
-          //setError(true);
-
-          return;
-        }
-        const {
-          logradouro,
-          uf: estado,
-          localidade: cidade,
-          bairro,
-        } = response.data;
-        setAddress({ logradouro, estado, cidade, bairro, cep });
-        setLoading(false);
-      }
-    }
-    getAddress();
-  }, [cep]); */
+  const formData = React.useMemo(() => dataStep1, [dataStep1]);
 
   React.useEffect(() => {
     switch (step) {
       case 1:
-        setSubtitle(
-          'Primeiramente, precisamos de seus dados pessoais e de acesso',
-        );
-        break;
-      case 2:
-        setSubtitle('Onde seu endereço para entrega fica localizado?');
+        setSubtitle('Precisamos de seus dados pessoais e de acesso');
         break;
       default:
         setSubtitle('Etapa não identificada');
@@ -186,44 +148,6 @@ const Login: React.FC = () => {
             password_confirmation,
           });
 
-          setStep(step + 1);
-        } catch (err) {
-          if (err instanceof Yup.ValidationError) {
-            const errors = getValidationErrors(err);
-            formRef.current?.setErrors(errors);
-          }
-        }
-      } else if (step === 2) {
-        try {
-          const schemaStep2 = Yup.object().shape({
-            cep: Yup.string().required('Campo obrigatório'),
-            logradouro: Yup.string().required('Campo obrigatório'),
-            bairro: Yup.string().required('Campo obrigatório'),
-            numero_local: Yup.string().required('Campo obrigatório'),
-          });
-
-          const objectFormData = Object.assign(formData, {
-            cep: data.cep,
-            logradouro: data.logradouro,
-            bairro: data.bairro,
-            numero_local: data.numero_local,
-          });
-
-          const { cep, logradouro } = objectFormData;
-          const { bairro, numero_local } = objectFormData;
-
-          await schemaStep2.validate(
-            { cep, logradouro, bairro, numero_local },
-            { abortEarly: false },
-          );
-
-          setDataStep2({
-            cep,
-            logradouro,
-            bairro,
-            numero_local,
-          });
-
           setLoading(true);
 
           const response = await signOut(formData);
@@ -293,13 +217,6 @@ const Login: React.FC = () => {
                 focusTargetInput={focusTargetInput}
               />
             )}
-            {step === 2 && (
-              <FormStep2
-                formRef={formRef}
-                onSubmitForm={submitForm}
-                focusTargetInput={focusTargetInput}
-              />
-            )}
           </S.Form>
         </FormProvider>
       </KeyboardView>
@@ -312,18 +229,13 @@ const Login: React.FC = () => {
               isFilled
               color={colors.primary}
             />
-            <S.Dots
-              onPress={() => nextStep(2)}
-              isFilled={step >= 2}
-              color={darken(0.05, colors.primary)}
-            />
           </S.DotsContainer>
 
           <S.ButtonSignIn
             onPress={() => formRef.current?.submitForm()}
             loading={loading}
           >
-            Avancar
+            Cadastrar
           </S.ButtonSignIn>
         </S.Footer>
       )}

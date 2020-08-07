@@ -34,6 +34,8 @@ const FormStep1: React.FC<IFormStep1Props> = (props) => {
         })
         .catch(() => {
           Alert.alert('Cuidado', 'Você informou um CEP inválido ');
+          formRef.current?.setFieldValue('logradouro', '');
+          formRef.current?.setFieldValue('bairro', '');
         });
     }
   }, [cep, formRef]);
@@ -118,7 +120,7 @@ const FormStep1: React.FC<IFormStep1Props> = (props) => {
         autoCapitalize="none"
         returnKeyType="next"
         keyboardType="number-pad"
-        onSubmitEditing={() => focusTargetInput('logradouro')}
+        onSubmitEditing={() => focusTargetInput('numero_local')}
         containerStyle={{
           maxWidth: 350,
           marginTop: 15,
@@ -136,6 +138,7 @@ const FormStep1: React.FC<IFormStep1Props> = (props) => {
           marginTop: 15,
           maxWidth: 350,
         }}
+        editable={false}
         icon="map"
         label="Logradouro"
         name="logradouro"
@@ -151,6 +154,7 @@ const FormStep1: React.FC<IFormStep1Props> = (props) => {
           marginTop: 15,
           maxWidth: 350,
         }}
+        editable={false}
         icon="map"
         label="Bairro"
         name="bairro"
@@ -163,11 +167,13 @@ const FormStep1: React.FC<IFormStep1Props> = (props) => {
           marginTop: 15,
           maxWidth: 350,
         }}
+        editable={formRef.current?.getFieldValue('logradouro') !== ''}
         icon="hash"
         label="Número da casa"
         name="numero_local"
         placeholder="Número da casa"
         autoCapitalize="none"
+        keyboardType="number-pad"
         autoCorrect={false}
         returnKeyType="next"
         onSubmitEditing={() => focusTargetInput('senha')}
@@ -192,6 +198,7 @@ const FormStep1: React.FC<IFormStep1Props> = (props) => {
           marginTop: 15,
           maxWidth: 350,
         }}
+        editable={formRef.current?.getFieldValue('senha') !== ''}
         icon="lock"
         label="Confirmar senha"
         name="password_confirmation"

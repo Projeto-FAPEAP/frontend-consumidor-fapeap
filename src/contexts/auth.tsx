@@ -26,6 +26,7 @@ interface AuthContextData {
   loading: boolean;
   logIn(cpf: string, password: string): Promise<Response>;
   signOut(data: object): Promise<Response>;
+  updateProfile(data: object): Promise<Response>;
   logOut(): void;
 }
 
@@ -117,6 +118,26 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
   }
 
+  async function updateProfile(data: IResponseData): Promise<Response> {
+    try {
+      await api.put('consumidor', data);
+
+      return new Promise((resolve) => {
+        resolve({
+          responseState: true,
+          responseStatus: '',
+        });
+      });
+    } catch (error) {
+      return new Promise((resolve) => {
+        resolve({
+          responseState: false,
+          responseStatus: error.response.data.error,
+        });
+      });
+    }
+  }
+
   function logOut(): void {
     AsyncStorage.clear().then(() => {
       setUser(null);
@@ -125,7 +146,15 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signed: !!user, user, logIn, signOut, logOut, loading }}
+      value={{
+        signed: !!user,
+        user,
+        logIn,
+        updateProfile,
+        signOut,
+        logOut,
+        loading,
+      }}
     >
       {children}
     </AuthContext.Provider>

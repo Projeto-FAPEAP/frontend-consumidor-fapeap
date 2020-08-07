@@ -47,7 +47,7 @@ const EditProfile: React.FC = () => {
   const [step, setStep] = React.useState(1);
   const [keyboardIsOpen, setKeyboardIsOpen] = React.useState(false);
 
-  const { user, signOut } = useContext(AuthContext);
+  const { user, updateProfile, signOut } = useContext(AuthContext);
 
   const [dataStep1, setDataStep1] = React.useState<IFormDataStep1>(
     {} as IFormDataStep1,
@@ -103,12 +103,24 @@ const EditProfile: React.FC = () => {
               .email('Informe um email válido')
               .required('Campo obrigatório'),
             cpf: Yup.string().required('Campo obrigatório'),
+            senha: Yup.string(),
+            password_confirmation: Yup.string(),
+          });
+
+          const schemaStep2 = Yup.object().shape({
             cep: Yup.string().required('Campo obrigatório'),
             logradouro: Yup.string().required('Campo obrigatório'),
             bairro: Yup.string().required('Campo obrigatório'),
             numero_local: Yup.string().required('Campo obrigatório'),
-            senha: Yup.string(),
-            password_confirmation: Yup.string(),
+          });
+
+          const schemaStep3 = Yup.object().shape({
+            senha: Yup.string()
+              .min(3, 'Você deve informar no mínimo 4 caracteres')
+              .required('Senha é obrigatória'),
+            password_confirmation: Yup.string()
+              .oneOf([Yup.ref('senha')], 'Senhas não coincidem')
+              .required('A confirmação da senha é obrigatória'),
           });
 
           const objectFormData = Object.assign(formData, {
@@ -152,6 +164,42 @@ const EditProfile: React.FC = () => {
             { abortEarly: false },
           );
 
+          if (data.cep !== '') {
+            await schemaStep2.validate(
+              {
+                nome,
+                telefone_whatsapp,
+                email,
+                cep,
+                logradouro,
+                bairro,
+                numero_local,
+                senha,
+                password_confirmation,
+                cpf,
+              },
+              { abortEarly: false },
+            );
+          }
+
+          if (data.senha !== '') {
+            await schemaStep3.validate(
+              {
+                nome,
+                telefone_whatsapp,
+                email,
+                cep,
+                logradouro,
+                bairro,
+                numero_local,
+                senha,
+                password_confirmation,
+                cpf,
+              },
+              { abortEarly: false },
+            );
+          }
+
           setDataStep1({
             nome,
             telefone_whatsapp,
@@ -167,18 +215,37 @@ const EditProfile: React.FC = () => {
 
           setLoading(true);
 
+          for (const propName in objectFormData) {
+            if (
+              objectFormData[propName] === null ||
+              objectFormData[propName] === undefined ||
+              objectFormData[propName] === ''
+            ) {
+              delete objectFormData[propName];
+            }
+          }
+
           console.log(objectFormData);
-          /*  const response = await signOut(data);
+
+          /*  const response = await updateProfile(objectFormData);
           const { responseState, responseStatus } = response;
 
           if (!responseState) {
             Alert.alert('Não foi possível cadastrar', responseStatus);
           } else {
-            navigation.reset({
-              index: 0,
-              routes: [{ name: 'Home' }],
-            });
+            Alert.alert('Sucesso', "Dados atualizados com sucesso!");
           } */
+
+          formRef.current?.setData({
+            nome: objectFormData?.nome,
+            telefone_whatsapp: objectFormData?.telefone_whatsapp,
+            email: objectFormData?.email,
+            cpf: objectFormData?.cpf,
+            cep: objectFormData?.cep,
+            logradouro: objectFormData?.logradouro,
+            bairro: objectFormData?.bairro,
+            numero_local: objectFormData?.numero_local,
+          });
 
           setLoading(false);
         } catch (err) {
