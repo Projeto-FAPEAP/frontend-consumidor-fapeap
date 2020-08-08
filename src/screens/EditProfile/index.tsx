@@ -227,14 +227,14 @@ const EditProfile: React.FC = () => {
 
           console.log(objectFormData);
 
-          /*  const response = await updateProfile(objectFormData);
+          const response = await updateProfile(objectFormData);
           const { responseState, responseStatus } = response;
 
           if (!responseState) {
-            Alert.alert('Não foi possível cadastrar', responseStatus);
+            Alert.alert('Não foi possível atualizar', responseStatus);
           } else {
-            Alert.alert('Sucesso', "Dados atualizados com sucesso!");
-          } */
+            Alert.alert('Sucesso', 'Dados atualizados com sucesso!');
+          }
 
           formRef.current?.setData({
             nome: objectFormData?.nome,
@@ -300,13 +300,13 @@ const EditProfile: React.FC = () => {
 
       {!keyboardIsOpen && (
         <S.Footer>
-          <S.DotsContainer>
+          {/* <S.DotsContainer>
             <S.Dots
               onPress={() => nextStep(1)}
               isFilled
               color={colors.primary}
             />
-          </S.DotsContainer>
+          </S.DotsContainer> */}
 
           <S.ButtonSignIn
             onPress={() => formRef.current?.submitForm()}

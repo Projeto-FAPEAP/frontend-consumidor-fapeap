@@ -223,13 +223,13 @@ const Login: React.FC = () => {
 
       {!keyboardIsOpen && (
         <S.Footer>
-          <S.DotsContainer>
+          {/* <S.DotsContainer>
             <S.Dots
               onPress={() => nextStep(1)}
               isFilled
               color={colors.primary}
             />
-          </S.DotsContainer>
+          </S.DotsContainer> */}
 
           <S.ButtonSignIn
             onPress={() => formRef.current?.submitForm()}
