@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -17,6 +18,8 @@ import Profile from '../screens/Profile';
 import RecoveryP from '../screens/RecoveryPassword';
 import Register from '../screens/Register';
 import SignIn from '../screens/SignIn';
+import DetailsDelivery from '../screens/DetailsDelivery';
+import DetailsGetDelivery from '../screens/DetailsGetDelivery';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -38,7 +41,8 @@ const Tabs: React.FC = () => {
         options={{
           tabBarLabel: 'Inicio',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="home" color={color} size={size} />
+            <Icon name="home" color={color} size={size}/>
+
           ),
         }}
       />
@@ -48,7 +52,7 @@ const Tabs: React.FC = () => {
         options={{
           tabBarLabel: 'Meus pedidos',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="menu" color={color} size={size} />
+            <Icon name="bars" color={color} size={size} />
           ),
         }}
       />
@@ -58,7 +62,7 @@ const Tabs: React.FC = () => {
         options={{
           tabBarLabel: 'Perfil',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account" color={color} size={size} />
+            <Icon name="user" color={color} size={size} />
           ),
         }}
       />
@@ -77,7 +81,8 @@ const AppRoutes: React.FC = () => {
             onPress={() => navigation.navigate('Order')}
             style={{ marginRight: 10 }}
           >
-            <MaterialCommunityIcons name="cart" color="#fff" size={30} />
+            <Icon name="shopping-cart" color="#fff" size={30}/>
+
             {cart.length > 0 && (
               <View
                 style={{
@@ -217,6 +222,36 @@ const AppRoutes: React.FC = () => {
           headerTintColor: '#FFF',
           headerTitleAlign: 'center',
           headerRight: () => null,
+        }}
+      />
+      <Stack.Screen
+        name="DetailsDelivery"
+        component={DetailsDelivery}
+        options={{
+          title: 'Detalhes da entrega',
+          headerStyle: {
+            backgroundColor: '#84378F',
+          },
+          headerTitleStyle: {
+            fontFamily: 'Ubuntu-Bold',
+          },
+          headerTintColor: '#FFF',
+          headerTitleAlign: 'center',
+        }}
+      />
+       <Stack.Screen
+        name="DetailsGetDelivery"
+        component={DetailsGetDelivery}
+        options={{
+          title: 'Detalhes da retirada',
+          headerStyle: {
+            backgroundColor: '#84378F',
+          },
+          headerTitleStyle: {
+            fontFamily: 'Ubuntu-Bold',
+          },
+          headerTintColor: '#FFF',
+          headerTitleAlign: 'center',
         }}
       />
 
