@@ -1,6 +1,8 @@
 import React from 'react';
 import { Modal, ActivityIndicator } from 'react-native';
 
+import { useTheme } from 'styled-components';
+
 import { ModalBackground, LoadingCircle } from './styles';
 
 interface IProps {
@@ -9,11 +11,12 @@ interface IProps {
 
 const Loader: React.FC<IProps> = (props) => {
   const { loading } = props;
+  const { colors } = useTheme();
   return (
     <Modal transparent animationType="none" visible={loading}>
       <ModalBackground>
         <LoadingCircle>
-          <ActivityIndicator animating={loading} color="#84378F" />
+          <ActivityIndicator animating={loading} color={colors.primary} />
         </LoadingCircle>
       </ModalBackground>
     </Modal>

@@ -3,8 +3,8 @@ import { View, Text, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useNavigation } from '@react-navigation/native';
-
-import {useTheme} from 'styled-components';
+import Axios from 'axios';
+import { useTheme } from 'styled-components';
 
 import order from '../../assets/order.png';
 import basket from '../../components/Basket';
@@ -45,6 +45,11 @@ interface IContentBasket {
   };
 }
 
+interface ICEPResponse {
+  localidade: string;
+  uf: string;
+}
+
 type IBasket = IContentBasket[];
 
 const Order: React.FC = () => {
@@ -52,11 +57,13 @@ const Order: React.FC = () => {
   const { cart, clearCart, changeDeliveryProduct } = useContext(CartContext);
   const { user } = useContext(AuthContext);
 
+  const [city, setCity] = useState('');
+
   const [loading, setLoading] = useState(true);
 
   const [baskets, setBaskets] = useState<IBasket[]>([]);
 
-  const {colors} = useTheme()
+  const { colors } = useTheme();
 
   useEffect(() => {
     setLoading(true);
@@ -68,6 +75,21 @@ const Order: React.FC = () => {
     }
     setLoading(false);
   }, [cart]);
+
+  function getCityAndUf(cep: string): void {
+    Axios.get<ICEPResponse>(`https://viacep.com.br/ws/${cep}/json/`).then(
+      (response) => {
+        const { localidade, uf } = response.data;
+        setCity(` ${localidade} - ${uf}`);
+      },
+    );
+  }
+
+  useEffect(() => {
+    if (user?.cep) {
+      getCityAndUf(user.cep);
+    }
+  }, [user]);
 
   function setDeliveryChange(basket: IBasket): void {
     changeDeliveryProduct(basket);
@@ -157,9 +179,13 @@ const Order: React.FC = () => {
             resizeMode="contain"
           />
           <Title style={{ marginBottom: 5 }}>{user.nome}</Title>
-          {user.cep && (
+          {user.cep ? (
             <Subtitle style={{ fontSize: 12, textAlign: 'justify' }}>
-              {user.logradouro}, {user.numero_local}, {user.bairro}, Macapá - AP
+              {user.logradouro}, {user.numero_local}, {user.bairro}, {city}
+            </Subtitle>
+          ) : (
+            <Subtitle style={{ fontSize: 12, textAlign: 'justify' }}>
+              Sem endereço cadastrado
             </Subtitle>
           )}
         </Header>
@@ -196,7 +222,9 @@ const Order: React.FC = () => {
                       <BasketDeliveryCard
                         onPress={() => setDeliveryChange(basket)}
                         color={
-                          basket[0].fornecedor.delivery ? `#84378F` : '#CCC'
+                          basket[0].fornecedor.delivery
+                            ? colors.primary
+                            : colors.regular
                         }
                       >
                         <TextCard
@@ -205,7 +233,9 @@ const Order: React.FC = () => {
                             fontSize: 11,
                           }}
                           color={
-                            basket[0].fornecedor.delivery ? `#84378F` : '#CCC'
+                            basket[0].fornecedor.delivery
+                              ? colors.primary
+                              : colors.regular
                           }
                         >
                           Entrega
@@ -215,7 +245,9 @@ const Order: React.FC = () => {
                       <BasketDeliveryCard
                         onPress={() => setDeliveryChange(basket)}
                         color={
-                          basket[0].fornecedor.delivery ? colors.regular : colors.primary
+                          basket[0].fornecedor.delivery
+                            ? colors.regular
+                            : colors.primary
                         }
                       >
                         <TextCard
@@ -224,7 +256,9 @@ const Order: React.FC = () => {
                             fontSize: 11,
                           }}
                           color={
-                            basket[0].fornecedor.delivery ? colors.regular : colors.primary
+                            basket[0].fornecedor.delivery
+                              ? colors.regular
+                              : colors.primary
                           }
                         >
                           Retirar no Local

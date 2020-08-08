@@ -2,7 +2,9 @@ import React, { useEffect, useState, useContext } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import logo from '../../assets/icone1024x1024.png';
+import { useTheme } from 'styled-components';
+
+import logo from '../../assets/icone1024x1024_white.png';
 import formatMoney from '../../components/FormatMoney';
 import CartContext from '../../contexts/cart';
 import {
@@ -40,6 +42,8 @@ interface IProps {
 const Product: React.FC<IProps> = (props) => {
   const { cart, addCart, removeCart } = useContext(CartContext);
   const data = props?.route?.params?.item;
+
+  const { colors } = useTheme();
 
   const [quantity, setQuantity] = useState(0);
 
@@ -156,7 +160,7 @@ const Product: React.FC<IProps> = (props) => {
                 <Icon
                   style={{ marginRight: 10 }}
                   name="minus-circle"
-                  color="#84378F"
+                  color={colors.primary}
                   size={30}
                 />
               </TouchableOpacity>
@@ -171,7 +175,7 @@ const Product: React.FC<IProps> = (props) => {
                 <Icon
                   style={{ marginLeft: 10 }}
                   name="plus-circle"
-                  color="#84378F"
+                  color={colors.primary}
                   size={30}
                 />
               </TouchableOpacity>

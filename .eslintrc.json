@@ -43,6 +43,7 @@
     "no-nested-ternary": "off",
     "camelcase": "off",
     "no-plusplus": "off",
+    "no-restricted-syntax": "off",
     "react/jsx-props-no-spreading": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",

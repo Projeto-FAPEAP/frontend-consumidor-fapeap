@@ -1,24 +1,32 @@
-import React, {useState} from 'react';
-import { Text, View, FlatList, Alert, Modal, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import {
+  Text,
+  View,
+  FlatList,
+  Alert,
+  Modal,
+  TouchableOpacity,
+} from 'react-native';
+import { AirbnbRating } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {AirbnbRating} from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 
-
-import { Container, 
-         ViewFList, 
-         BorderBottom, 
-         ViewTouchD, 
-         ButtonDetails, 
-         ButtonRating, 
-         ViewTouchR, 
-         CenterView,
-         ModalView,
-         TouchClose,
-         ModalText,
-         ModalTextView,
-         ViewRating,
-         SaveRating } from './styles';
+import {
+  Container,
+  ViewFList,
+  BorderBottom,
+  ViewTouchD,
+  ButtonDetails,
+  ButtonRating,
+  ViewTouchR,
+  CenterView,
+  ModalView,
+  TouchClose,
+  ModalText,
+  ModalTextView,
+  ViewRating,
+  SaveRating,
+} from './styles';
 
 const DATA = [
   {
@@ -49,8 +57,6 @@ const DATA = [
   },
 ];
 
-
-
 const MyDelivery: React.FC = () => {
   const navigation = useNavigation();
 
@@ -58,84 +64,104 @@ const MyDelivery: React.FC = () => {
 
 
     <ViewFList>
-        <Text style={{fontFamily: 'Ubuntu-Bold', fontSize: 14}}>{item.company}</Text>
-        <BorderBottom style={{top:5}} />
-        <Text style={{
-          fontFamily: 'Ubuntu-Regular', 
-          color: '#666666' ,
-          fontSize: 12, 
-          top: 7}}
-          >{item.qtd} {item.submit}</Text>
-        <BorderBottom style={{top:10}} />
-        <Text style={{
+      <Text style={{ fontFamily: 'Ubuntu-Bold', fontSize: 14 }}>
+        {item.company}
+      </Text>
+      <BorderBottom style={{ top: 5 }} />
+      <Text
+        style={{
           fontFamily: 'Ubuntu-Regular',
-          fontSize: 12, 
-          top: 15}}
-          >Avaliação do pedido: {item.status}</Text>
-        <BorderBottom style={{top:20}} />
-        <View style={{flexDirection: "row"}}>
+          color: '#666666',
+          fontSize: 12,
+          top: 7,
+        }}
+      >
+        {item.qtd} {item.submit}
+      </Text>
+      <BorderBottom style={{ top: 10 }} />
+      <Text
+        style={{
+          fontFamily: 'Ubuntu-Regular',
+          fontSize: 12,
+          top: 15,
+        }}
+      >
+        Avaliação do pedido: {item.status}
+      </Text>
+      <BorderBottom style={{ top: 20 }} />
+      <View style={{ flexDirection: 'row' }}>
         <ViewTouchD>
         <ButtonDetails onPress={() => navigation.navigate('DetailsGetDelivery')}>
           <Text style={{fontSize: 14, color: '#84378F'}}>Detalhes</Text>
         </ButtonDetails>
         </ViewTouchD>
         <ViewTouchR>
-        <ButtonRating onPress={() => {
-          setModalVisible(true);
-        }}>
-          <Text style={{fontSize: 14, color: '#84378F'}}>Avaliação</Text>
-        </ButtonRating>
+          <ButtonRating
+            onPress={() => {
+              setModalVisible(true);
+            }}
+          >
+            <Text style={{ fontSize: 14, color: '#84378F' }}>Avaliação</Text>
+          </ButtonRating>
         </ViewTouchR>
-        </View>
+      </View>
     </ViewFList>
   );
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <Container>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-          }}
-        >
-         <CenterView>
+      <Modal
+        animationType="slide"
+        transparent
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+        }}
+      >
+        <CenterView>
           <ModalView>
             <ModalTextView>
-            <ModalText>Avaliação</ModalText>
+              <ModalText>Avaliação</ModalText>
             </ModalTextView>
             <TouchClose>
-            <TouchableOpacity
-              onPress={() => {
-                setModalVisible(!modalVisible);
-              }}
-            >
-              <Icon name="times" color="#EB5757" size={40}/>
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <Icon name="times" color="#EB5757" size={40} />
+              </TouchableOpacity>
             </TouchClose>
             <ViewRating>
-            <AirbnbRating
-              starStyle={{marginHorizontal:8}}
-              count={5}
-              reviews={["Chula", "Ruim", "Razoavel", "Bom", "Só a polpa"]}
-              defaultRating={1}
-              size={40}
-            />
+              <AirbnbRating
+                starStyle={{ marginHorizontal: 8 }}
+                count={5}
+                reviews={['Chula', 'Ruim', 'Razoavel', 'Bom', 'Só a polpa']}
+                defaultRating={1}
+                size={40}
+              />
             </ViewRating>
             <SaveRating>
-              <Text style={{textAlign: "center", color: '#fff', top: 5, fontFamily:'Ubuntu-Bold'}}>Salvar</Text>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  color: '#fff',
+                  top: 5,
+                  fontFamily: 'Ubuntu-Bold',
+                }}
+              >
+                Salvar
+              </Text>
             </SaveRating>
           </ModalView>
-
         </CenterView>
       </Modal>
 
       <FlatList
         data={DATA}
         renderItem={renderItem}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
       />
     </Container>
   );
