@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Text, View, FlatList, Alert, Modal, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {AirbnbRating} from 'react-native-elements';
+import { useNavigation } from '@react-navigation/native';
 
 
 import { Container, 
@@ -25,7 +26,8 @@ const DATA = [
     company: 'Açai do bom',
     submit: 'Açai 1L',
     status: 'Pendente',
-    qtd: 1
+    qtd: 1,
+    type: 'Delivery'
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
@@ -33,7 +35,8 @@ const DATA = [
     company: 'La casa de Açai',
     submit: 'Farinha',
     status: 'Pendente',
-    qtd: 1
+    qtd: 1,
+    type: 'Delivery'
 
   },
   {
@@ -41,14 +44,19 @@ const DATA = [
     company: 'Vitaminosa 10',
     submit: 'Camarão',
     status: 'Finalizado',
-    qtd: 1
+    qtd: 1,
+    type: 'GetDelivery'
   },
 ];
 
 
 
 const MyDelivery: React.FC = () => {
+  const navigation = useNavigation();
+
   const renderItem = ({ item }) => (
+
+
     <ViewFList>
         <Text style={{fontFamily: 'Ubuntu-Bold', fontSize: 14}}>{item.company}</Text>
         <BorderBottom style={{top:5}} />
@@ -67,7 +75,7 @@ const MyDelivery: React.FC = () => {
         <BorderBottom style={{top:20}} />
         <View style={{flexDirection: "row"}}>
         <ViewTouchD>
-        <ButtonDetails onPress={() => Alert.alert('Essa tela ainda será desenvolvida')}>
+        <ButtonDetails onPress={() => navigation.navigate('DetailsGetDelivery')}>
           <Text style={{fontSize: 14, color: '#84378F'}}>Detalhes</Text>
         </ButtonDetails>
         </ViewTouchD>
