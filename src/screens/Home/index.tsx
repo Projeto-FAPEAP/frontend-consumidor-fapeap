@@ -96,7 +96,7 @@ const Home: React.FC = () => {
         </Header>
       )}
 
-      <TextMid>Batedeiras proximas à você</TextMid>
+      <TextMid>Batedeiras próximas à você</TextMid>
 
       <FlatList
         data={data}

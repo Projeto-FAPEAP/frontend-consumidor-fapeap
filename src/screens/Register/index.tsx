@@ -199,11 +199,12 @@ const Login: React.FC = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
-      <S.Container showsVerticalScrollIndicator={false}>
-        <StatusBar
-          barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
-        />
-        <KeyboardView>
+      <KeyboardView>
+        <S.Container showsVerticalScrollIndicator={false}>
+          <StatusBar
+            barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
+          />
+
           <S.Header>
             <S.Title>Crie sua conta</S.Title>
             <S.Subtitle>{subtitle}</S.Subtitle>
@@ -220,27 +221,19 @@ const Login: React.FC = () => {
               )}
             </S.Form>
           </FormProvider>
-        </KeyboardView>
 
-        {!keyboardIsOpen && (
-          <S.Footer>
-            {/* <S.DotsContainer>
-            <S.Dots
-              onPress={() => nextStep(1)}
-              isFilled
-              color={colors.primary}
-            />
-          </S.DotsContainer> */}
-
-            <S.ButtonSignIn
-              onPress={() => formRef.current?.submitForm()}
-              loading={loading}
-            >
-              Cadastrar
-            </S.ButtonSignIn>
-          </S.Footer>
-        )}
-      </S.Container>
+          {!keyboardIsOpen && (
+            <S.Footer>
+              <S.ButtonSignIn
+                onPress={() => formRef.current?.submitForm()}
+                loading={loading}
+              >
+                Cadastrar
+              </S.ButtonSignIn>
+            </S.Footer>
+          )}
+        </S.Container>
+      </KeyboardView>
     </View>
   );
 };

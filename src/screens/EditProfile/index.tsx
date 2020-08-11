@@ -265,8 +265,8 @@ const EditProfile: React.FC = ({ route }) => {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
-      <S.Container showsVerticalScrollIndicator={false}>
-        <KeyboardView>
+      <KeyboardView>
+        <S.Container showsVerticalScrollIndicator={false}>
           <FormProvider onSubmit={handleSubmit} ref={formRef}>
             <S.Form>
               {step === 1 && (
@@ -279,27 +279,19 @@ const EditProfile: React.FC = ({ route }) => {
               )}
             </S.Form>
           </FormProvider>
-        </KeyboardView>
 
-        {!keyboardIsOpen && (
-          <S.Footer>
-            {/* <S.DotsContainer>
-            <S.Dots
-              onPress={() => nextStep(1)}
-              isFilled
-              color={colors.primary}
-            />
-          </S.DotsContainer> */}
-
-            <S.ButtonSignIn
-              onPress={() => formRef.current?.submitForm()}
-              loading={loading}
-            >
-              Salvar
-            </S.ButtonSignIn>
-          </S.Footer>
-        )}
-      </S.Container>
+          {!keyboardIsOpen && (
+            <S.Footer>
+              <S.ButtonSignIn
+                onPress={() => formRef.current?.submitForm()}
+                loading={loading}
+              >
+                Salvar
+              </S.ButtonSignIn>
+            </S.Footer>
+          )}
+        </S.Container>
+      </KeyboardView>
     </View>
   );
 };

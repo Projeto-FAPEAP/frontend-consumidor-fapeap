@@ -52,7 +52,7 @@ const Login: React.FC = () => {
         const { responseState, responseStatus } = Response;
 
         if (!responseState) {
-          Alert.alert('Aviso', responseStatus);
+          Alert.alert('Erro de Autenticação', responseStatus);
         } else {
           navigation.goBack();
         }
@@ -118,6 +118,7 @@ const Login: React.FC = () => {
               autoCapitalize="none"
               secureTextEntry
               returnKeyType="send"
+              onSubmitEditing={() => formRef.current?.submitForm()}
             />
             <S.ButtonSignIn
               onPress={() => formRef.current?.submitForm()}
