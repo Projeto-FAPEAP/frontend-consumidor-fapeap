@@ -42,7 +42,7 @@ export const Form = styled.View`
 
 export const Footer = styled.View`
   margin-top: auto;
-  padding: 30px 25px;
+  padding: 30px 0px;
 `;
 
 export const DotsContainer = styled.View`

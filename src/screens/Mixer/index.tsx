@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList } from 'react-native';
+import {View,Linking, TouchableOpacity, FlatList } from 'react-native';
 import Slideshow from 'react-native-image-slider-show-razzium';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Product from '../../components/Cards/Product';
 import formatMoney from '../../components/FormatMoney';
 import api from '../../services/api';
+import Axios from 'axios';
+
 import { Container, Content, Title, Text } from './styles';
 
 interface IFile {
@@ -23,6 +25,10 @@ interface IProduct {
       item: {
         nome_fantasia: string;
         id: string;
+        cep: string;
+        bairro: string;
+        logradouro: string;
+        numero_local: string;
         taxa_delivery: string;
         avaliacoesFornecedor: number[];
         arquivos: IFile[];
@@ -31,10 +37,17 @@ interface IProduct {
   };
 }
 
+interface ICEPResponse {
+  localidade: string;
+  uf: string;
+}
+
 const Mixer: React.FC<IProduct> = (props) => {
   const mixer = props?.route?.params?.item;
   const [data, setData] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const [city, setCity] = useState('Macapá - AP');
 
   useEffect(() => {
     api.get(`produto/${props?.route?.params?.item?.id}`).then((response) => {
@@ -68,6 +81,37 @@ const Mixer: React.FC<IProduct> = (props) => {
     return imagens;
   }
 
+  function videosFiles(files: IFile[]): IFile[] {
+    const fileExtension_img = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+
+    const videos = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const ext = files[i]?.url?.split('.')?.pop()?.toLowerCase();
+
+      if (!fileExtension_img.includes(ext)) {
+        videos.push(files[i]);
+      }
+    }
+
+    return videos;
+  }
+
+  function getCityAndUf(cep: string): void {
+    Axios.get<ICEPResponse>(`https://viacep.com.br/ws/${cep}/json/`).then(
+      (response) => {
+        const { localidade, uf } = response.data;
+        setCity(` ${localidade} - ${uf}`);
+      },
+    );
+  }
+
+  useEffect(() => {
+    if (mixer?.cep) {
+      getCityAndUf(mixer.cep);
+    }
+  }, [mixer]);
+
   return (
     <Container>
       {imagesFiles(mixer.arquivos).length > 0 && (
@@ -75,7 +119,18 @@ const Mixer: React.FC<IProduct> = (props) => {
       )}
 
       <Content>
-        <Title style={{ marginBottom: 5 }}>{mixer.nome_fantasia}</Title>
+
+        <View style={{flexDirection:'row', alignItems:'center', justifyContent: 'space-between'}}>
+          <Title style={{ marginBottom: 5 }}>{mixer.nome_fantasia}</Title>
+          <TouchableOpacity onPress={() => videosFiles(mixer.arquivos).length > 0 && Linking.openURL(videosFiles(mixer.arquivos)[0].url)}>
+            <Icon name="video" color="#CCC" size={30} />
+          </TouchableOpacity>
+        </View>
+
+        <Text style={{ marginTop: -5,marginBottom: 5 }} size={12} color="#999">
+          {mixer.logradouro}, nº {mixer.numero_local}, {mixer.bairro}, {city}
+        </Text>
+
         <Text style={{ marginBottom: 5 }} color="#FBC72D" size={14}>
           <Icon name="star" color="#FBC72D" size={16} />{' '}
           {media(mixer.avaliacoesFornecedor)} -{' '}

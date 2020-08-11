@@ -102,7 +102,7 @@ const FormStep1: React.FC<IFormStep1Props> = (props) => {
             autoCapitalize="none"
             returnKeyType="next"
             keyboardType="number-pad"
-            onSubmitEditing={() => focusTargetInput('cep')}
+            onSubmitEditing={onSubmitForm}
             containerStyle={{
               marginTop: 15,
               maxWidth: 350,
@@ -183,7 +183,7 @@ const FormStep1: React.FC<IFormStep1Props> = (props) => {
             keyboardType="number-pad"
             autoCorrect={false}
             returnKeyType="next"
-            onSubmitEditing={() => focusTargetInput('senha')}
+            onSubmitEditing={onSubmitForm}
           />
         </>
       )}

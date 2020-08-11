@@ -17,6 +17,7 @@ interface IMixer {
     nome_fantasia: string;
     taxa_delivery: string;
     verificado: boolean;
+    bairro: string;
     avaliacoesFornecedor: number[];
     arquivos: IFile[];
   };
@@ -70,7 +71,7 @@ const Mixer: React.FC<IMixer> = ({ item, navigation }) => {
         <Title>{item.nome_fantasia}</Title>
         <Text style={{ marginBottom: 5 }} color="#FBC72D">
           <Icon name="star" color="#FBC72D" size={11} />{' '}
-          {media(item.avaliacoesFornecedor)}
+          {media(item.avaliacoesFornecedor)} - {item.bairro}
         </Text>
         <Text color="#999">
           {item.taxa_delivery
