@@ -120,7 +120,14 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   async function updateProfile(data: IResponseData): Promise<Response> {
     try {
-      await api.put('consumidor', data);
+      const user = await api.put('consumidor', data);
+
+      setUser(user.data);
+
+      await AsyncStorage.setItem(
+        '@QueroAçaí-Consumidor:user',
+        JSON.stringify(user.data),
+      );
 
       return new Promise((resolve) => {
         resolve({

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Alert, Platform, Keyboard, StatusBar } from 'react-native';
+import { Alert, View, Platform, Keyboard, StatusBar } from 'react-native';
 
 import KeyboardView from '@components/KeyboardView';
 import { useNavigation } from '@react-navigation/native';
@@ -198,32 +198,33 @@ const Login: React.FC = () => {
   );
 
   return (
-    <S.Container showsVerticalScrollIndicator={false}>
-      <StatusBar
-        barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
-      />
-      <KeyboardView>
-        <S.Header>
-          <S.Title>Crie sua conta</S.Title>
-          <S.Subtitle>{subtitle}</S.Subtitle>
-        </S.Header>
+    <View style={{ flex: 1, backgroundColor: '#fff' }}>
+      <S.Container showsVerticalScrollIndicator={false}>
+        <StatusBar
+          barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
+        />
+        <KeyboardView>
+          <S.Header>
+            <S.Title>Crie sua conta</S.Title>
+            <S.Subtitle>{subtitle}</S.Subtitle>
+          </S.Header>
 
-        <FormProvider onSubmit={handleSubmit} ref={formRef}>
-          <S.Form>
-            {step === 1 && (
-              <FormStep1
-                formRef={formRef}
-                onSubmitForm={submitForm}
-                focusTargetInput={focusTargetInput}
-              />
-            )}
-          </S.Form>
-        </FormProvider>
-      </KeyboardView>
+          <FormProvider onSubmit={handleSubmit} ref={formRef}>
+            <S.Form>
+              {step === 1 && (
+                <FormStep1
+                  formRef={formRef}
+                  onSubmitForm={submitForm}
+                  focusTargetInput={focusTargetInput}
+                />
+              )}
+            </S.Form>
+          </FormProvider>
+        </KeyboardView>
 
-      {!keyboardIsOpen && (
-        <S.Footer>
-          {/* <S.DotsContainer>
+        {!keyboardIsOpen && (
+          <S.Footer>
+            {/* <S.DotsContainer>
             <S.Dots
               onPress={() => nextStep(1)}
               isFilled
@@ -231,15 +232,16 @@ const Login: React.FC = () => {
             />
           </S.DotsContainer> */}
 
-          <S.ButtonSignIn
-            onPress={() => formRef.current?.submitForm()}
-            loading={loading}
-          >
-            Cadastrar
-          </S.ButtonSignIn>
-        </S.Footer>
-      )}
-    </S.Container>
+            <S.ButtonSignIn
+              onPress={() => formRef.current?.submitForm()}
+              loading={loading}
+            >
+              Cadastrar
+            </S.ButtonSignIn>
+          </S.Footer>
+        )}
+      </S.Container>
+    </View>
   );
 };
 

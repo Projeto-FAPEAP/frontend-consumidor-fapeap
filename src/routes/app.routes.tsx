@@ -184,6 +184,7 @@ const AppRoutes: React.FC = () => {
         component={MyDelivery}
         options={{
           title: 'Meus pedidos',
+          headerBackTitleVisible: false,
           headerStyle: {
             backgroundColor: colors.primary,
           },
@@ -231,6 +232,7 @@ const AppRoutes: React.FC = () => {
         component={DetailsDelivery}
         options={{
           title: 'Detalhes da entrega',
+          headerBackTitleVisible: false,
           headerStyle: {
             backgroundColor: colors.primary,
           },
@@ -246,6 +248,7 @@ const AppRoutes: React.FC = () => {
         component={DetailsGetDelivery}
         options={{
           title: 'Detalhes da retirada',
+          headerBackTitleVisible: false,
           headerStyle: {
             backgroundColor: colors.primary,
           },

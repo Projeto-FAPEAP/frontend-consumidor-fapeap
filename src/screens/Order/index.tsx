@@ -435,7 +435,13 @@ const Order: React.FC = () => {
                   resizeMode="contain"
                 />
               )}
-              <Title style={{ marginBottom: 5, marginTop: !user ? 0 : '30%' }}>
+              <Title
+                style={{
+                  color: colors.title,
+                  marginBottom: 5,
+                  marginTop: !user ? 0 : '30%',
+                }}
+              >
                 Não há produtos no seu carrinho
               </Title>
             </View>
