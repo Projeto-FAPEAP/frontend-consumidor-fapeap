@@ -11,6 +11,7 @@ export const Container = styled.ScrollView`
   flex: 1;
   margin: 20px;
   align-self: stretch;
+  background: #fff;
 `;
 
 export const Header = styled.View`

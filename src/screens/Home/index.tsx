@@ -41,11 +41,16 @@ const Home: React.FC = () => {
   }
 
   useEffect(() => {
-    api.get<IMixer[]>('fornecedor').then((response) => {
-      const filter = response.data.filter((item) => item?.verificado);
-      setData(filter);
-      setLoading(false);
-    });
+    api
+      .get<IMixer[]>('fornecedor')
+      .then((response) => {
+        const filter = response.data.filter((item) => item?.verificado);
+        setData(filter);
+        setLoading(false);
+      })
+      .catch((response) => {
+        setLoading(false);
+      });
   }, []);
 
   useEffect(() => {

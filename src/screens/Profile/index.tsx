@@ -64,7 +64,51 @@ const Profile: React.FC = () => {
               }}
               bottomDivider
               chevron
-              onPress={() => navigation.navigate('EditProfile')}
+              onPress={() =>
+                navigation.navigate('EditProfile', {
+                  profile: true,
+                  address: false,
+                  password: false,
+                })
+              }
+            />
+            <ListItem
+              title="Alterar Endereço"
+              titleStyle={{
+                fontFamily: 'Ubuntu-Bold',
+              }}
+              subtitle="Faça a alteração do seu endereço"
+              subtitleStyle={{
+                fontFamily: 'Ubuntu-Regular',
+              }}
+              bottomDivider
+              chevron
+              onPress={() =>
+                navigation.navigate('EditProfile', {
+                  profile: false,
+                  address: true,
+                  password: false,
+                })
+              }
+            />
+            <ListItem
+              title="Alterar senha"
+              titleStyle={{
+                fontFamily: 'Ubuntu-Bold',
+              }}
+              subtitle="Faça a alteração da sua senha"
+              subtitleStyle={{
+                fontFamily: 'Ubuntu-Regular',
+              }}
+              bottomDivider
+              chevron
+              onPress={() =>
+                navigation.navigate('EditProfile', {
+                  profile: false,
+                  address: false,
+                  password: true,
+                })
+              }
             />
             <ListItem
               title="Sair"
