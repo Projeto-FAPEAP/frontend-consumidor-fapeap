@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Text,
   View,
@@ -10,6 +10,9 @@ import {
 import { AirbnbRating } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+
+import api from '../../services/api';
+import authApi from '../../services/authapi'; 
 
 import {
   Container,
@@ -28,44 +31,52 @@ import {
   SaveRating,
 } from './styles';
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    company: 'Açai do bom',
-    submit: 'Açai 1L',
-    status: 'Pendente',
-    qtd: 1,
-    type: 'Delivery'
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: '',
-    company: 'La casa de Açai',
-    submit: 'Farinha',
-    status: 'Pendente',
-    qtd: 1,
-    type: 'Delivery'
-
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    company: 'Vitaminosa 10',
-    submit: 'Camarão',
-    status: 'Finalizado',
-    qtd: 1,
-    type: 'GetDelivery'
-  },
-];
+interface Data {
+  id: number;
+  total: number;
+  status_pedido: string;
+  delivery: boolean;
+  fornecedor: {
+    nome_fantasia: string;
+  };
+}
 
 const MyDelivery: React.FC = () => {
+  const [submit, setSubmit] = useState<Data[] | undefined>([]);
+  const [loading, setLoading] = useState(false);
+
+
+  useEffect(() => {
+    getList();
+  }, []);
+
+  async function getList(): Promise<void> {
+    try {
+      const response = await authApi.get(
+        `${api.defaults.baseURL}/listapedidos`,
+      );
+      setSubmit(response.data);
+      setLoading(false);
+      console.log(JSON.stringify(response.data, null, 2))}
+      catch (error) {
+        setLoading(false);
+        if (error.message === 'Network Error') {
+          Alert.alert('Verifique sua conexão de internet e tente novamente!!');
+        } else {
+
+          Alert.alert(error.response.data.error);
+        }
+    }
+  }
+
+
   const navigation = useNavigation();
-
+  
   const renderItem = ({ item }) => (
-
 
     <ViewFList>
       <Text style={{ fontFamily: 'Ubuntu-Bold', fontSize: 14 }}>
-        {item.company}
+        {item.fornecedor.nome_fantasia}
       </Text>
       <BorderBottom style={{ top: 5 }} />
       <Text
@@ -76,7 +87,17 @@ const MyDelivery: React.FC = () => {
           top: 7,
         }}
       >
-        {item.qtd} {item.submit}
+        Total: R$ {item.total}
+      </Text>
+      <Text
+        style={{
+          fontFamily: 'Ubuntu-Regular',
+          color: '#666666',
+          fontSize: 12,
+          top: 7,
+        }}
+      >
+        Status: {item.status_pedido}
       </Text>
       <BorderBottom style={{ top: 10 }} />
       <Text
@@ -91,9 +112,9 @@ const MyDelivery: React.FC = () => {
       <BorderBottom style={{ top: 20 }} />
       <View style={{ flexDirection: 'row' }}>
         <ViewTouchD>
-        <ButtonDetails onPress={() => navigation.navigate('DetailsGetDelivery')}>
-          <Text style={{fontSize: 14, color: '#84378F'}}>Detalhes</Text>
-        </ButtonDetails>
+          <ButtonDetails onPress={() => navigation.navigate('DetailsGetDelivery')}>
+            <Text style={{fontSize: 14, color: '#84378F'}}>Detalhes</Text>
+          </ButtonDetails>
         </ViewTouchD>
         <ViewTouchR>
           <ButtonRating
@@ -106,10 +127,12 @@ const MyDelivery: React.FC = () => {
         </ViewTouchR>
       </View>
     </ViewFList>
+
   );
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
+
     <Container>
       <Modal
         animationType="slide"
@@ -159,9 +182,25 @@ const MyDelivery: React.FC = () => {
       </Modal>
 
       <FlatList
-        data={DATA}
+        data={submit}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(index) => String(index)}
+        ListEmptyComponent={() => (
+          <>
+            {!loading && (
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: '#999',
+                  fontFamily: 'Ubuntu-Regular',
+                  marginLeft: 10,
+                }}
+              >
+                Não há pedidos registrados
+              </Text>
+            )}
+          </>
+        )}  
       />
     </Container>
   );
