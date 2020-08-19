@@ -12,7 +12,7 @@ export const ViewFList = styled.View`
     border: 1px solid #E3DFDF;
     padding: 10px;
     width: 350px;
-    height: 120px;
+    height: 135px;
     marginVertical: 8;
     marginHorizontal: 10;
     border-radius: 8px;
