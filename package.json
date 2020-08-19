@@ -36,6 +36,7 @@
     "react-native-image-slider-show-razzium": "^1.0.4",
     "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-masked-text": "^1.13.0",
+    "react-native-onesignal": "^3.9.0",
     "react-native-reanimated": "^1.9.0",
     "react-native-responsive-screen": "^1.4.1",
     "react-native-safe-area-context": "^3.1.1",

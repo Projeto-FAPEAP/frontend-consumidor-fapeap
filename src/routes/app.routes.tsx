@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -9,6 +9,8 @@ import { useTheme } from 'styled-components';
 
 import { somaUnitaria } from '../components/SumTotalBag';
 import CartContext from '../contexts/cart';
+import DetailsDelivery from '../screens/DetailsDelivery';
+import DetailsGetDelivery from '../screens/DetailsGetDelivery';
 import EditProfile from '../screens/EditProfile';
 import Home from '../screens/Home';
 import Mixer from '../screens/Mixer';
@@ -19,8 +21,6 @@ import Profile from '../screens/Profile';
 import RecoveryP from '../screens/RecoveryPassword';
 import Register from '../screens/Register';
 import SignIn from '../screens/SignIn';
-import DetailsDelivery from '../screens/DetailsDelivery';
-import DetailsGetDelivery from '../screens/DetailsGetDelivery';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -43,8 +43,7 @@ const Tabs: React.FC = () => {
         options={{
           tabBarLabel: 'Inicio',
           tabBarIcon: ({ color, size }) => (
-            <Icon name="home" color={color} size={size}/>
-
+            <Icon name="home" color={color} size={size} />
           ),
         }}
       />
@@ -84,13 +83,13 @@ const AppRoutes: React.FC = () => {
             onPress={() => navigation.navigate('Order')}
             style={{ marginRight: 10 }}
           >
-            <Icon name="shopping-cart" color="#fff" size={30}/>
+            <Icon name="shopping-cart" color="#fff" size={30} />
 
             {cart.length > 0 && (
               <View
                 style={{
                   position: 'absolute',
-                  backgroundColor: '#FF4646',
+                  backgroundColor: colors.danger,
                   width: 20,
                   height: 20,
                   borderRadius: 12,
@@ -185,6 +184,7 @@ const AppRoutes: React.FC = () => {
         component={MyDelivery}
         options={{
           title: 'Meus pedidos',
+          headerBackTitleVisible: false,
           headerStyle: {
             backgroundColor: colors.primary,
           },
@@ -232,8 +232,9 @@ const AppRoutes: React.FC = () => {
         component={DetailsDelivery}
         options={{
           title: 'Detalhes da entrega',
+          headerBackTitleVisible: false,
           headerStyle: {
-            backgroundColor: '#84378F',
+            backgroundColor: colors.primary,
           },
           headerTitleStyle: {
             fontFamily: 'Ubuntu-Bold',
@@ -242,13 +243,14 @@ const AppRoutes: React.FC = () => {
           headerTitleAlign: 'center',
         }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="DetailsGetDelivery"
         component={DetailsGetDelivery}
         options={{
           title: 'Detalhes da retirada',
+          headerBackTitleVisible: false,
           headerStyle: {
-            backgroundColor: '#84378F',
+            backgroundColor: colors.primary,
           },
           headerTitleStyle: {
             fontFamily: 'Ubuntu-Bold',

@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 
-
 export const Container = styled.SafeAreaView`
   flex: 1;
+  background: #fff;
 `;
 export const StatusView = styled.View`
   align-items: center;
@@ -24,7 +24,7 @@ export const BorderBottom = styled.View`
 `;
 export const PrincipalDivider = styled.View`
   border-bottom-width: 1px;
-  border: 1px solid #CDC3C3;
+  border: 1px solid #cdc3c3;
   width: 85%;
   top: 8%;
 `;
@@ -37,20 +37,20 @@ export const Title = styled.Text`
   font-size: 14px;
   left: 10%;
   display: flex;
- `;
- export const Subtitle = styled.Text`
+`;
+export const Subtitle = styled.Text`
   font-family: Ubuntu-Regular;
   font-size: 14px;
   left: 10%;
   top: 1%;
- `;
- export const PrincipalText = styled.Text`
+`;
+export const PrincipalText = styled.Text`
   font-family: Ubuntu-Bold;
   font-size: 18px;
   color: #444444;
   top: 5%;
- `;
- export const MapRouter = styled.TouchableOpacity`
+`;
+export const MapRouter = styled.TouchableOpacity`
   width: 30%;
   position: absolute;
   background: ${(props) => props.theme.colors.primary};
@@ -60,5 +60,4 @@ export const Title = styled.Text`
   margin: 0 auto;
   margin-top: 205px;
   margin-left: 250px;
-
 `;

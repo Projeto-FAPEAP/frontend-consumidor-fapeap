@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Alert, Keyboard } from 'react-native';
+import { View, Alert, Keyboard } from 'react-native';
 
 import KeyboardView from '@components/KeyboardView';
 import { useNavigation } from '@react-navigation/native';
@@ -39,10 +39,9 @@ interface IFormDataStep1 {
   password_confirmation: string;
 }
 
-const EditProfile: React.FC = () => {
+const EditProfile: React.FC = ({ route }) => {
   const navigation = useNavigation();
   const formRef = React.useRef<FormHandles>(null);
-  const { colors } = useTheme();
   const [loading, setLoading] = React.useState(false);
   const [step, setStep] = React.useState(1);
   const [keyboardIsOpen, setKeyboardIsOpen] = React.useState(false);
@@ -148,53 +147,35 @@ const EditProfile: React.FC = () => {
           } = objectFormData;
           const { senha, password_confirmation } = objectFormData;
 
-          await schemaStep1.validate(
-            {
-              nome,
-              telefone_whatsapp,
-              email,
-              cep,
-              logradouro,
-              bairro,
-              numero_local,
-              senha,
-              password_confirmation,
-              cpf,
-            },
-            { abortEarly: false },
-          );
-
-          if (data.cep !== '') {
-            await schemaStep2.validate(
+          if (data.cpf !== undefined) {
+            await schemaStep1.validate(
               {
                 nome,
                 telefone_whatsapp,
                 email,
-                cep,
-                logradouro,
-                bairro,
-                numero_local,
-                senha,
-                password_confirmation,
                 cpf,
               },
               { abortEarly: false },
             );
           }
 
-          if (data.senha !== '') {
-            await schemaStep3.validate(
+          if (data.cep !== undefined) {
+            await schemaStep2.validate(
               {
-                nome,
-                telefone_whatsapp,
-                email,
                 cep,
                 logradouro,
                 bairro,
                 numero_local,
+              },
+              { abortEarly: false },
+            );
+          }
+
+          if (data.senha !== undefined) {
+            await schemaStep3.validate(
+              {
                 senha,
                 password_confirmation,
-                cpf,
               },
               { abortEarly: false },
             );
@@ -227,14 +208,14 @@ const EditProfile: React.FC = () => {
 
           console.log(objectFormData);
 
-          /*  const response = await updateProfile(objectFormData);
+          const response = await updateProfile(objectFormData);
           const { responseState, responseStatus } = response;
 
           if (!responseState) {
-            Alert.alert('Não foi possível cadastrar', responseStatus);
+            Alert.alert('Não foi possível atualizar', responseStatus);
           } else {
-            Alert.alert('Sucesso', "Dados atualizados com sucesso!");
-          } */
+            Alert.alert('Sucesso', 'Dados atualizados com sucesso!');
+          }
 
           formRef.current?.setData({
             nome: objectFormData?.nome,
@@ -283,40 +264,35 @@ const EditProfile: React.FC = () => {
   );
 
   return (
-    <S.Container showsVerticalScrollIndicator={false}>
+    <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <KeyboardView>
-        <FormProvider onSubmit={handleSubmit} ref={formRef}>
-          <S.Form>
-            {step === 1 && (
-              <FormStep1
-                formRef={formRef}
-                onSubmitForm={submitForm}
-                focusTargetInput={focusTargetInput}
-              />
-            )}
-          </S.Form>
-        </FormProvider>
+        <S.Container showsVerticalScrollIndicator={false}>
+          <FormProvider onSubmit={handleSubmit} ref={formRef}>
+            <S.Form>
+              {step === 1 && (
+                <FormStep1
+                  formRef={formRef}
+                  fieldsAvailable={route.params}
+                  onSubmitForm={submitForm}
+                  focusTargetInput={focusTargetInput}
+                />
+              )}
+            </S.Form>
+          </FormProvider>
+
+          {!keyboardIsOpen && (
+            <S.Footer>
+              <S.ButtonSignIn
+                onPress={() => formRef.current?.submitForm()}
+                loading={loading}
+              >
+                Salvar
+              </S.ButtonSignIn>
+            </S.Footer>
+          )}
+        </S.Container>
       </KeyboardView>
-
-      {!keyboardIsOpen && (
-        <S.Footer>
-          <S.DotsContainer>
-            <S.Dots
-              onPress={() => nextStep(1)}
-              isFilled
-              color={colors.primary}
-            />
-          </S.DotsContainer>
-
-          <S.ButtonSignIn
-            onPress={() => formRef.current?.submitForm()}
-            loading={loading}
-          >
-            Salvar
-          </S.ButtonSignIn>
-        </S.Footer>
-      )}
-    </S.Container>
+    </View>
   );
 };
 

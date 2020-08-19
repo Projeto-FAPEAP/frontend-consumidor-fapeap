@@ -41,11 +41,16 @@ const Home: React.FC = () => {
   }
 
   useEffect(() => {
-    api.get<IMixer[]>('fornecedor').then((response) => {
-      const filter = response.data.filter((item) => item?.verificado);
-      setData(filter);
-      setLoading(false);
-    });
+    api
+      .get<IMixer[]>('fornecedor')
+      .then((response) => {
+        const filter = response.data.filter((item) => item?.verificado);
+        setData(filter);
+        setLoading(false);
+      })
+      .catch((response) => {
+        setLoading(false);
+      });
   }, []);
 
   useEffect(() => {
@@ -91,7 +96,7 @@ const Home: React.FC = () => {
         </Header>
       )}
 
-      <TextMid>Batedeiras proximas à você</TextMid>
+      <TextMid>Batedeiras disponíveis</TextMid>
 
       <FlatList
         data={data}

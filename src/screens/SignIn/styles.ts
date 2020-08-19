@@ -7,6 +7,7 @@ export const Container = styled.SafeAreaView`
   margin: 20px;
   justify-content: space-around;
   align-self: stretch;
+  background: #fff;
 `;
 
 export const Title = styled.Text`

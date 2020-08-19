@@ -175,7 +175,14 @@ const Product: React.FC<IProps> = (props) => {
                 <Icon
                   style={{ marginLeft: 10 }}
                   name="plus-circle"
-                  color={colors.primary}
+                  color={
+                    cart?.filter((item) => item.id === data.id).length > 0 &&
+                    cart?.filter((item) => item.id === data.id)[0].quantity ===
+                      cart?.filter((item) => item.id === data.id)[0]
+                        .estoque_produto
+                      ? colors.regular
+                      : colors.primary
+                  }
                   size={30}
                 />
               </TouchableOpacity>

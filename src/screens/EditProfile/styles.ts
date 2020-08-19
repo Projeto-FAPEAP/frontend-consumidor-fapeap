@@ -11,6 +11,7 @@ export const Container = styled.ScrollView`
   flex: 1;
   margin: 20px;
   align-self: stretch;
+  background: #fff;
 `;
 
 export const Header = styled.View`
@@ -41,7 +42,7 @@ export const Form = styled.View`
 
 export const Footer = styled.View`
   margin-top: auto;
-  padding: 30px 25px;
+  padding: 30px 0px;
 `;
 
 export const DotsContainer = styled.View`

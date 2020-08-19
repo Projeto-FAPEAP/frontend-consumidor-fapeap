@@ -1,7 +1,5 @@
 import styled from 'styled-components/native';
 
-
-
 export const Container = styled.View`
   flex: 1;
   background: ${(props) => props.theme.colors.background};
@@ -41,22 +39,21 @@ export const CenterView = styled.View`
 `;
 export const ModalView = styled.View`
   margin: 10px;
-  background: #F9F9F9;
+  background: #f9f9f9;
   border-radius: 10px;
   padding: 35px;
   width: 90%;
   height: 85%;
 `;
 export const ModalTextView = styled.View`
-  padding: 10px; 
-  position: absolute; 
+  padding: 10px;
+  position: absolute;
 `;
 export const ModalText = styled.Text`
   font-family: Ubuntu-Bold;
   font-size: 32px;
-  color: #84378F;
+  color: #84378f;
   text-align: left;
-
 `;
 export const TouchClose = styled.View`
   position: absolute;

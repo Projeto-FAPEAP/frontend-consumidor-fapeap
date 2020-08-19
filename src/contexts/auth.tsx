@@ -4,6 +4,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import api from '../services/api';
 
+/* import {
+  subscribeToNotification,
+  unsubscribeToNotification
+} from '../services/notification'; */
+
 interface Response {
   responseState: boolean;
   responseStatus: string;
@@ -70,6 +75,8 @@ export const AuthProvider: React.FC = ({ children }) => {
 
       api.defaults.headers.authorization = `Bearer ${response.data.tokenConsumidor}`;
 
+      //subscribeToNotification(response.data.tokenConsumidor);
+
       await AsyncStorage.setItem(
         '@QueroAçaí-Consumidor:user',
         JSON.stringify(response.data.consumidor),
@@ -120,7 +127,14 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   async function updateProfile(data: IResponseData): Promise<Response> {
     try {
-      await api.put('consumidor', data);
+      const user = await api.put('consumidor', data);
+
+      setUser(user.data);
+
+      await AsyncStorage.setItem(
+        '@QueroAçaí-Consumidor:user',
+        JSON.stringify(user.data),
+      );
 
       return new Promise((resolve) => {
         resolve({
@@ -138,8 +152,11 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
   }
 
-  function logOut(): void {
-    AsyncStorage.clear().then(() => {
+  async function logOut(): Promise<void> {
+    /* const token = await AsyncStorage.getItem('@QueroAçaí-Consumidor:token');
+    unsubscribeToNotification(token) */
+    await AsyncStorage.removeItem("@QueroAçaí-Consumidor:token");
+    AsyncStorage.removeItem("@QueroAçaí-Consumidor:user").then(() => {
       setUser(null);
     });
   }
