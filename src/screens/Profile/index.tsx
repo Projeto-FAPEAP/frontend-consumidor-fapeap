@@ -11,7 +11,7 @@ import { Container, TextProfile, ViewList } from './styles';
 const Profile: React.FC = () => {
   const navigation = useNavigation();
   const { user, logOut } = useContext(AuthContext);
-
+  
   const { colors } = useTheme();
 
   function handleSignOut(): void {
