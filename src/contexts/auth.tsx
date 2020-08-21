@@ -4,10 +4,10 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import api from '../services/api';
 
-/* import {
+import {
   subscribeToNotification,
   unsubscribeToNotification
-} from '../services/notification'; */
+} from '../services/notification';
 
 interface Response {
   responseState: boolean;
@@ -75,7 +75,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
       api.defaults.headers.authorization = `Bearer ${response.data.tokenConsumidor}`;
 
-      //subscribeToNotification(response.data.tokenConsumidor);
+      subscribeToNotification(response.data.tokenConsumidor);
 
       await AsyncStorage.setItem(
         '@QueroAçaí-Consumidor:user',
@@ -153,8 +153,8 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   async function logOut(): Promise<void> {
-    /* const token = await AsyncStorage.getItem('@QueroAçaí-Consumidor:token');
-    unsubscribeToNotification(token) */
+    const token = await AsyncStorage.getItem('@QueroAçaí-Consumidor:token');
+    unsubscribeToNotification(token)
     await AsyncStorage.removeItem("@QueroAçaí-Consumidor:token");
     AsyncStorage.removeItem("@QueroAçaí-Consumidor:user").then(() => {
       setUser(null);

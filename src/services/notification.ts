@@ -18,7 +18,7 @@ function onOpened(openResult: OpenResult): void {
 }
 
 function subscribeToNotification(id: string | null): void {
-  OneSignal.init('<id>', {
+  OneSignal.init('344214ab-5d79-4019-a9d4-ef29f23e0356', {
     kOSSettingsKeyAutoPrompt: true,
   });
   OneSignal.addEventListener('opened', onOpened);
@@ -29,7 +29,7 @@ function subscribeToNotification(id: string | null): void {
 }
 
 function unsubscribeToNotification(id: string | null): void {
-  OneSignal.init('<id>', {
+  OneSignal.init('344214ab-5d79-4019-a9d4-ef29f23e0356', {
     kOSSettingsKeyAutoPrompt: true,
   });
   if (id) {

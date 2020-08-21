@@ -20,6 +20,7 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* appvemcaprofissionalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* appvemcaprofissionalTests.m */; };
+		2FA0CC4524EDEE2900BBFC42 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
 		3986CC03BE3D0B355D45CA9F /* libPods-appvemcaprofissional-appvemcaprofissionalTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CA0234437F97BED5E600798 /* libPods-appvemcaprofissional-appvemcaprofissionalTests.a */; };
 		5222D540ECE84C958B87716F /* Ubuntu-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10B014C82D5E4E67AC019D43 /* Ubuntu-Medium.ttf */; };
 		5367C26290A746C6A9BE96E6 /* Ubuntu-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB5ED4E2CEDA48B585168D9B /* Ubuntu-LightItalic.ttf */; };
@@ -421,6 +422,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FA0CC4524EDEE2900BBFC42 /* main.jsbundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				EC7A2E860F144C13B458E608 /* OpenSans-Bold.ttf in Resources */,
