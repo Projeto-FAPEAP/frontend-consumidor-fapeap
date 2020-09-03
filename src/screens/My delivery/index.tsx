@@ -12,7 +12,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 
 import api from '../../services/api';
-import authApi from '../../services/authapi'; 
 
 import {
   Container,
@@ -52,7 +51,7 @@ const MyDelivery: React.FC = () => {
 
   async function getList(): Promise<void> {
     try {
-      const response = await authApi.get(
+      const response = await api.get(
         `${api.defaults.baseURL}/listapedidos`,
       );
       setSubmit(response.data);
@@ -71,7 +70,7 @@ const MyDelivery: React.FC = () => {
 
 
   const navigation = useNavigation();
-  
+
   const renderItem = ({ item }) => (
 
     <ViewFList>
@@ -200,7 +199,7 @@ const MyDelivery: React.FC = () => {
               </Text>
             )}
           </>
-        )}  
+        )}
       />
     </Container>
   );

@@ -5,14 +5,12 @@ import KeyboardView from '@components/KeyboardView';
 import { useNavigation } from '@react-navigation/native';
 import { FormHandles } from '@unform/core';
 import { Form as FormProvider } from '@unform/mobile';
-import { darken } from 'polished';
 import { useTheme } from 'styled-components';
 import * as Yup from 'yup';
 
 import AuthContext from '../../contexts/auth';
 import getValidationErrors from '../../utils/getValidationErrors';
 import FormStep1 from './FormStep1';
-import FormStep2 from './FormStep2';
 import * as S from './styles';
 
 interface ISubmitForm {
@@ -35,13 +33,6 @@ interface IFormDataStep1 {
   cpf: string;
   senha: string;
   password_confirmation: string;
-}
-
-interface IFormDataStep2 {
-  cep: string;
-  logradouro: string;
-  numero_local: string;
-  bairro: string;
 }
 
 const Login: React.FC = () => {
