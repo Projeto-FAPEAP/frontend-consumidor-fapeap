@@ -261,12 +261,24 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
             Endereço de entrega
           </Text>
           {pedido.delivery ? (
-            <Text style={{ fontFamily: 'Ubuntu-Bold', textAlign: 'justify' }}>
+            <Text
+              style={{
+                fontFamily: 'Ubuntu-Regular',
+                marginTop: 4,
+                textAlign: 'justify',
+              }}
+            >
               {user?.logradouro}, nº {user?.numero_local}, {user?.bairro},{' '}
               {city}
             </Text>
           ) : (
-            <Text style={{ fontFamily: 'Ubuntu-Bold', textAlign: 'justify' }}>
+            <Text
+              style={{
+                fontFamily: 'Ubuntu-Regular',
+                marginTop: 4,
+                textAlign: 'justify',
+              }}
+            >
               Retirado no estabelecimento
             </Text>
           )}

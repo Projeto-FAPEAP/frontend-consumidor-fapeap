@@ -62,8 +62,12 @@ const MyDelivery: React.FC = () => {
         estrelas: stars,
       })
       .then(({ data }) => {
-        Alert.alert('Obrigado!', 'Avaliação submetida com sucesso!');
-        setModalVisible(false);
+        Alert.alert(
+          'Obrigado!',
+          'Avaliação submetida com sucesso!',
+          [{ text: 'OK', onPress: () => setModalVisible(false) }],
+          { cancelable: false },
+        );
       });
   }
 
@@ -94,7 +98,7 @@ const MyDelivery: React.FC = () => {
               </ModalTextView>
               <AirbnbRating
                 starStyle={{ marginHorizontal: 8 }}
-                count={5}
+                count={3}
                 reviews={['Chula', 'Ruim', 'Dá pro gasto', 'Bom', 'Só a polpa']}
                 defaultRating={5}
                 size={40}
