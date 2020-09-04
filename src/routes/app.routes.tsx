@@ -151,7 +151,7 @@ const AppRoutes: React.FC = () => {
         name="Order"
         component={Order}
         options={{
-          title: 'Detalhes do Pedido',
+          title: 'Detalhes do Carrinho',
           headerBackTitleVisible: false,
           headerStyle: {
             backgroundColor: colors.primary,

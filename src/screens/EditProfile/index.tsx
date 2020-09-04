@@ -93,6 +93,7 @@ const EditProfile: React.FC = ({ route }) => {
   const handleSubmit = React.useCallback(
     async (data: ISubmitForm) => {
       formRef.current?.setErrors({});
+
       if (step === 1) {
         try {
           const schemaStep1 = Yup.object().shape({
@@ -181,7 +182,7 @@ const EditProfile: React.FC = ({ route }) => {
             );
           }
 
-          setDataStep1({
+          /* setDataStep1({
             nome,
             telefone_whatsapp,
             cpf,
@@ -192,7 +193,7 @@ const EditProfile: React.FC = ({ route }) => {
             logradouro,
             bairro,
             numero_local,
-          });
+          }); */
 
           setLoading(true);
 

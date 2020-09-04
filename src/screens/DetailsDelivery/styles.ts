@@ -15,6 +15,7 @@ export const Image = styled.Image`
   width: 50px;
   height: 50px;
   margin-right: 10px;
+  border-radius: 5px;
 `;
 
 export const Title = styled.Text`

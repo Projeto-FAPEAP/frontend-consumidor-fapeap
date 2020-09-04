@@ -7,8 +7,8 @@ function onOpened(openResult: OpenResult): void {
 
   try {
     if (openResult.notification.payload.additionalData) {
-      const { pedido_id } = openResult.notification.payload.additionalData;
-      navigation.navigate('DetailsDelivery', { pedido_id });
+      const { pedido_id: pedido } = openResult.notification.payload.additionalData;
+      navigation.navigate('DetailsDelivery', { pedido });
     } else {
       navigation.navigate('Home');
     }

@@ -1,9 +1,8 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
   background: ${(props) => props.theme.colors.background};
-  padding: 10px;
 `;
 
 export const Card = styled.View`
@@ -11,24 +10,42 @@ export const Card = styled.View`
   border-radius: 5px;
   border-color: #ccc;
   border-width: 1px;
-  margin: 10px;
+  margin: 10px 20px;
 `;
 
 export const Image = styled.Image`
   width: 50px;
   height: 50px;
   margin-right: 10px;
+  border-radius: 5px;
 `;
 
 export const Title = styled.Text`
   color: ${props => props.theme.colors.title};
-  font-family: 'Ubuntu-Regular';
+  font-family: 'Ubuntu-Bold';
 `;
 
 export const Subtitle = styled.Text`
   color: ${props => props.theme.colors.title};
   font-family: 'Ubuntu-Regular';
 `;
+
+
+export const ModalTextView = styled.View`
+  padding: 10px;
+  justify-content:center;
+  align-items:center;
+`;
+
+export const ModalText = styled.Text`
+  font-family: Ubuntu-Bold;
+  font-size: 22px;
+  color: ${props => props.theme.colors.primary};
+`;
+
+
+
+
 
 export const ViewFList = styled.View`
     background: #ffffff;
@@ -62,24 +79,8 @@ export const CenterView = styled.View`
   align-items: center;
   top: 10px;
 `;
-export const ModalView = styled.View`
-  margin: 10px;
-  background: #f9f9f9;
-  border-radius: 10px;
-  padding: 35px;
-  width: 90%;
-  height: 85%;
-`;
-export const ModalTextView = styled.View`
-  padding: 10px;
-  position: absolute;
-`;
-export const ModalText = styled.Text`
-  font-family: Ubuntu-Bold;
-  font-size: 32px;
-  color: #84378f;
-  text-align: left;
-`;
+
+
 export const TouchClose = styled.View`
   position: absolute;
   left: 110%

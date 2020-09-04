@@ -2,6 +2,9 @@ import React from 'react';
 import {View,Text,TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import 'moment/locale/pt-br';
+import moment from 'moment';
+
 import {
   Container,
   Image,
@@ -19,45 +22,52 @@ const DetailsDelivery: React.FC = (props) => {
 
   const navigation = useNavigation();
 
-  /* React.useEffect(() => {
-    console.log(props.route.params)
-  },[]) */
+  React.useEffect(() => {
+    //console.log(props.route.params.pedido)
+  },[])
 
   return (
     <Container>
 
       <Header>
-        <Image source={{uri:'https://www.havan.com.br/media/catalog/product/cache/55f334c6f9412d6b39cfe195ce4e3943/b/o/bola-de-futebol-brasil-f14s5-havan_343621.jpg'}} />
+        <Image source={{uri:'https://www.dnbr.art.br/wp-content/uploads/2019/05/square_rgb-1024x1024.jpg'}} />
         <Title>{pedido.fornecedor.nome_fantasia}</Title>
       </Header>
 
 
       <View style={{flexDirection:"row", justifyContent:"space-between",alignItems:'center',marginTop: 10}}>
-        <Text style={{fontFamily:'Ubuntu-Regular',color:"#999"}}>Realizado em 04/09/2020 às 19:44</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Route',pedido)} style={{flexDirection:"row", alignItems:'center',}}>
-         <Icon name="map-marker" style={{marginRight: 5}} size={14} color={colors.regular} />
-          <Text style={{fontFamily:'Ubuntu-Regular',color:"#999"}}>Traçar rota</Text>
+        <Text style={{fontFamily:'Ubuntu-Regular',color:"#999"}}>Realizado em {moment(pedido.created_at).locale('pt-br').format('DD/MM/YYYY [às] H:mm')}</Text>
+
+        <TouchableOpacity onPress={() => {} /* navigation.navigate('Route',pedido) */} style={{flexDirection:"row", alignItems:'center',backgroundColor:colors.regular, padding: 10, borderRadius:5}}>
+          <Icon name="map-marker" style={{marginRight: 5}} size={14} color={colors.white} />
+          <Text style={{fontFamily:'Ubuntu-Regular',color:"#fff"}}>Traçar rota</Text>
         </TouchableOpacity>
+
       </View>
 
       <View style={{flexDirection:"row", alignItems:'center', justifyContent:'center', marginTop: 20, backgroundColor: '#ebebeb', padding: 5}}>
-        <Icon name="map-marker" style={{marginRight: 10}} size={40} color={colors.success} />
-        <Text style={{fontFamily:'Ubuntu-Regular'}}>Pedido concluído em 04/09/2020 às 20:04</Text>
+        <Icon name="check-circle" style={{marginRight: 10}} size={30} color={colors.success} />
+        <Text style={{fontFamily:'Ubuntu-Regular'}}>Pedido concluído em {moment(pedido.updated_at).locale('pt-br').format('DD/MM/YYYY [às] H:mm')}</Text>
       </View>
 
       <View style={{marginTop: 20,marginBottom:20}}>
         <Subtitle style={{marginBottom:10}}>Situação do Pedido: {pedido.status_pedido}</Subtitle>
 
+        <View style={{borderTopColor: "#ebebeb", borderTopWidth: 1,marginTop: 10,marginBottom: 10}}></View>
+
         {['','',''].map(item => (
-          <View style={{marginVertical:10,flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
-            <View style={{flexDirection:'row', alignItems:'center'}}>
-              <View style={{backgroundColor:"#ccc", paddingHorizontal: 3, marginRight: 10}}>
-                <Text style={{fontFamily:'Ubuntu-Regular'}}>1</Text>
+          <>
+            <View style={{marginVertical:10,flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
+              <View style={{flexDirection:'row', alignItems:'center'}}>
+                <View style={{backgroundColor:"#ccc", paddingVertical: 2, borderRadius: 5, paddingHorizontal: 5, marginRight: 10}}>
+                  <Text style={{fontFamily:'Ubuntu-Regular'}}>1</Text>
+                </View>
+                <Text style={{fontFamily:'Ubuntu-Regular'}}>Mister picanha especial</Text>
               </View>
-              <Text style={{fontFamily:'Ubuntu-Regular'}}>Mister picanha especial</Text>
+              <Text style={{fontFamily:'Ubuntu-Regular'}}>R$ 15,00</Text>
             </View>
-            <Text style={{fontFamily:'Ubuntu-Regular'}}>R$ 15,00</Text>
-          </View>
+            <View style={{borderTopColor: "#ebebeb", borderTopWidth: 1,marginTop: 10,marginBottom: 10}}></View>
+          </>
         ))}
       </View>
 
@@ -80,20 +90,8 @@ const DetailsDelivery: React.FC = (props) => {
 
       <View>
         <Text style={{fontFamily:'Ubuntu-Regular', color: '#999', marginBottom: 5}}>Endereço de entrega</Text>
-        <Text style={{fontFamily:'Ubuntu-Bold',textAlign:'justify'}}>Avenida Brunei,357 - Loteamento Parque Novo Mundo, Cabralzinho - Macapá - AP</Text>
+        <Text style={{fontFamily:'Ubuntu-Bold',textAlign:'justify'}}>Avenida Brunei, nº 357, Loteamento Parque Novo Mundo, Cabralzinho, Macapá - AP</Text>
       </View>
-
-
-
-      {/* <Title>Consumidor Nome</Title>
-      <Subtitle>Endereço: Rua tal, 1528</Subtitle>
-
-      <BorderBottom />
-
-      <StatusView>
-        <PrincipalText>O seu pedido está sendo processado</PrincipalText>
-        <PrincipalText>Seu pedido saiu para a entrega</PrincipalText>
-      </StatusView> */}
 
     </Container>
   );

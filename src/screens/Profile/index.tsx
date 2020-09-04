@@ -6,12 +6,12 @@ import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
 
 import AuthContext from '../../contexts/auth';
-import { Container, TextProfile, ViewList } from './styles';
+import { Container, TextProfile, Subtitle, ViewList } from './styles';
 
 const Profile: React.FC = () => {
   const navigation = useNavigation();
   const { user, logOut } = useContext(AuthContext);
-  
+
   const { colors } = useTheme();
 
   function handleSignOut(): void {
@@ -38,17 +38,12 @@ const Profile: React.FC = () => {
         <>
           <Card
             containerStyle={{
-              borderRadius: 10,
+              borderRadius: 5,
             }}
           >
             <View>
               <TextProfile>{user.nome}</TextProfile>
-              <TextProfile>
-                {String(user.cpf).replace(
-                  /^(\d{3})(\d{3})(\d{3})(\d{2})/,
-                  '$1.$2.$3-$4',
-                )}
-              </TextProfile>
+              <Subtitle>Faça a edição de seus dados pessoais, de acesso e de entrega</Subtitle>
             </View>
           </Card>
 
@@ -58,9 +53,10 @@ const Profile: React.FC = () => {
               titleStyle={{
                 fontFamily: 'Ubuntu-Bold',
               }}
-              subtitle="Faça a edição do seu perfil"
+              subtitle="Nome, telefone, e-mail, CPF"
               subtitleStyle={{
                 fontFamily: 'Ubuntu-Regular',
+                marginTop: 5
               }}
               bottomDivider
               chevron
@@ -77,9 +73,10 @@ const Profile: React.FC = () => {
               titleStyle={{
                 fontFamily: 'Ubuntu-Bold',
               }}
-              subtitle="Faça a alteração do seu endereço"
+              subtitle="CEP, logradouro, bairro, número"
               subtitleStyle={{
                 fontFamily: 'Ubuntu-Regular',
+                marginTop: 5
               }}
               bottomDivider
               chevron
@@ -126,14 +123,13 @@ const Profile: React.FC = () => {
           </ViewList>
         </>
       ) : (
-        <View
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Text
             style={{
               fontFamily: 'Ubuntu-Regular',
               color: colors.title,
-              marginBottom: 5,
+              marginBottom: 10,
+              fontSize: 16
             }}
           >
             Faça login para continuar
@@ -145,6 +141,10 @@ const Profile: React.FC = () => {
               paddingHorizontal: 10,
               paddingVertical: 5,
               borderRadius: 10,
+              minHeight: 40,
+              minWidth: 100,
+              alignItems:"center",
+              justifyContent:'center'
             }}
           >
             <Text style={{ color: '#fff', fontFamily: 'Ubuntu-Regular' }}>

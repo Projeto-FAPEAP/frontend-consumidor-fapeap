@@ -6,6 +6,12 @@ export const Container = styled.View`
 `;
 
 export const TextProfile = styled.Text`
+  font-family: ${(props) => props.theme.fonts.Ubuntu.bold};
+  font-size: 18px;
+  margin-bottom: 2px;
+`;
+
+export const Subtitle = styled.Text`
   font-family: ${(props) => props.theme.fonts.Ubuntu.normal};
 `;
 
