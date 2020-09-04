@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import {View,Linking, TouchableOpacity, FlatList } from 'react-native';
+import { View, Linking, TouchableOpacity, FlatList } from 'react-native';
 import Slideshow from 'react-native-image-slider-show-razzium';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import Axios from 'axios';
 
 import Product from '../../components/Cards/Product';
 import formatMoney from '../../components/FormatMoney';
 import api from '../../services/api';
-import Axios from 'axios';
-
 import { Container, Content, Title, Text } from './styles';
 
 interface IFile {
@@ -119,15 +119,25 @@ const Mixer: React.FC<IProduct> = (props) => {
       )}
 
       <Content>
-
-        <View style={{flexDirection:'row', alignItems:'center', justifyContent: 'space-between'}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
           <Title style={{ marginBottom: 5 }}>{mixer.nome_fantasia}</Title>
-          <TouchableOpacity onPress={() => videosFiles(mixer.arquivos).length > 0 && Linking.openURL(videosFiles(mixer.arquivos)[0].url)}>
+          <TouchableOpacity
+            onPress={() =>
+              videosFiles(mixer.arquivos).length > 0 &&
+              Linking.openURL(videosFiles(mixer.arquivos)[0].url)
+            }
+          >
             <Icon name="video" color="#CCC" size={30} />
           </TouchableOpacity>
         </View>
 
-        <Text style={{ marginTop: 5,marginBottom: 5 }} size={12} color="#999">
+        <Text style={{ marginTop: 5, marginBottom: 5 }} size={12} color="#999">
           {mixer.logradouro}, nº {mixer.numero_local}, {mixer.bairro}, {city}
         </Text>
 

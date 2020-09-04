@@ -18,7 +18,9 @@ interface IPedido {
   fornecedor: {
     id: string;
     nome_fantasia: string;
+    taxa_delivery: string;
   };
+  delivery: boolean;
   status_pedido: string;
   created_at: string;
   updated_at: string;

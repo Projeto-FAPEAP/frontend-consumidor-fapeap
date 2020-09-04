@@ -85,7 +85,7 @@ const Home: React.FC = () => {
             >
               {user.cep ? (
                 <>
-                  {user.logradouro}, nº {user.numero_local}, {user.bairro},
+                  {user.logradouro}, nº {user.numero_local}, {user.bairro},{' '}
                   {city}
                 </>
               ) : (

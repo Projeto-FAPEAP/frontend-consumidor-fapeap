@@ -21,3 +21,11 @@ export function somaUnitaria(cart) {
   }
   return Number(soma);
 }
+
+export function somaPedido(produtos) {
+  let soma = 0;
+  for (let i = 0; i < produtos.length; i++) {
+    soma += produtos[i].preco_venda * produtos[i].quantidade;
+  }
+  return Number(soma).toFixed(2);
+}

@@ -1,20 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import 'moment/locale/pt-br';
 import formatMoney from '@components/FormatMoney';
+import { somaPedido } from '@components/SumTotalBag';
 import { useNavigation } from '@react-navigation/native';
+import api from '@services/api';
+import Axios from 'axios';
 import moment from 'moment';
 import { useTheme } from 'styled-components';
 
+import AuthContext from '../../contexts/auth';
 import { Container, Image, Header, Title, Subtitle } from './styles';
 
 interface IPedido {
   id: string;
   fornecedor: {
     nome_fantasia: string;
+    taxa_delivery: string;
   };
+  delivery: boolean;
   status_pedido: string;
   created_at: string;
   updated_at: string;
@@ -39,15 +45,35 @@ interface IProps {
   };
 }
 
+interface ICEPResponse {
+  localidade: string;
+  uf: string;
+}
+
 const DetailsDelivery: React.FC<IProps> = (props) => {
   const { pedido, produtos } = props?.route?.params?.item;
   const { colors } = useTheme();
 
+  const [city, setCity] = React.useState('');
+
   const navigation = useNavigation();
 
+  const { user } = useContext(AuthContext);
+
+  function getCityAndUf(cep: string): void {
+    Axios.get<ICEPResponse>(`https://viacep.com.br/ws/${cep}/json/`).then(
+      (response) => {
+        const { localidade, uf } = response.data;
+        setCity(` ${localidade} - ${uf}`);
+      },
+    );
+  }
+
   React.useEffect(() => {
-    // console.log(props.route.params.pedido)
-  }, []);
+    if (user?.cep) {
+      getCityAndUf(user.cep);
+    }
+  }, [user]);
 
   return (
     <Container>
@@ -193,7 +219,9 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
             }}
           >
             <Text style={{ fontFamily: 'Ubuntu-Regular' }}>Subtotal</Text>
-            <Text style={{ fontFamily: 'Ubuntu-Regular' }}>R$ 45,00</Text>
+            <Text style={{ fontFamily: 'Ubuntu-Regular' }}>
+              R$ {formatMoney(somaPedido(produtos))}
+            </Text>
           </View>
 
           <View
@@ -206,31 +234,42 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
             <Text style={{ fontFamily: 'Ubuntu-Regular' }}>
               Taxa de entrega
             </Text>
-            <Text style={{ fontFamily: 'Ubuntu-Regular' }}>R$ 5,00</Text>
+            <Text style={{ fontFamily: 'Ubuntu-Regular' }}>
+              R${' '}
+              {formatMoney(
+                pedido.delivery ? pedido.fornecedor.taxa_delivery : 0,
+              )}
+            </Text>
           </View>
 
           <View
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
           >
             <Text style={{ fontFamily: 'Ubuntu-Bold' }}>Total</Text>
-            <Text style={{ fontFamily: 'Ubuntu-Bold' }}>R$ 50,00</Text>
+            <Text style={{ fontFamily: 'Ubuntu-Bold' }}>
+              R${' '}
+              {formatMoney(
+                Number(pedido.delivery ? pedido.fornecedor.taxa_delivery : 0) +
+                  Number(somaPedido(produtos)),
+              )}
+            </Text>
           </View>
         </View>
 
         <View>
-          <Text
-            style={{
-              fontFamily: 'Ubuntu-Regular',
-              color: '#999',
-              marginBottom: 5,
-            }}
-          >
+          <Text style={{ fontFamily: 'Ubuntu-Bold', textAlign: 'justify' }}>
             Endereço de entrega
           </Text>
-          <Text style={{ fontFamily: 'Ubuntu-Bold', textAlign: 'justify' }}>
-            Avenida Brunei, nº 357, Loteamento Parque Novo Mundo, Cabralzinho,
-            Macapá - AP
-          </Text>
+          {pedido.delivery ? (
+            <Text style={{ fontFamily: 'Ubuntu-Bold', textAlign: 'justify' }}>
+              {user?.logradouro}, nº {user?.numero_local}, {user?.bairro},{' '}
+              {city}
+            </Text>
+          ) : (
+            <Text style={{ fontFamily: 'Ubuntu-Bold', textAlign: 'justify' }}>
+              Retirado no estabelecimento
+            </Text>
+          )}
         </View>
       </View>
     </Container>
