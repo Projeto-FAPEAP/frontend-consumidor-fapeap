@@ -171,206 +171,234 @@ const Order: React.FC = () => {
 
   return (
     <>
-    {baskets.length != 0 ? (
-      <Container>
-        {user && (
-          <Header>
-            <Image
-              style={{ marginTop: 5, marginBottom: 5 }}
-              source={order}
-              resizeMode="contain"
-            />
-            <Title style={{ marginBottom: 5 }}>{user.nome}</Title>
-            {user.cep ? (
-              <Subtitle style={{ fontSize: 12, textAlign: 'justify' }}>
-                {user.logradouro}, {user.numero_local}, {user.bairro}, {city}
-              </Subtitle>
-            ) : (
-              <Subtitle style={{ fontSize: 12, textAlign: 'justify' }}>
-                Sem endereço cadastrado
-              </Subtitle>
-            )}
-          </Header>
-        )}
+      {baskets.length != 0 ? (
+        <Container>
+          {user && (
+            <Header>
+              <Image
+                style={{ marginTop: 5, marginBottom: 5 }}
+                source={order}
+                resizeMode="contain"
+              />
+              <Title style={{ marginBottom: 5 }}>{user.nome}</Title>
+              {user.cep ? (
+                <Subtitle style={{ fontSize: 12, textAlign: 'justify' }}>
+                  {user.logradouro}, {user.numero_local}, {user.bairro}, {city}
+                </Subtitle>
+              ) : (
+                <Subtitle style={{ fontSize: 12, textAlign: 'justify' }}>
+                  Sem endereço cadastrado
+                </Subtitle>
+              )}
+            </Header>
+          )}
 
-        {baskets.length > 0 && (
-          <>
-            {baskets.map((basket) => (
-              <>
-                <Content>
-                  <CardInformation>
-                    <View
-                      style={{
-                        flex: 1,
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        marginBottom: 20,
-                        alignItems: 'center',
-                      }}
-                    >
-                      <Text style={{ fontFamily: 'Ubuntu-Bold' }}>
-                        {basket[0].fornecedor.nome_fantasia}
-                      </Text>
-                      <Icon
-                        name="close-circle"
-                        color="#EB5757"
-                        size={18}
-                        onPress={() => clearOneCart(basket)}
-                      />
-                    </View>
+          {baskets.length > 0 && (
+            <>
+              {baskets.map((basket) => (
+                <>
+                  <Content>
+                    <CardInformation>
+                      <View
+                        style={{
+                          flex: 1,
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          marginBottom: 20,
+                          alignItems: 'center',
+                        }}
+                      >
+                        <Text style={{ fontFamily: 'Ubuntu-Bold' }}>
+                          {basket[0].fornecedor.nome_fantasia}
+                        </Text>
+                        <Icon
+                          name="close-circle"
+                          color="#EB5757"
+                          size={18}
+                          onPress={() => clearOneCart(basket)}
+                        />
+                      </View>
 
-                    {basket[0].fornecedor.taxa_delivery ? (
-                      <View style={{ flexDirection: 'row' }}>
-                        <BasketDeliveryCard
-                          onPress={() => setDeliveryChange(basket)}
-                          color={
-                            basket[0].fornecedor.delivery
-                              ? colors.primary
-                              : colors.regular
-                          }
-                        >
-                          <TextCard
-                            style={{
-                              textTransform: 'uppercase',
-                              fontSize: 11,
-                            }}
+                      {basket[0].fornecedor.taxa_delivery ? (
+                        <View style={{ flexDirection: 'row' }}>
+                          <BasketDeliveryCard
+                            onPress={() => setDeliveryChange(basket)}
                             color={
                               basket[0].fornecedor.delivery
                                 ? colors.primary
                                 : colors.regular
                             }
                           >
-                            Entrega
-                          </TextCard>
-                        </BasketDeliveryCard>
+                            <TextCard
+                              style={{
+                                textTransform: 'uppercase',
+                                fontSize: 11,
+                              }}
+                              color={
+                                basket[0].fornecedor.delivery
+                                  ? colors.primary
+                                  : colors.regular
+                              }
+                            >
+                              Entrega
+                            </TextCard>
+                          </BasketDeliveryCard>
 
-                        <BasketDeliveryCard
-                          onPress={() => setDeliveryChange(basket)}
-                          color={
-                            basket[0].fornecedor.delivery
-                              ? colors.regular
-                              : colors.primary
-                          }
-                        >
-                          <TextCard
-                            style={{
-                              textTransform: 'uppercase',
-                              fontSize: 11,
-                            }}
+                          <BasketDeliveryCard
+                            onPress={() => setDeliveryChange(basket)}
                             color={
                               basket[0].fornecedor.delivery
                                 ? colors.regular
                                 : colors.primary
                             }
                           >
-                            Retirar no Local
-                          </TextCard>
-                        </BasketDeliveryCard>
-                      </View>
-                    ) : (
-                      <Subtitle
-                        style={{
-                          fontFamily: 'Ubuntu-Bold',
-                          marginTop: -18,
-                          marginBottom: 20,
-                        }}
-                      >
-                        Apenas retirada
-                      </Subtitle>
-                    )}
-
-                    {basket.map((item) => (
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                          marginBottom: 20,
-                        }}
-                      >
-                        <Left>
-                          <Title>
-                            <TextQuantity>{item.quantity}x</TextQuantity>{' '}
-                            {item.nome}
-                          </Title>
-                          <Subtitle>
-                            {isNaN(item.unidade_medida)
-                              ? `1 ${item.unidade_medida}`
-                              : `${item.unidade_medida * item.quantity} Litro(s)`}
-                          </Subtitle>
-                        </Left>
-                        <Right>
-                          <Title>
-                            R$ {formatMoney(item.quantity * item.preco)}
-                          </Title>
-                        </Right>
-                      </View>
-                    ))}
-
-                    <View>
-                      <View style={{ borderTopColor: '#ccc', borderTopWidth: 1 }}>
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            marginTop: 10,
-                            marginBottom: 10,
-                          }}
-                        >
-                          <Text
-                            style={{
-                              fontFamily: 'Ubuntu-Regular',
-                              color: '#455A64',
-                            }}
-                          >
-                            Subtotal
-                          </Text>
-                          <Text
-                            style={{
-                              fontFamily: 'Ubuntu-Regular',
-                              color: '#455A64',
-                            }}
-                          >
-                            R$ {formatMoney(soma(basket))}
-                          </Text>
+                            <TextCard
+                              style={{
+                                textTransform: 'uppercase',
+                                fontSize: 11,
+                              }}
+                              color={
+                                basket[0].fornecedor.delivery
+                                  ? colors.regular
+                                  : colors.primary
+                              }
+                            >
+                              Retirar no Local
+                            </TextCard>
+                          </BasketDeliveryCard>
                         </View>
-                      </View>
+                      ) : (
+                        <Subtitle
+                          style={{
+                            fontFamily: 'Ubuntu-Bold',
+                            marginTop: -18,
+                            marginBottom: 20,
+                          }}
+                        >
+                          Apenas retirada
+                        </Subtitle>
+                      )}
 
-                      <View
-                        style={{
-                          borderBottomColor: '#ccc',
-                          borderBottomWidth: 1,
-                          marginBottom: 10,
-                        }}
-                      >
+                      {basket.map((item) => (
                         <View
                           style={{
                             flexDirection: 'row',
                             justifyContent: 'space-between',
                             alignItems: 'center',
+                            marginBottom: 20,
+                          }}
+                        >
+                          <Left>
+                            <Title>
+                              <TextQuantity>{item.quantity}x</TextQuantity>{' '}
+                              {item.nome}
+                            </Title>
+                            <Subtitle>
+                              {isNaN(item.unidade_medida)
+                                ? `1 ${item.unidade_medida}`
+                                : `${
+                                    item.unidade_medida * item.quantity
+                                  } Litro(s)`}
+                            </Subtitle>
+                          </Left>
+                          <Right>
+                            <Title>
+                              R$ {formatMoney(item.quantity * item.preco)}
+                            </Title>
+                          </Right>
+                        </View>
+                      ))}
+
+                      <View>
+                        <View
+                          style={{ borderTopColor: '#ccc', borderTopWidth: 1 }}
+                        >
+                          <View
+                            style={{
+                              flexDirection: 'row',
+                              justifyContent: 'space-between',
+                              alignItems: 'center',
+                              marginTop: 10,
+                              marginBottom: 10,
+                            }}
+                          >
+                            <Text
+                              style={{
+                                fontFamily: 'Ubuntu-Regular',
+                                color: '#455A64',
+                              }}
+                            >
+                              Subtotal
+                            </Text>
+                            <Text
+                              style={{
+                                fontFamily: 'Ubuntu-Regular',
+                                color: '#455A64',
+                              }}
+                            >
+                              R$ {formatMoney(soma(basket))}
+                            </Text>
+                          </View>
+                        </View>
+
+                        <View
+                          style={{
+                            borderBottomColor: '#ccc',
+                            borderBottomWidth: 1,
                             marginBottom: 10,
                           }}
                         >
-                          <Text
+                          <View
                             style={{
-                              fontFamily: 'Ubuntu-Regular',
-                              color: '#455A64',
+                              flexDirection: 'row',
+                              justifyContent: 'space-between',
+                              alignItems: 'center',
+                              marginBottom: 10,
                             }}
                           >
-                            Taxa de Entrega
+                            <Text
+                              style={{
+                                fontFamily: 'Ubuntu-Regular',
+                                color: '#455A64',
+                              }}
+                            >
+                              Taxa de Entrega
+                            </Text>
+                            <Text
+                              style={{
+                                fontFamily: 'Ubuntu-Regular',
+                                color: '#455A64',
+                              }}
+                            >
+                              R${' '}
+                              {formatMoney(
+                                basket[0].fornecedor.delivery
+                                  ? basket[0].fornecedor.taxa_delivery
+                                  : 0,
+                              )}
+                            </Text>
+                          </View>
+                        </View>
+
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <Text style={{ fontFamily: 'Ubuntu-Bold' }}>
+                            Total
                           </Text>
-                          <Text
-                            style={{
-                              fontFamily: 'Ubuntu-Regular',
-                              color: '#455A64',
-                            }}
-                          >
+                          <Text style={{ fontFamily: 'Ubuntu-Bold' }}>
                             R${' '}
                             {formatMoney(
-                              basket[0].fornecedor.delivery
-                                ? basket[0].fornecedor.taxa_delivery
-                                : 0,
+                              Number(soma(basket)) +
+                                Number(
+                                  basket[0].fornecedor.delivery
+                                    ? basket[0].fornecedor.taxa_delivery
+                                    : 0,
+                                ),
                             )}
                           </Text>
                         </View>
@@ -379,50 +407,28 @@ const Order: React.FC = () => {
                       <View
                         style={{
                           flexDirection: 'row',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
+                          justifyContent: 'center',
+                          marginTop: 20,
                         }}
                       >
-                        <Text style={{ fontFamily: 'Ubuntu-Bold' }}>Total</Text>
-                        <Text style={{ fontFamily: 'Ubuntu-Bold' }}>
-                          R${' '}
-                          {formatMoney(
-                            Number(soma(basket)) +
-                              Number(
-                                basket[0].fornecedor.delivery
-                                  ? basket[0].fornecedor.taxa_delivery
-                                  : 0,
-                              ),
-                          )}
-                        </Text>
+                        <Button
+                          onPress={() =>
+                            user && basket.length != 0
+                              ? finalizeOrder(basket)
+                              : !user && navigation.navigate('SignIn')
+                          }
+                        >
+                          <ButtonText>Finalizar Pedido</ButtonText>
+                        </Button>
                       </View>
-                    </View>
-
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        marginTop: 20,
-                      }}
-                    >
-                      <Button
-                        onPress={() =>
-                          user && basket.length != 0
-                            ? finalizeOrder(basket)
-                            : !user && navigation.navigate('SignIn')
-                        }
-                      >
-                        <ButtonText>Finalizar Pedido</ButtonText>
-                      </Button>
-                    </View>
-                  </CardInformation>
-                </Content>
-              </>
-            ))}
-          </>
-        )}
-      </Container>
-    ) : (
+                    </CardInformation>
+                  </Content>
+                </>
+              ))}
+            </>
+          )}
+        </Container>
+      ) : (
         <>
           {!loading && (
             <View
@@ -430,6 +436,7 @@ const Order: React.FC = () => {
                 flex: 1,
                 justifyContent: 'center',
                 alignItems: 'center',
+                backgroundColor: colors.background,
               }}
             >
               <Title
