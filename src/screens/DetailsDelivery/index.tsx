@@ -1,49 +1,99 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View,Text,TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import order from '../../assets/order.png';
 
 import {
   Container,
-  StatusView,
   Image,
   Header,
   Title,
-  Subtitle,
-  BorderBottom,
-  PrincipalText,
-  PrincipalDivider,
-  SaveDelivery
+  Subtitle
 } from './styles';
 
+import {useTheme} from 'styled-components';
+import { useNavigation } from '@react-navigation/native';
 
-const DetailsDelivery: React.FC = () => {
+const DetailsDelivery: React.FC = (props) => {
+  const pedido = props?.route?.params;
+  const {colors} = useTheme();
+
+  const navigation = useNavigation();
+
+  /* React.useEffect(() => {
+    console.log(props.route.params)
+  },[]) */
 
   return (
     <Container>
-    <Header>
-    <Image
-    style={{marginBottom: 5 }}
-    source={order}
-    resizeMode="contain"
-/>
-    </Header>
-    <Title>Consumidor Nome</Title>
-    <Subtitle>Endereço: Rua tal, 1528</Subtitle>
-    <BorderBottom />
-    <StatusView>
-    <PrincipalText>O seu pedido está sendo processado</PrincipalText>
-    <PrincipalDivider />
-    <PrincipalText style={{top: 60}}>Seu pedido saiu para a entrega</PrincipalText>
-    <SaveDelivery>
-        <Text style={{  textAlign: "center",
-                        color: "#fff",
-                        fontFamily: "Ubuntu-Bold",
-                        fontSize:16,
-                        top: 10}}
-                        >Confirmar Entrega</Text>
-    </SaveDelivery>
-    </StatusView>
+
+      <Header>
+        <Image source={{uri:'https://www.havan.com.br/media/catalog/product/cache/55f334c6f9412d6b39cfe195ce4e3943/b/o/bola-de-futebol-brasil-f14s5-havan_343621.jpg'}} />
+        <Title>{pedido.fornecedor.nome_fantasia}</Title>
+      </Header>
+
+
+      <View style={{flexDirection:"row", justifyContent:"space-between",alignItems:'center',marginTop: 10}}>
+        <Text style={{fontFamily:'Ubuntu-Regular',color:"#999"}}>Realizado em 04/09/2020 às 19:44</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Route',pedido)} style={{flexDirection:"row", alignItems:'center',}}>
+         <Icon name="map-marker" style={{marginRight: 5}} size={14} color={colors.regular} />
+          <Text style={{fontFamily:'Ubuntu-Regular',color:"#999"}}>Traçar rota</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={{flexDirection:"row", alignItems:'center', justifyContent:'center', marginTop: 20, backgroundColor: '#ebebeb', padding: 5}}>
+        <Icon name="map-marker" style={{marginRight: 10}} size={40} color={colors.success} />
+        <Text style={{fontFamily:'Ubuntu-Regular'}}>Pedido concluído em 04/09/2020 às 20:04</Text>
+      </View>
+
+      <View style={{marginTop: 20,marginBottom:20}}>
+        <Subtitle style={{marginBottom:10}}>Situação do Pedido: {pedido.status_pedido}</Subtitle>
+
+        {['','',''].map(item => (
+          <View style={{marginVertical:10,flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
+            <View style={{flexDirection:'row', alignItems:'center'}}>
+              <View style={{backgroundColor:"#ccc", paddingHorizontal: 3, marginRight: 10}}>
+                <Text style={{fontFamily:'Ubuntu-Regular'}}>1</Text>
+              </View>
+              <Text style={{fontFamily:'Ubuntu-Regular'}}>Mister picanha especial</Text>
+            </View>
+            <Text style={{fontFamily:'Ubuntu-Regular'}}>R$ 15,00</Text>
+          </View>
+        ))}
+      </View>
+
+      <View style={{marginBottom:20}}>
+        <View style={{flexDirection:'row',justifyContent:"space-between", marginBottom: 10}}>
+          <Text style={{fontFamily:'Ubuntu-Regular'}}>Subtotal</Text>
+          <Text style={{fontFamily:'Ubuntu-Regular'}}>R$ 45,00</Text>
+        </View>
+
+        <View style={{flexDirection:'row',justifyContent:"space-between", marginBottom: 10}}>
+          <Text style={{fontFamily:'Ubuntu-Regular'}}>Taxa de entrega</Text>
+          <Text style={{fontFamily:'Ubuntu-Regular'}}>R$ 5,00</Text>
+        </View>
+
+        <View style={{flexDirection:'row',justifyContent:"space-between"}}>
+          <Text style={{fontFamily:'Ubuntu-Bold'}}>Total</Text>
+          <Text style={{fontFamily:'Ubuntu-Bold'}}>R$ 50,00</Text>
+        </View>
+      </View>
+
+      <View>
+        <Text style={{fontFamily:'Ubuntu-Regular', color: '#999', marginBottom: 5}}>Endereço de entrega</Text>
+        <Text style={{fontFamily:'Ubuntu-Bold',textAlign:'justify'}}>Avenida Brunei,357 - Loteamento Parque Novo Mundo, Cabralzinho - Macapá - AP</Text>
+      </View>
+
+
+
+      {/* <Title>Consumidor Nome</Title>
+      <Subtitle>Endereço: Rua tal, 1528</Subtitle>
+
+      <BorderBottom />
+
+      <StatusView>
+        <PrincipalText>O seu pedido está sendo processado</PrincipalText>
+        <PrincipalText>Seu pedido saiu para a entrega</PrincipalText>
+      </StatusView> */}
 
     </Container>
   );

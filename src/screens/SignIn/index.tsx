@@ -74,7 +74,7 @@ const Login: React.FC = () => {
   }, []);
 
   const navigateToResetPassword = React.useCallback(() => {
-    navigation.navigate('RecoveryP');
+    navigation.navigate('RecoveryPassword');
   }, [navigation]);
 
   return (

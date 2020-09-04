@@ -1,208 +1,69 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Text,
-  View,
-  FlatList,
-  Alert,
-  Modal,
-  TouchableOpacity,
-} from 'react-native';
-import { AirbnbRating } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, {useEffect,useState} from 'react';
+import {View,TouchableOpacity} from 'react-native'
+
+import { useTheme } from 'styled-components';
+
+import {Container,Card,Image,Title,Subtitle} from './styles';
+
+import api from '@services/api';
+
 import { useNavigation } from '@react-navigation/native';
 
-import api from '../../services/api';
-
-import {
-  Container,
-  ViewFList,
-  BorderBottom,
-  ViewTouchD,
-  ButtonDetails,
-  ButtonRating,
-  ViewTouchR,
-  CenterView,
-  ModalView,
-  TouchClose,
-  ModalText,
-  ModalTextView,
-  ViewRating,
-  SaveRating,
-} from './styles';
-
-interface Data {
-  id: number;
-  total: number;
-  status_pedido: string;
-  delivery: boolean;
+interface IPedido {
   fornecedor: {
     nome_fantasia: string;
-  };
+  }
+  status_pedido: string;
 }
 
 const MyDelivery: React.FC = () => {
-  const [submit, setSubmit] = useState<Data[] | undefined>([]);
-  const [loading, setLoading] = useState(false);
+  const { colors } = useTheme();
 
-
-  useEffect(() => {
-    getList();
-  }, []);
-
-  async function getList(): Promise<void> {
-    try {
-      const response = await api.get(
-        `${api.defaults.baseURL}/listapedidos`,
-      );
-      setSubmit(response.data);
-      setLoading(false);
-      console.log(JSON.stringify(response.data, null, 2))}
-      catch (error) {
-        setLoading(false);
-        if (error.message === 'Network Error') {
-          Alert.alert('Verifique sua conexão de internet e tente novamente!!');
-        } else {
-
-          Alert.alert(error.response.data.error);
-        }
-    }
-  }
-
+  const [pedidos,setPedidos] = useState<IPedido[]>([])
 
   const navigation = useNavigation();
 
-  const renderItem = ({ item }) => (
-
-    <ViewFList>
-      <Text style={{ fontFamily: 'Ubuntu-Bold', fontSize: 14 }}>
-        {item.fornecedor.nome_fantasia}
-      </Text>
-      <BorderBottom style={{ top: 5 }} />
-      <Text
-        style={{
-          fontFamily: 'Ubuntu-Regular',
-          color: '#666666',
-          fontSize: 12,
-          top: 7,
-        }}
-      >
-        Total: R$ {item.total}
-      </Text>
-      <Text
-        style={{
-          fontFamily: 'Ubuntu-Regular',
-          color: '#666666',
-          fontSize: 12,
-          top: 7,
-        }}
-      >
-        Status: {item.status_pedido}
-      </Text>
-      <BorderBottom style={{ top: 10 }} />
-      <Text
-        style={{
-          fontFamily: 'Ubuntu-Regular',
-          fontSize: 12,
-          top: 15,
-        }}
-      >
-        Avaliação do pedido: {item.status}
-      </Text>
-      <BorderBottom style={{ top: 20 }} />
-      <View style={{ flexDirection: 'row' }}>
-        <ViewTouchD>
-          <ButtonDetails onPress={() => navigation.navigate('DetailsGetDelivery')}>
-            <Text style={{fontSize: 14, color: '#84378F'}}>Detalhes</Text>
-          </ButtonDetails>
-        </ViewTouchD>
-        <ViewTouchR>
-          <ButtonRating
-            onPress={() => {
-              setModalVisible(true);
-            }}
-          >
-            <Text style={{ fontSize: 14, color: '#84378F' }}>Avaliação</Text>
-          </ButtonRating>
-        </ViewTouchR>
-      </View>
-    </ViewFList>
-
-  );
-  const [modalVisible, setModalVisible] = useState(false);
+  useEffect(() => {
+    api.get(`listapedidos`).then(({data}) => {
+      setPedidos(data);
+    })
+  }, [])
 
   return (
-
     <Container>
-      <Modal
-        animationType="slide"
-        transparent
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}
-      >
-        <CenterView>
-          <ModalView>
-            <ModalTextView>
-              <ModalText>Avaliação</ModalText>
-            </ModalTextView>
-            <TouchClose>
-              <TouchableOpacity
-                onPress={() => {
-                  setModalVisible(!modalVisible);
-                }}
-              >
-                <Icon name="times" color="#EB5757" size={40} />
-              </TouchableOpacity>
-            </TouchClose>
-            <ViewRating>
-              <AirbnbRating
-                starStyle={{ marginHorizontal: 8 }}
-                count={5}
-                reviews={['Chula', 'Ruim', 'Razoavel', 'Bom', 'Só a polpa']}
-                defaultRating={1}
-                size={40}
-              />
-            </ViewRating>
-            <SaveRating>
-              <Text
-                style={{
-                  textAlign: 'center',
-                  color: '#fff',
-                  top: 5,
-                  fontFamily: 'Ubuntu-Bold',
-                }}
-              >
-                Salvar
-              </Text>
-            </SaveRating>
-          </ModalView>
-        </CenterView>
-      </Modal>
 
-      <FlatList
-        data={submit}
-        renderItem={renderItem}
-        keyExtractor={(index) => String(index)}
-        ListEmptyComponent={() => (
-          <>
-            {!loading && (
-              <Text
-                style={{
-                  fontSize: 12,
-                  color: '#999',
-                  fontFamily: 'Ubuntu-Regular',
-                  marginLeft: 10,
-                }}
-              >
-                Não há pedidos registrados
-              </Text>
-            )}
-          </>
-        )}
-      />
+      {pedidos.map(pedido => (
+        <Card>
+          <View style={{flexDirection:'row', alignItems:'center', marginBottom: 10}}>
+            <Image source={{uri:'https://www.havan.com.br/media/catalog/product/cache/55f334c6f9412d6b39cfe195ce4e3943/b/o/bola-de-futebol-brasil-f14s5-havan_343621.jpg'}} />
+            <View>
+              <Title>{pedido.fornecedor.nome_fantasia}</Title>
+              <Subtitle>Situação do Pedido: {pedido.status_pedido}</Subtitle>
+            </View>
+          </View>
+
+          <View style={{borderTopColor: "#ebebeb", borderTopWidth: 1,marginBottom: 10}}></View>
+
+          <View style={{alignItems:'center', justifyContent:'center'}}>
+            <Title style={{margin: 5}}>1x Mister picanha especial</Title>
+          </View>
+
+          <View style={{borderTopColor: "#ebebeb", borderTopWidth: 1,marginTop: 10, marginBottom: 10}}></View>
+
+          <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between',marginHorizontal: 50}}>
+            <TouchableOpacity onPress={() => {}} style={{alignItems:'center', justifyContent:'center', margin: 10}}>
+              <Title style={{color:colors.primary}}>Avaliar</Title>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => navigation.navigate('DetailsDelivery',pedido)} style={{alignItems:'center', justifyContent:'center', margin: 10}}>
+              <Title style={{color:colors.primary}}>Detalhes</Title>
+            </TouchableOpacity>
+          </View>
+        </Card>
+      ))}
+
     </Container>
-  );
-};
+  )
+}
 
 export default MyDelivery;

@@ -127,7 +127,7 @@ const Mixer: React.FC<IProduct> = (props) => {
           </TouchableOpacity>
         </View>
 
-        <Text style={{ marginTop: -5,marginBottom: 5 }} size={12} color="#999">
+        <Text style={{ marginTop: 5,marginBottom: 5 }} size={12} color="#999">
           {mixer.logradouro}, nº {mixer.numero_local}, {mixer.bairro}, {city}
         </Text>
 

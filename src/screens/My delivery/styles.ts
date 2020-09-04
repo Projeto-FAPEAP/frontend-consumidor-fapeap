@@ -5,6 +5,31 @@ export const Container = styled.View`
   background: ${(props) => props.theme.colors.background};
   padding: 10px;
 `;
+
+export const Card = styled.View`
+  padding: 10px;
+  border-radius: 5px;
+  border-color: #ccc;
+  border-width: 1px;
+  margin: 10px;
+`;
+
+export const Image = styled.Image`
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+`;
+
+export const Title = styled.Text`
+  color: ${props => props.theme.colors.title};
+  font-family: 'Ubuntu-Regular';
+`;
+
+export const Subtitle = styled.Text`
+  color: ${props => props.theme.colors.title};
+  font-family: 'Ubuntu-Regular';
+`;
+
 export const ViewFList = styled.View`
     background: #ffffff;
     border: 1px solid #E3DFDF;

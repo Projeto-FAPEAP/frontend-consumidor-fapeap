@@ -9,7 +9,6 @@ import { useTheme } from 'styled-components';
 import { somaUnitaria } from '../components/SumTotalBag';
 import CartContext from '../contexts/cart';
 import DetailsDelivery from '../screens/DetailsDelivery';
-import DetailsGetDelivery from '../screens/DetailsGetDelivery';
 import EditProfile from '../screens/EditProfile';
 import Home from '../screens/Home';
 import Mixer from '../screens/Mixer';
@@ -17,9 +16,11 @@ import MyDelivery from '../screens/My delivery';
 import Order from '../screens/Order';
 import Product from '../screens/Product';
 import Profile from '../screens/Profile';
-import RecoveryP from '../screens/RecoveryPassword';
+import RecoveryPassword from '../screens/RecoveryPassword';
 import Register from '../screens/Register';
 import SignIn from '../screens/SignIn';
+
+import Route from '../screens/Route';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -129,6 +130,7 @@ const AppRoutes: React.FC = () => {
           headerTitleAlign: 'center',
         }}
       />
+
       <Stack.Screen
         name="Mixer"
         component={Mixer}
@@ -230,7 +232,7 @@ const AppRoutes: React.FC = () => {
         name="DetailsDelivery"
         component={DetailsDelivery}
         options={{
-          title: 'Detalhes da entrega',
+          title: 'Detalhes do Pedido',
           headerBackTitleVisible: false,
           headerStyle: {
             backgroundColor: colors.primary,
@@ -242,11 +244,12 @@ const AppRoutes: React.FC = () => {
           headerTitleAlign: 'center',
         }}
       />
+
       <Stack.Screen
-        name="DetailsGetDelivery"
-        component={DetailsGetDelivery}
+        name="Route"
+        component={Route}
         options={{
-          title: 'Detalhes da retirada',
+          title: 'Rota do Pedido',
           headerBackTitleVisible: false,
           headerStyle: {
             backgroundColor: colors.primary,
@@ -270,9 +273,9 @@ const AppRoutes: React.FC = () => {
         component={Register}
       />
       <Stack.Screen
-        name="RecoveryP"
+        name="RecoveryPassword"
         options={{ headerShown: false, headerRight: () => null }}
-        component={RecoveryP}
+        component={RecoveryPassword}
       />
     </Stack.Navigator>
   );
