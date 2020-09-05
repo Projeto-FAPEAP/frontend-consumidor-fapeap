@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, FlatList } from 'react-native';
 import { AirbnbRating } from 'react-native-elements';
 import Modal from 'react-native-modal';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Order from '@components/Cards/Order';
 import Loading from '@components/Loading';
@@ -21,7 +22,13 @@ interface IPedido {
     taxa_delivery: string;
   };
   delivery: boolean;
-  status_pedido: string;
+  status_pedido:
+    | 'Pendente'
+    | 'Reserva confirmada'
+    | 'Delivery confirmado'
+    | 'Pedido em rota de entrega'
+    | 'Finalizado'
+    | 'Cancelado';
   created_at: string;
   updated_at: string;
 }
@@ -31,25 +38,33 @@ const MyDelivery: React.FC = () => {
 
   const [pedidos, setPedidos] = useState<IPedido[]>([]);
   const [loading, setLoading] = useState(true);
+  const [refresh, setRefresh] = useState(true);
 
   const [selectedPedido, setSelectedPedido] = useState<IPedido>({} as IPedido);
   const [modalVisible, setModalVisible] = useState(false);
   const [stars, setStars] = useState(0);
 
   const { user } = useContext(AuthContext);
-  const { cart } = useContext(CartContext);
+  const { cart, isChange } = useContext(CartContext);
 
-  useEffect(() => {
+  function getPedidos(): void {
+    setRefresh(true);
     api
       .get(`listapedidos`)
       .then(({ data }) => {
         setPedidos(data);
         setLoading(false);
+        setRefresh(false);
       })
       .catch((error) => {
         setLoading(false);
+        setRefresh(false);
       });
-  }, [user, cart]);
+  }
+
+  useEffect(() => {
+    getPedidos();
+  }, [user, cart, isChange]);
 
   function avaliarPedido(pedido: IPedido): void {
     setSelectedPedido(pedido);
@@ -76,9 +91,37 @@ const MyDelivery: React.FC = () => {
       {user && !loading ? (
         <Container>
           <View style={{ marginTop: 10 }} />
-          {pedidos.map((pedido) => (
+
+          {/* {pedidos.map((pedido) => (
             <Order pedido={pedido} avaliarPedido={avaliarPedido} />
-          ))}
+          ))} */}
+
+          <FlatList
+            onRefresh={getPedidos}
+            refreshing={refresh}
+            data={pedidos}
+            renderItem={({ item: pedido }) => (
+              <Order pedido={pedido} avaliarPedido={avaliarPedido} />
+            )}
+            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+            ListEmptyComponent={() => (
+              <>
+                {!loading && (
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      color: '#999',
+                      fontFamily: 'Ubuntu-Regular',
+                      marginLeft: 10,
+                    }}
+                  >
+                    Você ainda não fez o seu primeiro pedido
+                  </Text>
+                )}
+              </>
+            )}
+          />
 
           <View style={{ marginBottom: 10 }} />
 
@@ -87,42 +130,58 @@ const MyDelivery: React.FC = () => {
               style={{
                 flex: 1,
                 backgroundColor: '#fff',
-                alignItems: 'center',
-                justifyContent: 'center',
-                maxHeight: 300,
+                maxHeight: 320,
                 borderRadius: 5,
               }}
             >
-              <ModalTextView>
-                <ModalText>Avaliação do estabelecimento</ModalText>
-              </ModalTextView>
-              <AirbnbRating
-                starStyle={{ marginHorizontal: 8 }}
-                count={3}
-                reviews={['Chula', 'Ruim', 'Dá pro gasto', 'Bom', 'Só a polpa']}
-                defaultRating={5}
-                size={40}
-                onFinishRating={(value) => setStars(value)}
-              />
-
               <TouchableOpacity
-                onPress={() => confirmarAvaliacaoPedido()}
+                onPress={() => setModalVisible(false)}
                 style={{
-                  backgroundColor: colors.primary,
-                  paddingHorizontal: 10,
-                  paddingVertical: 5,
-                  borderRadius: 10,
-                  minHeight: 40,
-                  width: 200,
+                  alignItems: 'flex-end',
                   marginTop: 20,
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  marginRight: 20,
                 }}
               >
-                <Text style={{ color: '#fff', fontFamily: 'Ubuntu-Regular' }}>
-                  Confirmar
-                </Text>
+                <Icon name="close" size={30} color={colors.primary} />
               </TouchableOpacity>
+              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                <ModalTextView>
+                  <ModalText>Avaliação do estabelecimento</ModalText>
+                </ModalTextView>
+                <AirbnbRating
+                  starStyle={{ marginHorizontal: 8 }}
+                  count={5}
+                  reviews={[
+                    'Chula',
+                    'Ruim',
+                    'Dá pro gasto',
+                    'Bom',
+                    'Só a polpa',
+                  ]}
+                  defaultRating={3}
+                  size={40}
+                  onFinishRating={(value) => setStars(value)}
+                />
+
+                <TouchableOpacity
+                  onPress={() => confirmarAvaliacaoPedido()}
+                  style={{
+                    backgroundColor: colors.primary,
+                    paddingHorizontal: 10,
+                    paddingVertical: 5,
+                    borderRadius: 10,
+                    minHeight: 40,
+                    width: 200,
+                    marginTop: 20,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Text style={{ color: '#fff', fontFamily: 'Ubuntu-Regular' }}>
+                    Confirmar
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </Modal>
         </Container>

@@ -2,12 +2,12 @@ import styled from 'styled-components/native';
 
 export const Container = styled.ScrollView`
   flex: 1;
-  background: ${props => props.theme.colors.background};
+  background: ${(props) => props.theme.colors.background};
 `;
 
 export const Header = styled.View`
   flex-direction: row;
-  align-items:center;
+  align-items: center;
 `;
 
 export const Image = styled.Image`
@@ -22,7 +22,7 @@ export const Title = styled.Text`
   font-size: 14px;
 `;
 
- export const Subtitle = styled.Text`
+export const Subtitle = styled.Text`
   font-family: 'Ubuntu-Regular';
   font-size: 14px;
 `;

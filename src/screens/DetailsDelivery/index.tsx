@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import 'moment/locale/pt-br';
@@ -11,8 +11,11 @@ import Axios from 'axios';
 import moment from 'moment';
 import { useTheme } from 'styled-components';
 
+import logo from '../../assets/icone1024x1024.png';
+import Icone from '../../components/Icons';
 import AuthContext from '../../contexts/auth';
-import { Container, Image, Header, Title, Subtitle } from './styles';
+import CartContext from '../../contexts/cart';
+import { Container, Image, Header, Title } from './styles';
 
 interface IPedido {
   id: string;
@@ -21,7 +24,13 @@ interface IPedido {
     taxa_delivery: string;
   };
   delivery: boolean;
-  status_pedido: string;
+  status_pedido:
+    | 'Pendente'
+    | 'Reserva confirmada'
+    | 'Delivery confirmado'
+    | 'Pedido em rota de entrega'
+    | 'Finalizado'
+    | 'Cancelado';
   created_at: string;
   updated_at: string;
 }
@@ -59,6 +68,7 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
   const navigation = useNavigation();
 
   const { user } = useContext(AuthContext);
+  const { changeStatus } = useContext(CartContext);
 
   function getCityAndUf(cep: string): void {
     Axios.get<ICEPResponse>(`https://viacep.com.br/ws/${cep}/json/`).then(
@@ -75,16 +85,47 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
     }
   }, [user]);
 
+  function cancelarPedido(): void {
+    Alert.alert(
+      'Cancelar pedido',
+      'Você realmente deseja cancelar seu pedido?',
+      [
+        {
+          text: 'Sim',
+          onPress: () => {
+            api.put(`/cancelar/pedido/${pedido.id}`).then(({ data }) => {
+              Alert.alert(
+                'Sucesso!',
+                'Pedido cancelado com sucesso!',
+                [
+                  {
+                    text: 'OK',
+                    onPress: () => {
+                      changeStatus();
+                      navigation.goBack();
+                    },
+                  },
+                ],
+                { cancelable: false },
+              );
+            });
+          },
+        },
+        {
+          text: 'Cancelar',
+          onPress: () => {},
+          style: 'cancel',
+        },
+      ],
+      { cancelable: false },
+    );
+  }
+
   return (
     <Container>
       <View style={{ marginHorizontal: 20, marginVertical: 20 }}>
         <Header>
-          <Image
-            source={{
-              uri:
-                'https://www.dnbr.art.br/wp-content/uploads/2019/05/square_rgb-1024x1024.jpg',
-            }}
-          />
+          <Image source={logo} />
           <Title>{pedido.fornecedor.nome_fantasia}</Title>
         </Header>
 
@@ -125,35 +166,61 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
           </TouchableOpacity>
         </View>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginTop: 20,
-            backgroundColor: '#ebebeb',
-            padding: 5,
-          }}
-        >
-          <Icon
-            name="check-circle"
-            style={{ marginRight: 10 }}
-            size={30}
-            color={colors.success}
-          />
-          <Text style={{ fontFamily: 'Ubuntu-Regular' }}>
-            Pedido concluído em{' '}
-            {moment(pedido.updated_at)
-              .locale('pt-br')
-              .format('DD/MM/YYYY [às] H:mm')}
-          </Text>
-        </View>
+        {pedido.status_pedido === 'Finalizado' ||
+        pedido.status_pedido === 'Cancelado' ? (
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 20,
+              backgroundColor: '#ebebeb',
+              padding: 5,
+            }}
+          >
+            {Icone(pedido.status_pedido)}
+            {/* <Icon
+              name="check-circle"
+              style={{ marginRight: 10 }}
+              size={30}
+              color={
+                pedido.status_pedido === 'Finalizado'
+                  ? colors.success
+                  : colors.danger
+              }
+            /> */}
+            <Text style={{ fontFamily: 'Ubuntu-Regular' }}>
+              Pedido {pedido.status_pedido} em{' '}
+              {moment(pedido.updated_at)
+                .locale('pt-br')
+                .format('DD/MM/YYYY [às] H:mm')}
+            </Text>
+          </View>
+        ) : (
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 20,
+              backgroundColor: '#ebebeb',
+              padding: 5,
+            }}
+          >
+            {/* <Icon
+              name="check-circle"
+              style={{ marginRight: 10 }}
+              size={30}
+              color={colors.danger}
+            /> */}
+            {Icone(pedido.status_pedido)}
+            <Text style={{ fontFamily: 'Ubuntu-Bold' }}>
+              {pedido.status_pedido}
+            </Text>
+          </View>
+        )}
 
         <View style={{ marginTop: 20, marginBottom: 20 }}>
-          <Subtitle style={{ marginBottom: 10 }}>
-            Situação do Pedido: {pedido.status_pedido}
-          </Subtitle>
-
           <View
             style={{
               borderTopColor: '#ebebeb',
@@ -256,33 +323,71 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
           </View>
         </View>
 
+        <View
+          style={{
+            borderTopColor: '#ebebeb',
+            borderTopWidth: 1,
+            marginTop: 10,
+            marginBottom: 20,
+          }}
+        />
+
         <View>
-          <Text style={{ fontFamily: 'Ubuntu-Bold', textAlign: 'justify' }}>
-            Endereço de entrega
-          </Text>
           {pedido.delivery ? (
-            <Text
-              style={{
-                fontFamily: 'Ubuntu-Regular',
-                marginTop: 4,
-                textAlign: 'justify',
-              }}
-            >
-              {user?.logradouro}, nº {user?.numero_local}, {user?.bairro},{' '}
-              {city}
-            </Text>
+            <>
+              <Text style={{ fontFamily: 'Ubuntu-Bold', textAlign: 'justify' }}>
+                Endereço de entrega
+              </Text>
+              <Text
+                style={{
+                  fontFamily: 'Ubuntu-Regular',
+                  marginTop: 4,
+                  textAlign: 'justify',
+                }}
+              >
+                {user?.logradouro}, nº {user?.numero_local}, {user?.bairro},{' '}
+                {city}
+              </Text>
+            </>
           ) : (
             <Text
               style={{
-                fontFamily: 'Ubuntu-Regular',
+                fontFamily: 'Ubuntu-Bold',
                 marginTop: 4,
                 textAlign: 'justify',
               }}
             >
-              Retirado no estabelecimento
+              Pedido com retirada no estabelecimento
             </Text>
           )}
         </View>
+
+        <View
+          style={{
+            borderTopColor: '#ebebeb',
+            borderTopWidth: 1,
+            marginTop: 20,
+            marginBottom: 20,
+          }}
+        />
+
+        {pedido.status_pedido !== 'Cancelado' && (
+          <TouchableOpacity
+            onPress={cancelarPedido}
+            style={{ justifyContent: 'center', alignItems: 'center' }}
+          >
+            <Text
+              style={{
+                fontFamily: 'Ubuntu-Bold',
+                marginTop: 4,
+                textAlign: 'justify',
+                color: colors.primary,
+              }}
+            >
+              Cancelar pedido
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
     </Container>
   );

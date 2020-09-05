@@ -19,12 +19,15 @@ interface CartContextData {
   changeDeliveryProduct(product: object): void;
   removeCart(product: object): void;
   clearCart(store: object): void;
+  isChange: boolean;
+  changeStatus(): void;
 }
 
 const CartContext = createContext<CartContextData>({} as CartContextData);
 
 export const CartProvider: React.FC = ({ children }) => {
   const [cart, setCart] = useState<ICart[]>([]);
+  const [isChange, setIsChange] = useState(false);
 
   useEffect(() => {
     async function loadData(): Promise<void> {
@@ -130,9 +133,21 @@ export const CartProvider: React.FC = ({ children }) => {
     [cart],
   );
 
+  const changeStatus = useCallback(() => {
+    setIsChange(!isChange);
+  }, [isChange]);
+
   return (
     <CartContext.Provider
-      value={{ cart, addCart, changeDeliveryProduct, removeCart, clearCart }}
+      value={{
+        cart,
+        addCart,
+        changeDeliveryProduct,
+        removeCart,
+        clearCart,
+        isChange,
+        changeStatus,
+      }}
     >
       {children}
     </CartContext.Provider>

@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.ScrollView`
+export const Container = styled.View`
   flex: 1;
   background: ${(props) => props.theme.colors.background};
 `;
@@ -21,41 +21,36 @@ export const Image = styled.Image`
 `;
 
 export const Title = styled.Text`
-  color: ${props => props.theme.colors.title};
+  color: ${(props) => props.theme.colors.title};
   font-family: 'Ubuntu-Bold';
 `;
 
 export const Subtitle = styled.Text`
-  color: ${props => props.theme.colors.title};
+  color: ${(props) => props.theme.colors.title};
   font-family: 'Ubuntu-Regular';
 `;
 
-
 export const ModalTextView = styled.View`
   padding: 10px;
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ModalText = styled.Text`
   font-family: Ubuntu-Bold;
   font-size: 22px;
-  color: ${props => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.primary};
 `;
 
-
-
-
-
 export const ViewFList = styled.View`
-    background: #ffffff;
-    border: 1px solid #E3DFDF;
-    padding: 10px;
-    width: 350px;
-    height: 135px;
-    marginVertical: 8;
-    marginHorizontal: 10;
-    border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #e3dfdf;
+  padding: 10px;
+  width: 350px;
+  height: 135px;
+  marginvertical: 8;
+  marginhorizontal: 10;
+  border-radius: 8px;
 `;
 export const BorderBottom = styled.View`
   border-bottom-width: 1px;
@@ -79,7 +74,6 @@ export const CenterView = styled.View`
   align-items: center;
   top: 10px;
 `;
-
 
 export const TouchClose = styled.View`
   position: absolute;

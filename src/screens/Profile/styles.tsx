@@ -15,6 +15,4 @@ export const Subtitle = styled.Text`
   font-family: ${(props) => props.theme.fonts.Ubuntu.normal};
 `;
 
-export const ViewList = styled.View`
-  margin-left: 5px;
-`;
+export const ViewList = styled.View``;

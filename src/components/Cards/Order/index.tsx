@@ -7,6 +7,7 @@ import api from '@services/api';
 import moment from 'moment';
 import { useTheme } from 'styled-components';
 
+import logo from '../../../assets/icone1024x1024.png';
 import { Card, Image, Title, Subtitle } from './styles';
 
 interface IPedido {
@@ -58,12 +59,7 @@ const Order: React.FC<IProps> = ({ pedido, avaliarPedido }) => {
           marginBottom: 10,
         }}
       >
-        <Image
-          source={{
-            uri:
-              'https://www.dnbr.art.br/wp-content/uploads/2019/05/square_rgb-1024x1024.jpg',
-          }}
-        />
+        <Image source={logo} />
         <View style={{ flex: 1 }}>
           <Title>{pedido.fornecedor.nome_fantasia}</Title>
           <Subtitle>

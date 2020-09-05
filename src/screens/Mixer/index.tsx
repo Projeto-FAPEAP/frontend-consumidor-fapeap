@@ -46,14 +46,26 @@ const Mixer: React.FC<IProduct> = (props) => {
   const mixer = props?.route?.params?.item;
   const [data, setData] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState(true);
+  const [refresh, setRefresh] = useState(true);
 
   const [city, setCity] = useState('Macapá - AP');
 
+  function getProdutos(): void {
+    api
+      .get(`produto/${props?.route?.params?.item?.id}`)
+      .then((response) => {
+        setData(response.data);
+        setLoading(false);
+        setRefresh(false);
+      })
+      .catch((response) => {
+        setLoading(false);
+        setRefresh(false);
+      });
+  }
+
   useEffect(() => {
-    api.get(`produto/${props?.route?.params?.item?.id}`).then((response) => {
-      setData(response.data);
-      setLoading(false);
-    });
+    getProdutos();
   }, [props?.route]);
 
   function media(avaliacoes: number[]): string {
@@ -156,6 +168,8 @@ const Mixer: React.FC<IProduct> = (props) => {
 
         <FlatList
           style={{ marginTop: 15 }}
+          onRefresh={getProdutos}
+          refreshing={refresh}
           data={data}
           renderItem={({ item }) => <Product item={item} />}
           keyExtractor={(item) => item.id}

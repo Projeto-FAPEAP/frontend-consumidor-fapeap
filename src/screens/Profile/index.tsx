@@ -39,15 +39,23 @@ const Profile: React.FC = () => {
           <Card
             containerStyle={{
               borderRadius: 5,
+              paddingHorizontal: 30,
             }}
           >
             <View>
               <TextProfile>{user.nome}</TextProfile>
-              <Subtitle>Faça a edição de seus dados pessoais, de acesso e de entrega</Subtitle>
+              <Subtitle>
+                Faça a edição de seus dados pessoais, de acesso e de entrega
+              </Subtitle>
             </View>
           </Card>
 
-          <ViewList>
+          <Card
+            containerStyle={{
+              borderRadius: 5,
+              paddingHorizontal: 15,
+            }}
+          >
             <ListItem
               title="Editar perfil"
               titleStyle={{
@@ -56,7 +64,7 @@ const Profile: React.FC = () => {
               subtitle="Nome, telefone, e-mail, CPF"
               subtitleStyle={{
                 fontFamily: 'Ubuntu-Regular',
-                marginTop: 5
+                marginTop: 5,
               }}
               bottomDivider
               chevron
@@ -76,7 +84,7 @@ const Profile: React.FC = () => {
               subtitle="CEP, logradouro, bairro, número"
               subtitleStyle={{
                 fontFamily: 'Ubuntu-Regular',
-                marginTop: 5
+                marginTop: 5,
               }}
               bottomDivider
               chevron
@@ -116,20 +124,21 @@ const Profile: React.FC = () => {
               subtitleStyle={{
                 fontFamily: 'Ubuntu-Regular',
               }}
-              bottomDivider
               chevron
               onPress={handleSignOut}
             />
-          </ViewList>
+          </Card>
         </>
       ) : (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <View
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+        >
           <Text
             style={{
               fontFamily: 'Ubuntu-Regular',
               color: colors.title,
               marginBottom: 10,
-              fontSize: 16
+              fontSize: 16,
             }}
           >
             Faça login para continuar
@@ -143,8 +152,8 @@ const Profile: React.FC = () => {
               borderRadius: 10,
               minHeight: 40,
               minWidth: 100,
-              alignItems:"center",
-              justifyContent:'center'
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
             <Text style={{ color: '#fff', fontFamily: 'Ubuntu-Regular' }}>

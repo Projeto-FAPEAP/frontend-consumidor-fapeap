@@ -26,6 +26,7 @@ const Home: React.FC = () => {
   const [data, setData] = useState<IMixer[]>([]);
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
+  const [refresh, setRefresh] = useState(true);
 
   const [city, setCity] = useState('');
 
@@ -40,17 +41,23 @@ const Home: React.FC = () => {
     );
   }
 
-  useEffect(() => {
+  function getMixers(): void {
     api
       .get<IMixer[]>('fornecedor')
       .then((response) => {
         const filter = response.data.filter((item) => item?.verificado);
         setData(filter);
         setLoading(false);
+        setRefresh(false);
       })
       .catch((response) => {
         setLoading(false);
+        setRefresh(false);
       });
+  }
+
+  useEffect(() => {
+    getMixers();
   }, []);
 
   useEffect(() => {
@@ -99,6 +106,8 @@ const Home: React.FC = () => {
       <TextMid>Batedeiras disponíveis</TextMid>
 
       <FlatList
+        onRefresh={getMixers}
+        refreshing={refresh}
         data={data}
         renderItem={({ item }) => <Mixer item={item} />}
         keyExtractor={(item) => item.id}
