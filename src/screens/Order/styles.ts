@@ -30,7 +30,7 @@ export const Title = styled.Text`
 `;
 
 export const TextQuantity = styled.Text`
-  color: ${(props) => props.theme.colors.success};
+  color: ${(props) => props.theme.colors.primary};
   font-size: 14px;
   font-family: ${(props) => props.theme.fonts.Ubuntu.normal};
 `;

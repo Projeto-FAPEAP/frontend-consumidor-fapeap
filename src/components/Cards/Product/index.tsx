@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { withNavigation } from '@react-navigation/compat';
+import { useTheme } from 'styled-components';
 
 import logo from '../../../assets/icone1024x1024.png';
 import formatMoney from '../../FormatMoney';
@@ -28,6 +29,8 @@ interface IProduct {
 }
 
 const Product: React.FC<IProduct> = ({ item, navigation }) => {
+  const { colors } = useTheme();
+
   function imagesFiles(files: IFile[]): IFile[] {
     const fileExtension_img = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
 
@@ -77,7 +80,7 @@ const Product: React.FC<IProduct> = ({ item, navigation }) => {
             <Icon
               style={{ marginRight: 5 }}
               name="check-circle"
-              color="#32C741"
+              color={colors.success}
               size={15}
             />
             <Text>Disponível</Text>
@@ -92,7 +95,7 @@ const Product: React.FC<IProduct> = ({ item, navigation }) => {
             <Icon
               style={{ marginRight: 5 }}
               name="close-circle"
-              color="#EB5757"
+              color={colors.danger}
               size={15}
             />
             <Text>Indisponível</Text>

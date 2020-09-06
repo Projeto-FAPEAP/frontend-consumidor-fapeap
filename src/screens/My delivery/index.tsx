@@ -130,23 +130,18 @@ const MyDelivery: React.FC = () => {
               style={{
                 flex: 1,
                 backgroundColor: '#fff',
-                maxHeight: 320,
+                maxHeight: 300,
                 borderRadius: 5,
+                // justifyContent: 'center',
               }}
             >
-              <TouchableOpacity
-                onPress={() => setModalVisible(false)}
-                style={{
-                  alignItems: 'flex-end',
-                  marginTop: 20,
-                  marginRight: 20,
-                }}
-              >
-                <Icon name="close" size={30} color={colors.primary} />
-              </TouchableOpacity>
               <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <ModalTextView>
-                  <ModalText>Avaliação do estabelecimento</ModalText>
+                  <ModalText>Avalie o estabelecimento</ModalText>
+
+                  <TouchableOpacity onPress={() => setModalVisible(false)}>
+                    <Icon name="close" size={30} color={colors.white} />
+                  </TouchableOpacity>
                 </ModalTextView>
                 <AirbnbRating
                   starStyle={{ marginHorizontal: 8 }}

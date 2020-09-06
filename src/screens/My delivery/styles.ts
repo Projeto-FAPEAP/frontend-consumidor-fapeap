@@ -32,14 +32,18 @@ export const Subtitle = styled.Text`
 
 export const ModalTextView = styled.View`
   padding: 10px;
-  justify-content: center;
+  background: ${(props) => props.theme.colors.primary};
+  width: 100%;
+  justify-content: space-between;
   align-items: center;
+  flex-direction: row;
+  margin-bottom: 35px;
 `;
 
 export const ModalText = styled.Text`
   font-family: Ubuntu-Bold;
   font-size: 22px;
-  color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.white};
 `;
 
 export const ViewFList = styled.View`

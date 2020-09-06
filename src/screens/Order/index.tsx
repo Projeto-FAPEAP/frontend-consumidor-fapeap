@@ -213,7 +213,7 @@ const Order: React.FC = () => {
                         </Text>
                         <Icon
                           name="close-circle"
-                          color="#EB5757"
+                          color={colors.primary}
                           size={18}
                           onPress={() => clearOneCart(basket)}
                         />

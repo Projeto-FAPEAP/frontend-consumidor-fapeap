@@ -104,7 +104,7 @@ const Product: React.FC<IProps> = (props) => {
               <Icon
                 style={{ marginRight: 5 }}
                 name="check-circle"
-                color="#32C741"
+                color={colors.success}
                 size={18}
               />
               <Text>Disponível</Text>
@@ -120,7 +120,7 @@ const Product: React.FC<IProps> = (props) => {
               <Icon
                 style={{ marginRight: 5 }}
                 name="close-circle"
-                color="#EB5757"
+                color={colors.danger}
                 size={18}
               />
               <Text>Indisponível</Text>
