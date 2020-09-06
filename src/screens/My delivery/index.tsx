@@ -138,7 +138,7 @@ const MyDelivery: React.FC = () => {
               <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <ModalTextView>
                   <ModalText>
-                    {selectedPedido.fornecedor.nome_fantasia}
+                    {selectedPedido?.fornecedor?.nome_fantasia}
                   </ModalText>
 
                   <TouchableOpacity onPress={() => setModalVisible(false)}>

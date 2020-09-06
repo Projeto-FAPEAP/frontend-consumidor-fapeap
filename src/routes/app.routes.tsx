@@ -18,9 +18,8 @@ import Product from '../screens/Product';
 import Profile from '../screens/Profile';
 import RecoveryPassword from '../screens/RecoveryPassword';
 import Register from '../screens/Register';
-import SignIn from '../screens/SignIn';
-
 import Route from '../screens/Route';
+import SignIn from '../screens/SignIn';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -139,6 +138,10 @@ const AppRoutes: React.FC = () => {
           headerBackTitleVisible: false,
           headerStyle: {
             backgroundColor: colors.primary,
+            shadowRadius: 0,
+            shadowOffset: {
+              height: 0,
+            },
           },
           headerTitleStyle: {
             fontFamily: 'Ubuntu-Bold',
@@ -172,6 +175,10 @@ const AppRoutes: React.FC = () => {
           headerBackTitleVisible: false,
           headerStyle: {
             backgroundColor: colors.primary,
+            shadowRadius: 0,
+            shadowOffset: {
+              height: 0,
+            },
           },
           headerTitleStyle: {
             fontFamily: 'Ubuntu-Bold',
@@ -253,6 +260,10 @@ const AppRoutes: React.FC = () => {
           headerBackTitleVisible: false,
           headerStyle: {
             backgroundColor: colors.primary,
+            shadowRadius: 0,
+            shadowOffset: {
+              height: 0,
+            },
           },
           headerTitleStyle: {
             fontFamily: 'Ubuntu-Bold',
