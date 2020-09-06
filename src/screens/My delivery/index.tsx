@@ -137,7 +137,9 @@ const MyDelivery: React.FC = () => {
             >
               <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <ModalTextView>
-                  <ModalText>Avalie o estabelecimento</ModalText>
+                  <ModalText>
+                    {selectedPedido.fornecedor.nome_fantasia}
+                  </ModalText>
 
                   <TouchableOpacity onPress={() => setModalVisible(false)}>
                     <Icon name="close" size={30} color={colors.white} />

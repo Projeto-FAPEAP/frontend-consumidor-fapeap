@@ -38,6 +38,8 @@ export const ModalTextView = styled.View`
   align-items: center;
   flex-direction: row;
   margin-bottom: 35px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 `;
 
 export const ModalText = styled.Text`
