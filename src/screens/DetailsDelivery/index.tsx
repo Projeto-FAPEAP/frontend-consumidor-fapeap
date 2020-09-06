@@ -176,6 +176,7 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
               marginTop: 20,
               backgroundColor: '#ebebeb',
               padding: 5,
+              borderRadius: 5,
             }}
           >
             {Icone(pedido.status_pedido)}
@@ -205,6 +206,7 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
               marginTop: 20,
               backgroundColor: '#ebebeb',
               padding: 5,
+              borderRadius: 5,
             }}
           >
             {/* <Icon
