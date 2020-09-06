@@ -9,12 +9,12 @@ export default function Icone(type) {
   return (
     <Icon
       name={
-        (type === 'Finalizado' || type === 'Reserva confirmada' || type == 'Delivery confirmado') ? 'check-circle' : type == 'Pedido em rota de entrega' ? 'truck' : type == 'Pendente' ? 'pause-circle' : 'close'
+        (type === 'Finalizado' || type === 'Reserva confirmada' || type == 'Delivery confirmado') ? 'check-circle' : type == 'Pedido em rota de entrega' ? 'truck' : type == 'Pendente' ? 'clock-o' : 'close'
       }
       style={{ marginRight: 10 }}
       size={30}
       color={
-        (type === 'Finalizado' || type === 'Reserva confirmada' || type == 'Delivery confirmado' || type == 'Pedido em rota de entrega') ? colors.success : colors.danger
+        (type === 'Finalizado' || type === 'Reserva confirmada' || type == 'Delivery confirmado' || type == 'Pedido em rota de entrega') ? colors.primary : colors.primary
       }
     />
   )

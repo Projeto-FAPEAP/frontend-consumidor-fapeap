@@ -42,7 +42,7 @@ const MyDelivery: React.FC = () => {
 
   const [selectedPedido, setSelectedPedido] = useState<IPedido>({} as IPedido);
   const [modalVisible, setModalVisible] = useState(false);
-  const [stars, setStars] = useState(0);
+  const [stars, setStars] = useState(3);
 
   const { user } = useContext(AuthContext);
   const { cart, isChange } = useContext(CartContext);
@@ -186,7 +186,7 @@ const MyDelivery: React.FC = () => {
           </Modal>
         </Container>
       ) : (
-        <>{loading ? <Loading /> : <ScreenLock />}</>
+        <>{user && loading ? <Loading /> : <ScreenLock />}</>
       )}
     </>
   );
