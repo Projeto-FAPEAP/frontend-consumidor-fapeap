@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, Alert } from 'react-native';
+import { View, Text, Alert, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useNavigation } from '@react-navigation/native';
@@ -61,6 +61,8 @@ const Order: React.FC = () => {
 
   const [loading, setLoading] = useState(true);
 
+  const [loadingPedido, setLoadingPedido] = useState(false);
+
   const [baskets, setBaskets] = useState<IBasket[]>([]);
 
   const { colors } = useTheme();
@@ -118,6 +120,7 @@ const Order: React.FC = () => {
         {
           text: 'Sim',
           onPress: () => {
+            setLoadingPedido(true);
             api
               .post(
                 `consumidor/${order[0].fornecedor.id}/${order[0].fornecedor.delivery}`,
@@ -129,12 +132,14 @@ const Order: React.FC = () => {
                   "Pedido realizado com sucesso! Verifique a situção do pedido em 'Meus pedidos'.",
                 );
                 clearCart(order);
+                setLoadingPedido(false);
               })
               .catch((response) => {
                 Alert.alert(
                   'Pedido não efetuado',
                   response.response.data.error,
                 );
+                setLoadingPedido(false);
               });
           },
         },
@@ -418,7 +423,14 @@ const Order: React.FC = () => {
                               : !user && navigation.navigate('SignIn')
                           }
                         >
-                          <ButtonText>Finalizar Pedido</ButtonText>
+                          {loadingPedido ? (
+                            <ActivityIndicator
+                              size="small"
+                              color={colors.white}
+                            />
+                          ) : (
+                            <ButtonText>Finalizar Pedido</ButtonText>
+                          )}
                         </Button>
                       </View>
                     </CardInformation>

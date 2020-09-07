@@ -1,5 +1,11 @@
 import React, { useContext } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import 'moment/locale/pt-br';
@@ -70,6 +76,8 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
   const { user } = useContext(AuthContext);
   const { changeStatus } = useContext(CartContext);
 
+  const [loadingPedido, setLoadingPedido] = React.useState(false);
+
   function getCityAndUf(cep: string): void {
     Axios.get<ICEPResponse>(`https://viacep.com.br/ws/${cep}/json/`).then(
       (response) => {
@@ -93,6 +101,7 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
         {
           text: 'Sim',
           onPress: () => {
+            setLoadingPedido(true);
             api.put(`/cancelar/pedido/${pedido.id}`).then(({ data }) => {
               Alert.alert(
                 'Sucesso!',
@@ -108,6 +117,7 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
                 ],
                 { cancelable: false },
               );
+              setLoadingPedido(false);
             });
           },
         },
@@ -144,26 +154,28 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
               .format('DD/MM/YYYY [às] H:mm')}
           </Text>
 
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Route', pedido)}
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              backgroundColor: colors.regular,
-              padding: 10,
-              borderRadius: 5,
-            }}
-          >
-            <Icon
-              name="map-marker"
-              style={{ marginRight: 5 }}
-              size={14}
-              color={colors.white}
-            />
-            <Text style={{ fontFamily: 'Ubuntu-Regular', color: '#fff' }}>
-              Traçar rota
-            </Text>
-          </TouchableOpacity>
+          {pedido.status_pedido === 'Pedido em rota de entrega' && (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Route', pedido)}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                backgroundColor: colors.regular,
+                padding: 10,
+                borderRadius: 5,
+              }}
+            >
+              <Icon
+                name="map-marker"
+                style={{ marginRight: 5 }}
+                size={14}
+                color={colors.white}
+              />
+              <Text style={{ fontFamily: 'Ubuntu-Regular', color: '#fff' }}>
+                Traçar rota
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
 
         {pedido.status_pedido === 'Finalizado' ||
@@ -378,16 +390,20 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
             onPress={cancelarPedido}
             style={{ justifyContent: 'center', alignItems: 'center' }}
           >
-            <Text
-              style={{
-                fontFamily: 'Ubuntu-Bold',
-                marginTop: 4,
-                textAlign: 'justify',
-                color: colors.primary,
-              }}
-            >
-              Cancelar pedido
-            </Text>
+            {loadingPedido ? (
+              <ActivityIndicator size="small" color={colors.primary} />
+            ) : (
+              <Text
+                style={{
+                  fontFamily: 'Ubuntu-Bold',
+                  marginTop: 4,
+                  textAlign: 'justify',
+                  color: colors.primary,
+                }}
+              >
+                Cancelar pedido
+              </Text>
+            )}
           </TouchableOpacity>
         )}
       </View>

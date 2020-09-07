@@ -1,5 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Text, TouchableOpacity, Alert, FlatList } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Alert,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 import { AirbnbRating } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -40,6 +47,8 @@ const MyDelivery: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [refresh, setRefresh] = useState(true);
 
+  const [loadingPedido, setLoadingPedido] = useState(false);
+
   const [selectedPedido, setSelectedPedido] = useState<IPedido>({} as IPedido);
   const [modalVisible, setModalVisible] = useState(false);
   const [stars, setStars] = useState(3);
@@ -72,6 +81,7 @@ const MyDelivery: React.FC = () => {
   }
 
   function confirmarAvaliacaoPedido(): void {
+    setLoadingPedido(true);
     api
       .post(`/avaliacao/${selectedPedido.fornecedor.id}`, {
         estrelas: stars,
@@ -83,6 +93,7 @@ const MyDelivery: React.FC = () => {
           [{ text: 'OK', onPress: () => setModalVisible(false) }],
           { cancelable: false },
         );
+        setLoadingPedido(false);
       });
   }
 
@@ -174,9 +185,15 @@ const MyDelivery: React.FC = () => {
                     justifyContent: 'center',
                   }}
                 >
-                  <Text style={{ color: '#fff', fontFamily: 'Ubuntu-Regular' }}>
-                    Confirmar
-                  </Text>
+                  {loadingPedido ? (
+                    <ActivityIndicator size="small" color={colors.white} />
+                  ) : (
+                    <Text
+                      style={{ color: '#fff', fontFamily: 'Ubuntu-Regular' }}
+                    >
+                      Confirmar
+                    </Text>
+                  )}
                 </TouchableOpacity>
               </View>
             </View>

@@ -42,6 +42,7 @@ const Home: React.FC = () => {
   }
 
   function getMixers(): void {
+    setRefresh(true);
     api
       .get<IMixer[]>('fornecedor')
       .then((response) => {

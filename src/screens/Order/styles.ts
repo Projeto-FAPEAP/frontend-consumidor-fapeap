@@ -58,10 +58,12 @@ export const Right = styled.View``;
 
 export const Button = styled.TouchableOpacity`
   width: 50%;
+  height: 35px;
   padding: 10px;
   background: ${(props) => props.theme.colors.primary};
   border-radius: 10px;
   align-items: center;
+  justify-content: center;
 `;
 
 export const ButtonText = styled.Text`

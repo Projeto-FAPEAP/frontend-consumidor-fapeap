@@ -51,6 +51,7 @@ const Mixer: React.FC<IProduct> = (props) => {
   const [city, setCity] = useState('Macapá - AP');
 
   function getProdutos(): void {
+    setRefresh(true);
     api
       .get(`produto/${props?.route?.params?.item?.id}`)
       .then((response) => {
