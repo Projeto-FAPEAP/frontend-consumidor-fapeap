@@ -3,13 +3,13 @@ import { Image, Dimensions } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 
-import authContext from '@contexts/auth';
 import api from '@services/api';
 import Axios from 'axios';
 import { useTheme } from 'styled-components';
 
 import house from '../../assets/house.png';
 import logo from '../../assets/icone1024x1024.png';
+import authContext from '../../contexts/auth';
 
 const GOOGLE_MAPS_APIKEY = 'AIzaSyAJLnjbwqDj7XpSoB7MORWcQMePWUPQ99c';
 
@@ -36,9 +36,7 @@ interface IPedido {
 interface IProps {
   route: {
     params: {
-      item: {
-        pedido: IPedido;
-      };
+      item: IPedido;
     };
   };
 }
@@ -72,38 +70,46 @@ const Route: React.FC<IProps> = (props) => {
   });
 
   React.useEffect(() => {
-    setInitial({
-      latitude: pedido.fornecedor.latitude,
-      longitude: pedido.fornecedor.longitude,
-      latitudeDelta: 0.00522,
-      longitudeDelta:
-        (Dimensions.get('window').width / Dimensions.get('window').height) *
-        0.00522,
-    });
+    const pedido = props?.route?.params?.item;
 
-    Axios.get<ICEPResponse>(`https://viacep.com.br/ws/${user?.cep}/json/`).then(
-      (response) => {
-        const { localidade, uf } = response.data;
-        api
-          .get(
-            `https://maps.googleapis.com/maps/api/geocode/json?address=${user?.numero_local}+${user?.logradouro},+${localidade},+${uf}&key=AIzaSyARpgEngeu2k129CS3cdlp4HjTUhKyPblU`,
-          )
-          .then(({ data }) => {
-            console.log(data.results[0].geometry.location);
+    if (pedido?.fornecedor && user?.cep) {
+      try {
+        setInitial({
+          latitude: pedido.fornecedor.latitude,
+          longitude: pedido.fornecedor.longitude,
+          latitudeDelta: 0.00522,
+          longitudeDelta:
+            (Dimensions.get('window').width / Dimensions.get('window').height) *
+            0.00522,
+        });
 
-            setFinal({
-              latitude: data.results[0].geometry.location.lat,
-              longitude: -data.results[0].geometry.location.lng,
-              latitudeDelta: 0.00522,
-              longitudeDelta:
-                (Dimensions.get('window').width /
-                  Dimensions.get('window').height) *
-                0.00522,
+        Axios.get<ICEPResponse>(
+          `https://viacep.com.br/ws/${user?.cep}/json/`,
+        ).then((response) => {
+          const { localidade, uf } = response.data;
+          api
+            .get(
+              `https://maps.googleapis.com/maps/api/geocode/json?address=${user?.numero_local}+${user?.logradouro},+${localidade},+${uf}&key=AIzaSyARpgEngeu2k129CS3cdlp4HjTUhKyPblU`,
+            )
+            .then(({ data }) => {
+              console.log(data.results[0].geometry.location);
+
+              setFinal({
+                latitude: data.results[0].geometry.location.lat,
+                longitude: data.results[0].geometry.location.lng,
+                latitudeDelta: 0.00522,
+                longitudeDelta:
+                  (Dimensions.get('window').width /
+                    Dimensions.get('window').height) *
+                  0.00522,
+              });
             });
-          });
-      },
-    );
-  }, [user, pedido]);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [user, props]);
 
   return (
     <MapView
