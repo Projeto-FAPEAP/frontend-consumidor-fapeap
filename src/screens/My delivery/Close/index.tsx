@@ -27,6 +27,8 @@ interface IPedido {
     id: string;
     nome_fantasia: string;
     taxa_delivery: string;
+    latitude: number;
+    longitude: number;
   };
   delivery: boolean;
   status_pedido:

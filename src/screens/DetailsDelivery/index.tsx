@@ -28,6 +28,8 @@ interface IPedido {
   fornecedor: {
     nome_fantasia: string;
     taxa_delivery: string;
+    latitude: number;
+    longitude: number;
   };
   delivery: boolean;
   status_pedido:
@@ -156,7 +158,7 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
 
           {/*   {pedido.status_pedido === 'Pedido em rota de entrega' && ( */}
           <TouchableOpacity
-            onPress={() => navigation.navigate('Route', pedido)}
+            onPress={() => navigation.navigate('Route', { item: pedido })}
             style={{
               flexDirection: 'row',
               alignItems: 'center',
