@@ -57,8 +57,12 @@ export const AuthProvider: React.FC = ({ children }) => {
       );
       if (userLoaded && tokenLoaded) {
         setUser(JSON.parse(userLoaded));
+
+        subscribeToNotification(JSON.parse(userLoaded).id);
       }
+
       api.defaults.headers.authorization = `Bearer ${tokenLoaded}`;
+
       setLoading(false);
     }
     loadData();
@@ -75,7 +79,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
       api.defaults.headers.authorization = `Bearer ${response.data.tokenConsumidor}`;
 
-      subscribeToNotification(response.data.tokenConsumidor);
+      subscribeToNotification(response.data.consumidor.id);
 
       await AsyncStorage.setItem(
         '@QueroAçaí-Consumidor:user',

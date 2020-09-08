@@ -198,6 +198,10 @@ const AppRoutes: React.FC = () => {
           },
           headerTitleStyle: {
             fontFamily: 'Ubuntu-Bold',
+            shadowRadius: 0,
+            shadowOffset: {
+              height: 0,
+            },
           },
           headerTintColor: '#FFF',
           headerTitleAlign: 'center',

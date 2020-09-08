@@ -3,9 +3,10 @@ import OneSignal, {
   ReceivedNotification,
 } from 'react-native-onesignal';
 
+import api from './api';
 import { navigate } from './navigation';
 
-const apikey = '344214ab-5d79-4019-a9d4-ef29f23e0356';
+const apikey = '93a7884b-2773-4f79-965b-0def4016336c';
 
 function onReceived(_notification: ReceivedNotification): void {
   // console.tron.warn('Notification received: ', notification);
@@ -17,12 +18,41 @@ async function onOpened(openResult: OpenResult): Promise<void> {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       const data = openResult.notification.payload.additionalData;
 
-      console.log(data.pedido_id);
-
       navigate('MyDelivery');
+
+      /* api
+        .get(`consumidor/pedidos/itens/${data.pedido_id}`)
+        .then(({ data: responsePedido }) => {
+          api
+            .get(`fornecedor/${responsePedido[0].produto.fornecedor_id}`)
+            .then(({ data: responseFornecedor }) => {
+              try {
+                navigate('DetailsDelivery', {
+                  item: {
+                    pedido: {
+                      id: data.pedido_id,
+                      fornecedor: responseFornecedor,
+                      status_pedido: 'Cancelado',
+                      created_at: responsePedido[0].created_at,
+                      updated_at: responsePedido[0].updated_at,
+                    },
+                    produtos: responsePedido,
+                  },
+                });
+              } catch (error) {
+                navigate('MyDelivery');
+              }
+            })
+            .catch((error) => {
+              navigate('MyDelivery');
+            });
+        })
+        .catch((error) => {
+          navigate('MyDelivery');
+        }); */
     }
   } catch (error) {
-    navigate('Home');
+    navigate('MyDelivery');
   }
 }
 

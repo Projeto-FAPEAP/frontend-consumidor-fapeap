@@ -15,7 +15,16 @@ interface IPedido {
   fornecedor: {
     nome_fantasia: string;
   };
-  status_pedido: string;
+  arqFornecedor: {
+    url: string;
+  };
+  status_pedido:
+    | 'Pendente'
+    | 'Reserva confirmada'
+    | 'Delivery confirmado'
+    | 'Pedido em rota de entrega'
+    | 'Finalizado'
+    | 'Cancelado';
   created_at: string;
   updated_at: string;
 }
@@ -59,7 +68,13 @@ const Order: React.FC<IProps> = ({ pedido, avaliarPedido }) => {
           marginBottom: 10,
         }}
       >
-        <Image source={logo} />
+        <Image
+          source={
+            pedido?.arqFornecedor?.url?.split('.')?.pop() === 'mp4'
+              ? logo
+              : { uri: pedido?.arqFornecedor?.url }
+          }
+        />
         <View style={{ flex: 1 }}>
           <Title>{pedido.fornecedor.nome_fantasia}</Title>
           <Subtitle>
@@ -113,20 +128,23 @@ const Order: React.FC<IProps> = ({ pedido, avaliarPedido }) => {
         style={{
           flexDirection: 'row',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          justifyContent:
+            pedido.status_pedido === 'Finalizado' ? 'space-between' : 'center',
           marginHorizontal: 50,
         }}
       >
-        <TouchableOpacity
-          onPress={() => avaliarPedido(pedido)}
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: 10,
-          }}
-        >
-          <Title style={{ color: colors.primary }}>Avaliar</Title>
-        </TouchableOpacity>
+        {pedido.status_pedido === 'Finalizado' && (
+          <TouchableOpacity
+            onPress={() => avaliarPedido(pedido)}
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: 10,
+            }}
+          >
+            <Title style={{ color: colors.primary }}>Avaliar</Title>
+          </TouchableOpacity>
+        )}
 
         <TouchableOpacity
           onPress={() =>

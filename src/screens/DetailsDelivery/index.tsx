@@ -385,27 +385,28 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
           }}
         />
 
-        {pedido.status_pedido !== 'Cancelado' && (
-          <TouchableOpacity
-            onPress={cancelarPedido}
-            style={{ justifyContent: 'center', alignItems: 'center' }}
-          >
-            {loadingPedido ? (
-              <ActivityIndicator size="small" color={colors.primary} />
-            ) : (
-              <Text
-                style={{
-                  fontFamily: 'Ubuntu-Bold',
-                  marginTop: 4,
-                  textAlign: 'justify',
-                  color: colors.primary,
-                }}
-              >
-                Cancelar pedido
-              </Text>
-            )}
-          </TouchableOpacity>
-        )}
+        {(pedido.status_pedido === 'Pendente' || pedido.delivery === false) &&
+          pedido.status_pedido !== 'Cancelado' && (
+            <TouchableOpacity
+              onPress={cancelarPedido}
+              style={{ justifyContent: 'center', alignItems: 'center' }}
+            >
+              {loadingPedido ? (
+                <ActivityIndicator size="small" color={colors.primary} />
+              ) : (
+                <Text
+                  style={{
+                    fontFamily: 'Ubuntu-Bold',
+                    marginTop: 4,
+                    textAlign: 'justify',
+                    color: colors.primary,
+                  }}
+                >
+                  Cancelar pedido
+                </Text>
+              )}
+            </TouchableOpacity>
+          )}
       </View>
     </Container>
   );

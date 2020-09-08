@@ -7,13 +7,14 @@ import { ThemeProvider } from 'styled-components';
 import { AuthProvider } from './contexts/auth';
 import { CartProvider } from './contexts/cart';
 import Routes from './routes';
+import { navigationRef } from './services/navigation';
 import themeLigth from './styles/themes/light';
 
 YellowBox.ignoreWarnings(['']);
 
 const App: React.FC = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <CartProvider>
         <AuthProvider>
           <ThemeProvider theme={themeLigth}>
