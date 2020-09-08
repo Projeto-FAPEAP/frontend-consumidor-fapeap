@@ -59,19 +59,45 @@ const MyDelivery: React.FC = () => {
   const { user } = useContext(AuthContext);
   const { cart, isChange } = useContext(CartContext);
 
-  function getPedidos(): void {
+  const [page, setPage] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
+
+  function getPedidos(page = 1): void {
     setRefresh(true);
     api
-      .get(`/pedidos/finalizados`)
+      .get(`/pedidos/finalizados?page=${page}`)
       .then(({ data }) => {
         setPedidos(data.historico);
         setLoading(false);
         setRefresh(false);
+
+        setPage(1);
+        setLastPage(data.pages);
       })
       .catch((error) => {
         setLoading(false);
         setRefresh(false);
       });
+  }
+
+  function loadData(page = 1): void {
+    setRefresh(true);
+    api
+      .get(`/pedidos/finalizados?page=${page}`)
+      .then(({ data }) => {
+        setPedidos([...pedidos, ...data.historico]);
+        setRefresh(false);
+        setPage(page);
+      })
+      .catch((error) => {
+        setRefresh(false);
+      });
+  }
+
+  function loadMore(): void {
+    if (page === lastPage) return;
+    const pageNumber = page + 1;
+    loadData(pageNumber);
   }
 
   useEffect(() => {
@@ -120,6 +146,7 @@ const MyDelivery: React.FC = () => {
             keyExtractor={(item) => item.id}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ flexGrow: 1 }}
+            onEndReached={loadMore}
             ListEmptyComponent={() => (
               <View
                 style={{

@@ -154,28 +154,28 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
               .format('DD/MM/YYYY [às] H:mm')}
           </Text>
 
-          {pedido.status_pedido === 'Pedido em rota de entrega' && (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Route', pedido)}
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                backgroundColor: colors.regular,
-                padding: 10,
-                borderRadius: 5,
-              }}
-            >
-              <Icon
-                name="map-marker"
-                style={{ marginRight: 5 }}
-                size={14}
-                color={colors.white}
-              />
-              <Text style={{ fontFamily: 'Ubuntu-Regular', color: '#fff' }}>
-                Traçar rota
-              </Text>
-            </TouchableOpacity>
-          )}
+          {/*   {pedido.status_pedido === 'Pedido em rota de entrega' && ( */}
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Route', pedido)}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              backgroundColor: colors.regular,
+              padding: 10,
+              borderRadius: 5,
+            }}
+          >
+            <Icon
+              name="map-marker"
+              style={{ marginRight: 5 }}
+              size={14}
+              color={colors.white}
+            />
+            <Text style={{ fontFamily: 'Ubuntu-Regular', color: '#fff' }}>
+              Traçar rota
+            </Text>
+          </TouchableOpacity>
+          {/*  )} */}
         </View>
 
         {pedido.status_pedido === 'Finalizado' ||
