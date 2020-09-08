@@ -121,6 +121,10 @@ const AppRoutes: React.FC = () => {
           title: 'Quero Açaí',
           headerStyle: {
             backgroundColor: colors.primary,
+            shadowRadius: 0,
+            shadowOffset: {
+              height: 0,
+            },
           },
           headerTitleStyle: {
             fontFamily: 'Ubuntu-Bold',
@@ -195,13 +199,13 @@ const AppRoutes: React.FC = () => {
           headerBackTitleVisible: false,
           headerStyle: {
             backgroundColor: colors.primary,
-          },
-          headerTitleStyle: {
-            fontFamily: 'Ubuntu-Bold',
             shadowRadius: 0,
             shadowOffset: {
               height: 0,
             },
+          },
+          headerTitleStyle: {
+            fontFamily: 'Ubuntu-Bold',
           },
           headerTintColor: '#FFF',
           headerTitleAlign: 'center',

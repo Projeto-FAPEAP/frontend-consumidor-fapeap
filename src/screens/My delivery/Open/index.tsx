@@ -128,7 +128,7 @@ const MyDelivery: React.FC = () => {
                   alignItems: 'center',
                 }}
               >
-                {!loading && (
+                {!loading && !refresh && (
                   <Text
                     style={{
                       fontSize: 12,
