@@ -1,35 +1,50 @@
-import OneSignal, {OpenResult} from 'react-native-onesignal';
+import OneSignal, {
+  OpenResult,
+  ReceivedNotification,
+} from 'react-native-onesignal';
 
-import { useNavigation } from '@react-navigation/native';
+import { navigate } from './navigation';
 
-function onOpened(openResult: OpenResult): void {
-  const navigation = useNavigation();
+const apikey = '344214ab-5d79-4019-a9d4-ef29f23e0356';
 
+function onReceived(_notification: ReceivedNotification): void {
+  // console.tron.warn('Notification received: ', notification);
+}
+
+async function onOpened(openResult: OpenResult): Promise<void> {
   try {
     if (openResult.notification.payload.additionalData) {
-      const { pedido_id: pedido } = openResult.notification.payload.additionalData;
-      navigation.navigate('DetailsDelivery', { pedido });
-    } else {
-      navigation.navigate('Home');
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const data = openResult.notification.payload.additionalData;
+
+      console.log(data.pedido_id);
+
+      navigate('MyDelivery');
     }
   } catch (error) {
-    navigation.navigate('Home');
+    navigate('Home');
   }
 }
 
-function subscribeToNotification(id: string | null): void {
-  OneSignal.init('344214ab-5d79-4019-a9d4-ef29f23e0356', {
+function onIds(_device: any): void {
+  // console.log('Device info: ', device);
+}
+
+function subscribeToNotification(idKey: string): void {
+  OneSignal.init(apikey, {
     kOSSettingsKeyAutoPrompt: true,
   });
+  OneSignal.addEventListener('received', onReceived);
   OneSignal.addEventListener('opened', onOpened);
-  if (id) {
-    OneSignal.sendTag('user', id);
+  OneSignal.addEventListener('ids', onIds);
+  if (idKey) {
+    OneSignal.sendTag('user', idKey);
   }
   OneSignal.setSubscription(true);
 }
 
-function unsubscribeToNotification(id: string | null): void {
-  OneSignal.init('344214ab-5d79-4019-a9d4-ef29f23e0356', {
+function unsubscribeToNotification(id: string | undefined): void {
+  OneSignal.init(apikey, {
     kOSSettingsKeyAutoPrompt: true,
   });
   if (id) {

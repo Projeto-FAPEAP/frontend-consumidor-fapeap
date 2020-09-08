@@ -3,10 +3,9 @@ import React, { useState, createContext, useEffect } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import api from '../services/api';
-
 import {
   subscribeToNotification,
-  unsubscribeToNotification
+  unsubscribeToNotification,
 } from '../services/notification';
 
 interface Response {
@@ -15,6 +14,7 @@ interface Response {
 }
 
 interface IUser {
+  id: string;
   nome: string;
   telefone_whatsapp: string;
   email: string;
@@ -75,7 +75,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
       api.defaults.headers.authorization = `Bearer ${response.data.tokenConsumidor}`;
 
-      //subscribeToNotification(response.data.tokenConsumidor);
+      subscribeToNotification(response.data.tokenConsumidor);
 
       await AsyncStorage.setItem(
         '@QueroAçaí-Consumidor:user',
@@ -153,10 +153,9 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   async function logOut(): Promise<void> {
-    const token = await AsyncStorage.getItem('@QueroAçaí-Consumidor:token');
-    //unsubscribeToNotification(token)
-    await AsyncStorage.removeItem("@QueroAçaí-Consumidor:token");
-    AsyncStorage.removeItem("@QueroAçaí-Consumidor:user").then(() => {
+    unsubscribeToNotification(user?.id);
+    await AsyncStorage.removeItem('@QueroAçaí-Consumidor:token');
+    AsyncStorage.removeItem('@QueroAçaí-Consumidor:user').then(() => {
       setUser(null);
     });
   }
