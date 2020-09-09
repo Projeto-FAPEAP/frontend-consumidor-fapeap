@@ -216,6 +216,7 @@ const EditProfile: React.FC = ({ route }) => {
             Alert.alert('Não foi possível atualizar', responseStatus);
           } else {
             Alert.alert('Sucesso', 'Dados atualizados com sucesso!');
+            navigation.goBack();
           }
 
           formRef.current?.setData({
