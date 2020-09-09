@@ -8,7 +8,7 @@ import Axios from 'axios';
 import { useTheme } from 'styled-components';
 
 import house from '../../assets/house.png';
-import logo from '../../assets/icone1024x1024.png';
+import logo from '../../assets/sale.png';
 import authContext from '../../contexts/auth';
 
 const GOOGLE_MAPS_APIKEY = 'AIzaSyAJLnjbwqDj7XpSoB7MORWcQMePWUPQ99c';
