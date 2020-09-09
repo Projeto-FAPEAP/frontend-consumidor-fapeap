@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Dimensions } from 'react-native';
+import { Dimensions } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 
@@ -8,7 +8,7 @@ import Axios from 'axios';
 import { useTheme } from 'styled-components';
 
 import house from '../../assets/house.png';
-import logo from '../../assets/icone1024x1024.png';
+// import logo from '../../assets/icone1024x1024.png';
 import authContext from '../../contexts/auth';
 
 const GOOGLE_MAPS_APIKEY = 'AIzaSyAJLnjbwqDj7XpSoB7MORWcQMePWUPQ99c';
@@ -20,6 +20,9 @@ interface IPedido {
     taxa_delivery: string;
     latitude: number;
     longitude: number;
+  };
+  arqFornecedor: {
+    url: string;
   };
   delivery: boolean;
   status_pedido:
@@ -47,9 +50,10 @@ interface ICEPResponse {
 }
 
 const Route: React.FC<IProps> = (props) => {
-  const { pedido } = props?.route?.params?.item;
   const { colors } = useTheme();
   const { user } = React.useContext(authContext);
+
+  const [order, setOrder] = React.useState<IPedido>({} as IPedido);
 
   const [initial, setInitial] = React.useState({
     latitude: 0,
@@ -73,6 +77,7 @@ const Route: React.FC<IProps> = (props) => {
     const pedido = props?.route?.params?.item;
 
     if (pedido?.fornecedor && user?.cep) {
+      setOrder(pedido);
       try {
         setInitial({
           latitude: pedido.fornecedor.latitude,
@@ -89,7 +94,7 @@ const Route: React.FC<IProps> = (props) => {
           const { localidade, uf } = response.data;
           api
             .get(
-              `https://maps.googleapis.com/maps/api/geocode/json?address=${user?.numero_local}+${user?.logradouro},+${localidade},+${uf}&key=AIzaSyARpgEngeu2k129CS3cdlp4HjTUhKyPblU`,
+              `https://maps.googleapis.com/maps/api/geocode/json?address=${user?.numero_local}+${user?.logradouro},+${localidade},+${uf}&key=AIzaSyAJLnjbwqDj7XpSoB7MORWcQMePWUPQ99c`,
             )
             .then(({ data }) => {
               console.log(data.results[0].geometry.location);
@@ -128,28 +133,32 @@ const Route: React.FC<IProps> = (props) => {
 
       <Marker
         coordinate={initial}
-        title="Casa do Açaí"
-        description="Inicio do Percurso"
+        title={order?.fornecedor?.nome_fantasia}
+        // description="Inicio do Percurso"
+        image={{ uri: order?.arqFornecedor?.url }}
+        style={{ borderRadius: 50 }}
       >
-        <Image
+        {/* <Image
           resizeMode="center"
           resizeMethod="resize"
           source={logo}
-          style={{ height: 60, width: 60 }}
-        />
+          style={{ borderRadius: 50 }}
+        /> */}
       </Marker>
 
       <Marker
         coordinate={final}
-        title="Casa do Cliente"
-        description="Fim do Percurso"
+        title={user?.nome}
+        // description="Fim do Percurso"
+        image={house}
+        style={{ borderRadius: 50 }}
       >
-        <Image
+        {/* <Image
           resizeMode="center"
           resizeMethod="resize"
           source={house}
-          style={{ height: 60, width: 60, borderRadius: 50 }}
-        />
+          style={{ borderRadius: 50 }}
+        /> */}
       </Marker>
     </MapView>
   );

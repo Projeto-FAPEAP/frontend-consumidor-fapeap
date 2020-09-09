@@ -6,7 +6,7 @@ import OneSignal, {
 import api from './api';
 import { navigate } from './navigation';
 
-const apikey = '93a7884b-2773-4f79-965b-0def4016336c';
+const apikey = '344214ab-5d79-4019-a9d4-ef29f23e0356';
 
 function onReceived(_notification: ReceivedNotification): void {
   // console.tron.warn('Notification received: ', notification);
@@ -18,9 +18,9 @@ async function onOpened(openResult: OpenResult): Promise<void> {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       const data = openResult.notification.payload.additionalData;
 
-      navigate('MyDelivery');
+      // navigate('MyDelivery');
 
-      /* api
+      api
         .get(`consumidor/pedidos/itens/${data.pedido_id}`)
         .then(({ data: responsePedido }) => {
           api
@@ -32,7 +32,7 @@ async function onOpened(openResult: OpenResult): Promise<void> {
                     pedido: {
                       id: data.pedido_id,
                       fornecedor: responseFornecedor,
-                      status_pedido: 'Cancelado',
+                      status_pedido: data.status_pedido,
                       created_at: responsePedido[0].created_at,
                       updated_at: responsePedido[0].updated_at,
                     },
@@ -49,7 +49,7 @@ async function onOpened(openResult: OpenResult): Promise<void> {
         })
         .catch((error) => {
           navigate('MyDelivery');
-        }); */
+        });
     }
   } catch (error) {
     navigate('MyDelivery');

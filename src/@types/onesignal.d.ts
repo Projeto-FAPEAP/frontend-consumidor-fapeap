@@ -34,6 +34,7 @@ declare module 'react-native-onesignal' {
     launchURL?: string;
     additionalData?: {
       pedido_id: string;
+      status_pedido: string;
     };
     p2p_notification?: Array<any>;
   }

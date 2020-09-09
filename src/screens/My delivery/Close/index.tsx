@@ -161,12 +161,12 @@ const MyDelivery: React.FC = () => {
                   <Text
                     style={{
                       fontSize: 12,
-                      color: '#999',
+                      color: colors.title,
                       fontFamily: 'Ubuntu-Regular',
                       marginLeft: 10,
                     }}
                   >
-                    Você ainda não fez o seu primeiro pedido
+                    Você ainda não possui pedidos finalizados
                   </Text>
                 )}
               </View>

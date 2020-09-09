@@ -17,7 +17,7 @@ import Axios from 'axios';
 import moment from 'moment';
 import { useTheme } from 'styled-components';
 
-import logo from '../../assets/icone1024x1024.png';
+// import logo from '../../assets/icone1024x1024.png';
 import Icone from '../../components/Icons';
 import AuthContext from '../../contexts/auth';
 import CartContext from '../../contexts/cart';
@@ -30,6 +30,9 @@ interface IPedido {
     taxa_delivery: string;
     latitude: number;
     longitude: number;
+  };
+  arqFornecedor: {
+    url: string;
   };
   delivery: boolean;
   status_pedido:
@@ -137,7 +140,7 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
     <Container>
       <View style={{ marginHorizontal: 20, marginVertical: 20 }}>
         <Header>
-          <Image source={logo} />
+          <Image source={{ uri: pedido.arqFornecedor.url }} />
           <Title>{pedido.fornecedor.nome_fantasia}</Title>
         </Header>
 
