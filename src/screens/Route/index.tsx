@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, Image, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 
@@ -7,8 +7,8 @@ import api from '@services/api';
 import Axios from 'axios';
 import { useTheme } from 'styled-components';
 
-import house from '../../assets/house.png';
-import logo from '../../assets/sale.png';
+import destiny from '../../assets/destiny.png';
+import origin from '../../assets/origin.png';
 import authContext from '../../contexts/auth';
 
 const GOOGLE_MAPS_APIKEY = 'AIzaSyAJLnjbwqDj7XpSoB7MORWcQMePWUPQ99c';
@@ -58,19 +58,15 @@ const Route: React.FC<IProps> = (props) => {
   const [initial, setInitial] = React.useState({
     latitude: 0,
     longitude: 0,
-    latitudeDelta: 0.00522,
-    longitudeDelta:
-      (Dimensions.get('window').width / Dimensions.get('window').height) *
-      0.00522,
+    latitudeDelta: 0.09,
+    longitudeDelta: 0.02,
   });
 
   const [final, setFinal] = React.useState({
     latitude: 0,
     longitude: 0,
-    latitudeDelta: 0.00522,
-    longitudeDelta:
-      (Dimensions.get('window').width / Dimensions.get('window').height) *
-      0.00522,
+    latitudeDelta: 0.09,
+    longitudeDelta: 0.02,
   });
 
   React.useEffect(() => {
@@ -80,8 +76,8 @@ const Route: React.FC<IProps> = (props) => {
       setOrder(pedido);
       try {
         setInitial({
-          latitude: pedido.fornecedor.latitude,
-          longitude: pedido.fornecedor.longitude,
+          latitude: Number(pedido.fornecedor.latitude),
+          longitude: Number(pedido.fornecedor.longitude),
           latitudeDelta: 0.00522,
           longitudeDelta:
             (Dimensions.get('window').width / Dimensions.get('window').height) *
@@ -100,8 +96,8 @@ const Route: React.FC<IProps> = (props) => {
               console.log(data.results[0].geometry.location);
 
               setFinal({
-                latitude: data.results[0].geometry.location.lat,
-                longitude: data.results[0].geometry.location.lng,
+                latitude: Number(data.results[0].geometry.location.lat),
+                longitude: Number(data.results[0].geometry.location.lng),
                 latitudeDelta: 0.00522,
                 longitudeDelta:
                   (Dimensions.get('window').width /
@@ -131,34 +127,22 @@ const Route: React.FC<IProps> = (props) => {
         strokeColor={colors.primary}
       />
 
-      <Marker
-        coordinate={initial}
-        title={order?.fornecedor?.nome_fantasia}
-        // description="Inicio do Percurso"
-        image={logo}
-        style={{ borderRadius: 50 }}
-      >
-        {/* <Image
+      <Marker coordinate={initial} title={order?.fornecedor?.nome_fantasia}>
+        <Image
           resizeMode="center"
           resizeMethod="resize"
-          source={logo}
+          source={origin}
           style={{ borderRadius: 50 }}
-        /> */}
+        />
       </Marker>
 
-      <Marker
-        coordinate={final}
-        title={user?.nome}
-        // description="Fim do Percurso"
-        image={house}
-        style={{ borderRadius: 50 }}
-      >
-        {/* <Image
+      <Marker coordinate={final} title={user?.nome}>
+        <Image
           resizeMode="center"
           resizeMethod="resize"
-          source={house}
+          source={destiny}
           style={{ borderRadius: 50 }}
-        /> */}
+        />
       </Marker>
     </MapView>
   );

@@ -162,6 +162,10 @@ const AppRoutes: React.FC = () => {
           headerBackTitleVisible: false,
           headerStyle: {
             backgroundColor: colors.primary,
+            shadowRadius: 0,
+            shadowOffset: {
+              height: 0,
+            },
           },
           headerTitleStyle: {
             fontFamily: 'Ubuntu-Bold',
@@ -218,6 +222,10 @@ const AppRoutes: React.FC = () => {
           title: 'Perfil',
           headerStyle: {
             backgroundColor: colors.primary,
+            shadowRadius: 0,
+            shadowOffset: {
+              height: 0,
+            },
           },
           headerTitleStyle: {
             fontFamily: 'Ubuntu-Bold',
@@ -234,6 +242,10 @@ const AppRoutes: React.FC = () => {
           headerBackTitleVisible: false,
           headerStyle: {
             backgroundColor: colors.primary,
+            shadowRadius: 0,
+            shadowOffset: {
+              height: 0,
+            },
           },
           headerTitleStyle: {
             fontFamily: 'Ubuntu-Bold',
@@ -251,6 +263,10 @@ const AppRoutes: React.FC = () => {
           headerBackTitleVisible: false,
           headerStyle: {
             backgroundColor: colors.primary,
+            shadowRadius: 0,
+            shadowOffset: {
+              height: 0,
+            },
           },
           headerTitleStyle: {
             fontFamily: 'Ubuntu-Bold',
