@@ -17,7 +17,7 @@ import Axios from 'axios';
 import moment from 'moment';
 import { useTheme } from 'styled-components';
 
-// import logo from '../../assets/icone1024x1024.png';
+import logo from '../../assets/icone512x512_escuro_sem_bordas.png';
 import Icone from '../../components/Icons';
 import AuthContext from '../../contexts/auth';
 import CartContext from '../../contexts/cart';
@@ -140,7 +140,11 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
     <Container>
       <View style={{ marginHorizontal: 20, marginVertical: 20 }}>
         <Header>
-          <Image source={{ uri: pedido.arqFornecedor.url }} />
+          <Image
+            source={
+              pedido.arqFornecedor ? { uri: pedido?.arqFornecedor?.url } : logo
+            }
+          />
           <Title>{pedido.fornecedor.nome_fantasia}</Title>
         </Header>
 
