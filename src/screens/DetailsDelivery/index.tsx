@@ -156,7 +156,9 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
             marginTop: 10,
           }}
         >
-          <Text style={{ fontFamily: 'Ubuntu-Regular', color: '#999' }}>
+          <Text
+            style={{ flex: 1, fontFamily: 'Ubuntu-Regular', color: '#999' }}
+          >
             Realizado em{' '}
             {moment(pedido.created_at)
               .locale('pt-br')

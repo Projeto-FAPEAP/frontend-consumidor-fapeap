@@ -273,6 +273,7 @@ const AppRoutes: React.FC = () => {
           },
           headerTintColor: '#FFF',
           headerTitleAlign: 'center',
+          headerRight: () => null,
         }}
       />
 
@@ -294,6 +295,7 @@ const AppRoutes: React.FC = () => {
           },
           headerTintColor: '#FFF',
           headerTitleAlign: 'center',
+          headerRight: () => null,
         }}
       />
 
