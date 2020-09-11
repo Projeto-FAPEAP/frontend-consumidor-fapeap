@@ -1,5 +1,6 @@
 import React from 'react';
 import { YellowBox } from 'react-native';
+import CodePush from 'react-native-code-push';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components';
@@ -26,4 +27,17 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default CodePush({
+  checkFrequency: CodePush.CheckFrequency.ON_APP_START,
+  installMode: CodePush.InstallMode.IMMEDIATE,
+  updateDialog: {
+    title: 'Uma atualização está disponível!',
+    optionalUpdateMessage:
+      'Uma atualização está disponível. Deseja instalá-la?',
+    optionalInstallButtonLabel: 'Instalar',
+    optionalIgnoreButtonLabel: 'Ignorar',
+    mandatoryContinueButtonLabel: 'Continuar',
+    mandatoryUpdateMessage:
+      'Está disponível uma atualização que deve ser instalada.',
+  },
+})(App);
