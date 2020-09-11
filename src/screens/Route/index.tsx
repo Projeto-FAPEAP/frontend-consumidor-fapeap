@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Image, View, StyleSheet } from 'react-native';
+import { Dimensions, Image, View, StyleSheet, Platform } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 
@@ -7,8 +7,10 @@ import api from '@services/api';
 import Axios from 'axios';
 import { useTheme } from 'styled-components';
 
+import destinyios from '../../assets/house.png';
 import destiny from '../../assets/house2.png';
 import origin from '../../assets/icone512x512_escuro_sem_bordas.png';
+import originios from '../../assets/sale.png';
 import authContext from '../../contexts/auth';
 
 const GOOGLE_MAPS_APIKEY = 'AIzaSyAJLnjbwqDj7XpSoB7MORWcQMePWUPQ99c';
@@ -217,6 +219,8 @@ const Route: React.FC<IProps> = (props) => {
             source={
               props?.route?.params?.item?.arqFornecedor?.url
                 ? { uri: props?.route?.params?.item?.arqFornecedor?.url }
+                : Platform.OS === 'ios'
+                ? originios
                 : origin
             }
             style={{ width: 60, height: 60, borderRadius: 15 }}
@@ -227,7 +231,7 @@ const Route: React.FC<IProps> = (props) => {
           <Image
             resizeMode="center"
             resizeMethod="resize"
-            source={destiny}
+            source={Platform.OS === 'ios' ? destinyios : destiny}
             style={{ width: 60, height: 60, borderRadius: 15 }}
           />
         </Marker>
