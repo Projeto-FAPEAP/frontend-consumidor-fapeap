@@ -35,6 +35,7 @@ async function onOpened(openResult: OpenResult): Promise<void> {
                       status_pedido: data.status_pedido,
                       created_at: responsePedido[0].created_at,
                       updated_at: responsePedido[0].updated_at,
+                      delivery: true,
                     },
                     produtos: responsePedido,
                   },

@@ -214,7 +214,11 @@ const Route: React.FC<IProps> = (props) => {
           <Image
             resizeMode="center"
             resizeMethod="resize"
-            source={origin}
+            source={
+              props?.route?.params?.item?.arqFornecedor?.url
+                ? { uri: props?.route?.params?.item?.arqFornecedor?.url }
+                : origin
+            }
             style={{ width: 60, height: 60, borderRadius: 15 }}
           />
         </Marker>
