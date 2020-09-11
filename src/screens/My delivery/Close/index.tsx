@@ -7,7 +7,7 @@ import {
   FlatList,
   ActivityIndicator,
 } from 'react-native';
-import { AirbnbRating } from 'react-native-elements';
+import { Rating, AirbnbRating } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -180,7 +180,7 @@ const MyDelivery: React.FC = () => {
               style={{
                 flex: 1,
                 backgroundColor: '#fff',
-                maxHeight: 300,
+                maxHeight: 240,
                 borderRadius: 5,
                 // justifyContent: 'center',
               }}
@@ -198,6 +198,7 @@ const MyDelivery: React.FC = () => {
                 <AirbnbRating
                   starStyle={{ marginHorizontal: 8 }}
                   count={5}
+                  showRating={false}
                   reviews={[
                     'Chula',
                     'Ruim',
