@@ -136,6 +136,44 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
     );
   }
 
+  function confirmarPedido(): void {
+    Alert.alert(
+      'Confirmar recebimento do pedido',
+      'Você realmente deseja confirmar o recebimento do seu pedido?',
+      [
+        {
+          text: 'Sim',
+          onPress: () => {
+            setLoadingPedido(true);
+            api.put(`/pedidos/finalizar/${pedido.id}`).then(({ data }) => {
+              Alert.alert(
+                'Sucesso!',
+                'Entrega do pedido confirmada com sucesso!',
+                [
+                  {
+                    text: 'OK',
+                    onPress: () => {
+                      changeStatus();
+                      navigation.goBack();
+                    },
+                  },
+                ],
+                { cancelable: false },
+              );
+              setLoadingPedido(false);
+            });
+          },
+        },
+        {
+          text: 'Cancelar',
+          onPress: () => {},
+          style: 'cancel',
+        },
+      ],
+      { cancelable: false },
+    );
+  }
+
   return (
     <Container>
       <View style={{ marginHorizontal: 20, marginVertical: 20 }}>
@@ -396,28 +434,61 @@ const DetailsDelivery: React.FC<IProps> = (props) => {
           }}
         />
 
-        {(pedido.status_pedido === 'Pendente' || pedido.delivery === false) &&
-          pedido.status_pedido !== 'Cancelado' && (
-            <TouchableOpacity
-              onPress={cancelarPedido}
-              style={{ justifyContent: 'center', alignItems: 'center' }}
-            >
-              {loadingPedido ? (
-                <ActivityIndicator size="small" color={colors.primary} />
-              ) : (
-                <Text
-                  style={{
-                    fontFamily: 'Ubuntu-Bold',
-                    marginTop: 4,
-                    textAlign: 'justify',
-                    color: colors.primary,
-                  }}
-                >
-                  Cancelar pedido
-                </Text>
-              )}
-            </TouchableOpacity>
-          )}
+        {pedido.status_pedido === 'Pedido em rota de entrega' && (
+          <TouchableOpacity
+            onPress={confirmarPedido}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: colors.primary,
+              padding: 10,
+              borderRadius: 5,
+            }}
+          >
+            {loadingPedido ? (
+              <ActivityIndicator size="small" color={colors.white} />
+            ) : (
+              <Text
+                style={{
+                  fontFamily: 'Ubuntu-Bold',
+                  textAlign: 'justify',
+                  color: colors.white,
+                }}
+              >
+                Confirmar recebimento do pedido
+              </Text>
+            )}
+          </TouchableOpacity>
+        )}
+
+        {pedido.status_pedido === 'Pendente' && (
+          <TouchableOpacity
+            onPress={cancelarPedido}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: colors.primary,
+              padding: 10,
+              borderRadius: 5,
+            }}
+          >
+            {loadingPedido ? (
+              <ActivityIndicator size="small" color={colors.white} />
+            ) : (
+              <Text
+                style={{
+                  fontFamily: 'Ubuntu-Bold',
+                  textAlign: 'justify',
+                  color: colors.white,
+                }}
+              >
+                Cancelar pedido
+              </Text>
+            )}
+          </TouchableOpacity>
+        )}
       </View>
     </Container>
   );
