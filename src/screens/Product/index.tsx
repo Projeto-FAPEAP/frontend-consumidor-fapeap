@@ -198,7 +198,11 @@ const Product: React.FC<IProps> = (props) => {
             <Text>R$ {formatMoney(Number(data.preco) * Number(quantity))}</Text>
           </View>
 
-          <ButtonAdd onPress={() => data.status_produto && addCart(data)}>
+          <ButtonAdd
+            onPress={() =>
+              data.status_produto && data.estoque_produto > 0 && addCart(data)
+            }
+          >
             <ButtonAddText>Adicionar item</ButtonAddText>
           </ButtonAdd>
         </Footer>

@@ -18,6 +18,7 @@ interface IPedido {
   arqFornecedor: {
     url: string;
   };
+  fornecedorAvaliado: boolean;
   status_pedido:
     | 'Pendente'
     | 'Reserva confirmada'
@@ -129,11 +130,13 @@ const Order: React.FC<IProps> = ({ pedido, avaliarPedido }) => {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent:
-            pedido.status_pedido === 'Finalizado' ? 'space-between' : 'center',
+            pedido.status_pedido === 'Finalizado' && !pedido?.fornecedorAvaliado
+              ? 'space-between'
+              : 'center',
           marginHorizontal: 50,
         }}
       >
-        {pedido.status_pedido === 'Finalizado' && (
+        {pedido.status_pedido === 'Finalizado' && !pedido?.fornecedorAvaliado && (
           <TouchableOpacity
             onPress={() => avaliarPedido(pedido)}
             style={{

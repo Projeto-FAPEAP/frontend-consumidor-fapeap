@@ -30,6 +30,7 @@ interface IPedido {
     latitude: number;
     longitude: number;
   };
+  fornecedorAvaliado: boolean;
   delivery: boolean;
   status_pedido:
     | 'Pendente'
@@ -123,6 +124,13 @@ const MyDelivery: React.FC = () => {
           'Avaliação submetida com sucesso!',
           [{ text: 'OK', onPress: () => setModalVisible(false) }],
           { cancelable: false },
+        );
+        setPedidos(
+          pedidos.map((item) =>
+            item.id === selectedPedido.id
+              ? { ...item, fornecedorAvaliado: true }
+              : item,
+          ),
         );
         setLoadingPedido(false);
       });
