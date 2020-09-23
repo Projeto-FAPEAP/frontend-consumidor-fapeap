@@ -33,6 +33,7 @@ interface IProps {
         unidade_medida: string | number;
         preco: string;
         status_produto: boolean;
+        estoque_produto: number;
         arquivos: IFile[];
       };
     };
@@ -170,16 +171,22 @@ const Product: React.FC<IProps> = (props) => {
                   : 0}
               </CountText>
               <TouchableOpacity
-                onPress={() => data.status_produto && addCart(data)}
+                onPress={() =>
+                  data.status_produto &&
+                  data.estoque_produto > 0 &&
+                  addCart(data)
+                }
               >
                 <Icon
                   style={{ marginLeft: 10 }}
                   name="plus-circle"
                   color={
-                    cart?.filter((item) => item.id === data.id).length > 0 &&
-                    cart?.filter((item) => item.id === data.id)[0].quantity ===
+                    (cart?.filter((item) => item.id === data.id).length > 0 &&
                       cart?.filter((item) => item.id === data.id)[0]
-                        .estoque_produto
+                        .quantity ===
+                        cart?.filter((item) => item.id === data.id)[0]
+                          .estoque_produto) ||
+                    data.estoque_produto === 0
                       ? colors.regular
                       : colors.primary
                   }
