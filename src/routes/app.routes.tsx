@@ -238,7 +238,7 @@ const AppRoutes: React.FC = () => {
         name="EditProfile"
         component={EditProfile}
         options={{
-          title: 'Edição de perfil',
+          title: 'Edição de Perfil',
           headerBackTitleVisible: false,
           headerStyle: {
             backgroundColor: colors.primary,

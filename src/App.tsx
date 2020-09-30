@@ -30,7 +30,7 @@ const App: React.FC = () => {
 export default CodePush({
   checkFrequency: CodePush.CheckFrequency.ON_APP_START,
   installMode: CodePush.InstallMode.IMMEDIATE,
-  updateDialog: {
+  /* updateDialog: {
     title: 'Uma atualização está disponível!',
     optionalUpdateMessage:
       'Uma atualização está disponível. Deseja instalá-la?',
@@ -39,5 +39,5 @@ export default CodePush({
     mandatoryContinueButtonLabel: 'Continuar',
     mandatoryUpdateMessage:
       'Está disponível uma atualização que deve ser instalada.',
-  },
+  }, */
 })(App);
